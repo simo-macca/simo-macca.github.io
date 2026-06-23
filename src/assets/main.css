@@ -1,60 +1,14 @@
 @import 'tailwindcss';
 
-@theme {
-  /* Backgrounds */
-  --color-app-bg: var(--bg-app);
-  --color-app-card: var(--bg-card);
-  --color-app-hover: var(--bg-hover);
-
-  /* Text Colors */
-  --color-app-heading: var(--text-heading);
-  --color-app-text: var(--text-body);
-  --color-app-muted: var(--text-muted);
-
-  /* Accents */
-  --color-app-accent: var(--accent-main);
-  --color-app-accent-hover: var(--accent-hover);
-  --color-app-accent-text: var(--accent-text);
-  --color-app-accent-subtle: var(--accent-subtle);
-}
-
-:root {
-  /* Light Mode Palette */
-  --bg-app: #f8f9fa; /* gray-50 */
-  --bg-card: #ffffff; /* white */
-  --bg-hover: #e9ecef; /* gray-100 */
-
-  --text-heading: #1a1a1a; /* gray-900 */
-  --text-body: #374151; /* gray-700 */
-  --text-muted: #6b7280; /* gray-500 */
-
-  --accent-main: #0ea5e9; /* sky-500 */
-  --accent-hover: #0284c7; /* sky-600 */
-  --accent-text: #0369a1; /* sky-700 */
-  --accent-subtle: #0e7490; /* cyan-700 */
-}
-
-[data-theme='dark'] {
-  /* Dark Mode Palette */
-  --bg-app: #111827; /* gray-900 */
-  --bg-card: #1f2937; /* gray-800 */
-  --bg-hover: #364153; /* gray-700 */
-
-  --text-heading: #f3f4f6; /* gray-100 */
-  --text-body: #9ca3af; /* gray-400 */
-  --text-muted: #6b7280; /* gray-500 */
-
-  --accent-main: #06b6d4; /* cyan-500 */
-  --accent-hover: #0891b2; /* cyan-600 */
-  --accent-text: #22d3ee; /* cyan-400 */
-  --accent-subtle: #a5f3fc; /* cyan-200 */
-}
+/* Enable manual dark mode via the 'dark' class */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-app-bg text-app-text transition-all duration-300 ease-in-out;
+    @apply bg-slate-50 text-slate-600 transition-colors duration-300 ease-in-out;
+    @apply dark:bg-slate-900 dark:text-slate-300;
   }
 }

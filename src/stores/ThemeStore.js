@@ -9,13 +9,18 @@ export const useThemeStore = defineStore('theme', {
 
   actions: {
     applyTheme() {
-      const mode = this['isDark'] ? 'dark' : 'light'
-      document.documentElement.setAttribute('data-theme', mode)
-      localStorage.setItem('theme', mode)
+      const html = document.documentElement
+      if (this.isDark) {
+        html.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
+      } else {
+        html.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
+      }
     },
 
     toggle() {
-      this.isDark = !this['isDark']
+      this.isDark = !this.isDark
       this.applyTheme()
     },
   },

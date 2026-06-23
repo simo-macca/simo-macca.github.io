@@ -37,8 +37,8 @@ const data = [
   <section class="mt-25 flex min-h-dvh flex-col items-center justify-center gap-4 sm:pt-16">
     <div class="mx-auto max-w-6xl">
       <h2
-        class="mb-16 text-center text-4xl font-extrabold tracking-tight text-app-heading sm:text-5xl"
-        v-motion-fade-visible-once
+        class="mb-16 text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white"
+        v-motion-fade-in
       >
         My Tech Stack
       </h2>
@@ -49,8 +49,8 @@ const data = [
           :key="d.topic"
           v-bind="d"
           :index="index"
-          v-motion-slide-visible-once-bottom
-          :delay="index * 100"
+          v-motion-slide-up
+          :delay="index * 75"
         />
       </div>
     </div>

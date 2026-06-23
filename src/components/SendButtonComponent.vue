@@ -27,9 +27,9 @@ defineExpose({ submit })
 <template>
   <button
     :disabled="state !== 'idle'"
-    class="relative mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-600 px-8 py-4 font-semibold text-app-heading uppercase transition-all duration-300 active:scale-95 disabled:opacity-60"
+    class="relative mt-4 flex w-full items-center justify-center gap-2 rounded-xl px-8 py-4 font-semibold text-white uppercase transition-all duration-300 active:scale-95 disabled:opacity-60"
     :class="{
-      'bg-app-accent hover:bg-app-accent-hover': state === 'idle',
+      'bg-sky-500 hover:bg-sky-600 dark:hover:bg-sky-400': state === 'idle',
       'cursor-wait bg-yellow-500': state === 'loading',
       'bg-green-600': state === 'success',
       'bg-red-600': state === 'error',

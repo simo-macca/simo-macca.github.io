@@ -39,11 +39,13 @@ const contactMethods = [
 
 <template>
   <section class="flex min-h-dvh flex-col items-center justify-center gap-4 sm:mt-30 sm:pt-25">
-    <div class="mb-8 text-center" v-motion-fade-visible-once>
-      <h2 class="mb-8 text-4xl font-bold">
-        Let's Work <span class="text-app-accent">Together</span>
+    <div class="mb-8 text-center" v-motion-fade-in>
+      <h2 class="mb-8 text-4xl font-bold text-slate-900 dark:text-white">
+        Let's Work <span class="text-sky-500 dark:text-sky-400">Together</span>
       </h2>
-      <p class="max-w-2xl px-4 text-justify text-xl text-app-text sm:my-4 md:text-center">
+      <p
+        class="max-w-2xl px-4 text-justify text-xl text-slate-600 sm:my-4 md:text-center dark:text-slate-300"
+      >
         I'm currently seeking my first professional role as a Full-Stack Developer. Feel free to
         reach out for opportunities, collaborations, or just to say hi!
       </p>
@@ -53,11 +55,7 @@ const contactMethods = [
       <div class="grid h-full content-stretch gap-4 sm:col-span-2 sm:grid-cols-2 md:grid-cols-1">
         <ContactCardComponent :methods="contactMethods" />
       </div>
-      <ContactFormComponent
-        class="px-4 py-8 sm:col-span-2"
-        v-motion-slide-visible-once-right
-        :delay="400"
-      />
+      <ContactFormComponent class="px-4 py-8 sm:col-span-2" v-motion-slide-right :delay="200" />
     </div>
   </section>
 </template>

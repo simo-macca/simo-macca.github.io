@@ -63,12 +63,14 @@ const submitForm = async () => {
 <template>
   <form
     @submit.prevent="submitForm"
-    class="rounded-lg bg-app-card placeholder-app-accent-subtle inset-shadow-sm inset-shadow-app-accent-subtle sm:p-8 md:col-span-3"
+    class="rounded-lg bg-white placeholder-sky-700 inset-shadow-sm inset-shadow-sky-200 sm:p-8 md:col-span-3 dark:bg-slate-800 dark:placeholder-sky-200 dark:inset-shadow-sky-900"
   >
-    <h2 class="mb-8 text-2xl font-semibold">Send me a message</h2>
+    <h2 class="mb-8 text-2xl font-semibold text-slate-900 dark:text-white">Send me a message</h2>
     <div class="space-y-5">
       <div>
-        <label for="name" class="block text-sm font-medium text-app-text">Your name</label>
+        <label for="name" class="block text-sm font-medium text-slate-600 dark:text-slate-300"
+          >Your name</label
+        >
         <input
           v-model="name"
           type="text"
@@ -76,31 +78,35 @@ const submitForm = async () => {
           name="name"
           value=""
           onchange="this.setAttribute('value', this.value);"
-          class="mt-1 w-full rounded-lg border border-b-app-muted px-4 py-2 placeholder-app-accent-subtle/75 focus:border-app-accent-hover focus:outline-none"
+          class="mt-1 w-full rounded-lg border border-transparent border-b-slate-500 bg-transparent px-4 py-2 text-slate-900 placeholder-sky-700/75 transition-colors focus:border-sky-600 focus:outline-none dark:border-b-slate-400 dark:text-white dark:placeholder-sky-200/75 dark:focus:border-sky-400"
           placeholder="Mario Rossi"
           autocomplete="name"
         />
       </div>
       <div>
-        <label for="email" class="block text-sm font-medium text-app-text">Email address</label>
+        <label for="email" class="block text-sm font-medium text-slate-600 dark:text-slate-300"
+          >Email address</label
+        >
         <input
           v-model="email"
           type="email"
           id="email"
           name="email"
-          class="mt-1 w-full rounded-lg border border-b-app-muted px-4 py-2 placeholder-app-accent-subtle/75 focus:border-app-accent-hover focus:outline-none"
+          class="mt-1 w-full rounded-lg border border-transparent border-b-slate-500 bg-transparent px-4 py-2 text-slate-900 placeholder-sky-700/75 transition-colors focus:border-sky-600 focus:outline-none dark:border-b-slate-400 dark:text-white dark:placeholder-sky-200/75 dark:focus:border-sky-400"
           placeholder="email@example.com"
           autocomplete="email"
         />
       </div>
       <div>
-        <label for="message" class="block text-sm font-medium text-app-text">Your message</label>
+        <label for="message" class="block text-sm font-medium text-slate-600 dark:text-slate-300"
+          >Your message</label
+        >
         <textarea
           v-model="message"
           id="message"
           name="message"
           rows="5"
-          class="mt-1 max-h-50 min-h-20 w-full rounded-lg border border-b-app-muted px-4 py-2 placeholder-app-accent-subtle/75 focus:border-app-accent-hover focus:outline-none"
+          class="mt-1 max-h-50 min-h-20 w-full rounded-lg border border-transparent border-b-slate-500 bg-transparent px-4 py-2 text-slate-900 placeholder-sky-700/75 transition-colors focus:border-sky-600 focus:outline-none dark:border-b-slate-400 dark:text-white dark:placeholder-sky-200/75 dark:focus:border-sky-400"
           placeholder="Tell me about your project or opportunity..."
         />
       </div>
@@ -120,8 +126,10 @@ const submitForm = async () => {
 
     <SendButtonComponent ref="btn" />
 
-    <div class="mt-6 border-t border-gray-600 pt-6">
-      <p class="text-center text-sm text-app-text">I typically respond within 24-48 hours</p>
+    <div class="mt-6 border-t border-slate-200 pt-6 dark:border-slate-700">
+      <p class="text-center text-sm text-slate-600 dark:text-slate-300">
+        I typically respond within 24-48 hours
+      </p>
     </div>
   </form>
 </template>

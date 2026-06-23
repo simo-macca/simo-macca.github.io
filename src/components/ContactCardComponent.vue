@@ -13,9 +13,9 @@ const props = defineProps({
   <div
     v-for="(method, index) in props.methods"
     :key="index"
-    class="h-full min-w-0 rounded-lg bg-app-card p-6 inset-shadow-sm inset-shadow-app-accent-subtle hover:inset-shadow-app-accent-hover"
-    v-motion-slide-visible-once-left
-    :delay="index * 200"
+    class="h-full min-w-0 rounded-lg bg-white p-6 inset-shadow-sm inset-shadow-sky-200 transition-all duration-300 hover:shadow-md hover:inset-shadow-sky-500 dark:bg-slate-800 dark:inset-shadow-sky-900 dark:hover:inset-shadow-sky-400"
+    v-motion-slide-left
+    :delay="index * 100"
   >
     <a
       :href="method.link"
@@ -25,17 +25,21 @@ const props = defineProps({
     >
       <component
         :is="method.icon"
-        class="h-6 w-6 shrink-0 text-app-text group-hover:text-app-accent-hover"
+        class="h-6 w-6 shrink-0 text-slate-600 transition-colors group-hover:text-sky-600 dark:text-slate-300 dark:group-hover:text-sky-400"
       />
       <div class="min-w-0 flex-1">
         <div class="mb-2 flex items-center gap-2">
-          <h3 class="line-clamp-1 font-semibold text-app-heading group-hover:text-app-accent-hover">
+          <h3
+            class="line-clamp-1 font-semibold text-slate-900 transition-colors group-hover:text-sky-600 dark:text-white dark:group-hover:text-sky-400"
+          >
             {{ method.title }}
           </h3>
-          <ExternalLink class="h-4 w-4 text-app-text group-hover:text-app-accent-hover" />
+          <ExternalLink
+            class="h-4 w-4 text-slate-600 transition-colors group-hover:text-sky-600 dark:text-slate-300 dark:group-hover:text-sky-400"
+          />
         </div>
-        <p class="mb-1 truncate text-sm text-app-text">{{ method.value }}</p>
-        <p class="text-xs text-app-muted">{{ method.description }}</p>
+        <p class="mb-1 truncate text-sm text-slate-600 dark:text-slate-300">{{ method.value }}</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">{{ method.description }}</p>
       </div>
     </a>
   </div>
