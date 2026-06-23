@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { SendHorizontal, Check, X } from 'lucide-vue-next'
+import { SendHorizontal, Check, X } from '@lucide/vue'
 
 const state = ref('idle') // idle | loading | success | error
 

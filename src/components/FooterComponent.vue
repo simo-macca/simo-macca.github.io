@@ -1,5 +1,5 @@
 <script setup>
-import { Copyright } from 'lucide-vue-next'
+import { Copyright } from '@lucide/vue'
 import LinkedinComponent from '@/components/LinkedinComponent.vue'
 import GitHubComponent from '@/components/GitHubComponent.vue'
 </script>

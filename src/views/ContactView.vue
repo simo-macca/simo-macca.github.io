@@ -1,5 +1,5 @@
 <script setup>
-import { Mail, MapPin } from 'lucide-vue-next'
+import { Mail, MapPin } from '@lucide/vue'
 import GitHubComponent from '@/components/GitHubComponent.vue'
 import LinkedinComponent from '@/components/LinkedinComponent.vue'
 import ContactCardComponent from '@/components/ContactCardComponent.vue'

@@ -77,7 +77,7 @@ const submitForm = async () => {
           id="name"
           name="name"
           value=""
-          onchange="this.setAttribute('value', this.value);"
+          onchange="this.setAttribute('value', this.value)"
           class="mt-1 w-full rounded-lg border border-transparent border-b-slate-500 bg-transparent px-4 py-2 text-slate-900 placeholder-sky-700/75 transition-colors focus:border-sky-600 focus:outline-none dark:border-b-slate-400 dark:text-white dark:placeholder-sky-200/75 dark:focus:border-sky-400"
           placeholder="Mario Rossi"
           autocomplete="name"

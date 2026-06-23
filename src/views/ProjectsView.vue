@@ -1,49 +1,75 @@
 <script setup>
-import { Rocket } from 'lucide-vue-next'
+import ProjectCard from '@/components/ProjectCard.vue'
+
+const projects = [
+  {
+    title: 'Functional Snake',
+    subtitle: 'Academic Project',
+    description:
+      'A collaborative implementation of the classic Snake game. Engineered entirely using functional programming paradigms with comprehensive documentation.',
+    techStack: ['Racket'],
+    link: 'https://github.com/simo-macca/snake-racket',
+  },
+  {
+    title: 'Battleship',
+    subtitle: 'Object-Oriented Architecture',
+    description:
+      'A classic Battleship game implemented in Java, heavily utilizing advanced design patterns like the State Pattern to maintain robust game logic and UI separation.',
+    techStack: ['Java', 'Gradle', 'JUnit'],
+    link: 'https://github.com/simo-macca/battleship',
+  },
+  {
+    title: 'SEWorld',
+    subtitle: 'Software Engineering Educational Platform',
+    description:
+      'A full-stack web application designed for software engineering education, enabling comprehensive topic and exercise management.',
+    techStack: ['Vue.js', 'Java', 'Spring Boot'],
+    link: 'https://github.com/simo-macca/SEWorld',
+  },
+  {
+    title: 'Meme Search Engine',
+    subtitle: 'Information Retrieval System',
+    description:
+      'A web scraping and search engine pipeline utilizing Solr to index, query, and rapidly retrieve meme data via a clean frontend interface.',
+    techStack: ['Python', 'Scrapy', 'Solr', 'Vue.js'],
+    link: 'https://github.com/simo-macca/meme-search-engine',
+  },
+  {
+    title: 'ToC Movers',
+    subtitle: 'Full-Stack Logistics Modeling',
+    description:
+      'A web application that models complex logistics problems using Boolean Satisfiability (SAT) solvers. Built with custom backend logic and a reactive frontend.',
+    techStack: ['Vue.js', 'Docker', 'Python'],
+    link: 'https://github.com/simo-macca/ToC_movers',
+  },
+  {
+    title: 'PyTamaro-Web Dashboard',
+    subtitle: "Bachelor's Thesis Project",
+    description:
+      '"From Raw Data to Pedagogical Insights." A static analysis dashboard designed to extract and visualize data, improving usability and insights for platform users.',
+    techStack: ['Python', 'Jinja2', 'Tailwind CSS'],
+    link: null,
+  },
+  {
+    title: 'Internship Experience',
+    subtitle: 'Company Name / Role',
+    description:
+      'Brief description of the core responsibilities, achievements, and the technical problems solved during this period.',
+    techStack: ['Tech 1', 'Tech 2'],
+    link: null,
+    isInternship: true,
+  },
+]
 </script>
 
 <template>
-  <section id="projects" class="flex min-h-dvh flex-col items-center justify-center px-4 py-20">
-    <div class="max-w-3xl text-center">
-      <div class="relative mb-8 flex justify-center" v-motion-pop-in>
-        <Rocket class="relative z-10 h-16 w-16 text-sky-500 dark:text-sky-400" />
-        <div
-          class="absolute -inset-4 animate-pulse rounded-full bg-sky-500/20 blur-xl dark:bg-sky-400/20"
-        ></div>
-      </div>
+  <div class="mx-auto max-w-7xl p-4 md:p-8">
+    <h1 class="mb-12 text-center text-4xl font-bold text-gray-800 dark:text-gray-100">
+      Projects & Experience
+    </h1>
 
-      <h2
-        class="mb-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white"
-        v-motion-fade-in
-        :delay="100"
-      >
-        Projects
-      </h2>
-
-      <div class="space-y-6" v-motion-fade-in :delay="200">
-        <p class="text-xl text-slate-600 sm:text-2xl dark:text-slate-300">
-          I'm currently
-          <span class="font-medium text-sky-600 dark:text-sky-400">engineering</span> new personal
-          projects that I can't wait to share.
-        </p>
-
-        <div class="mx-auto mt-10 max-w-xs">
-          <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-            <div
-              class="h-full w-2/3 animate-pulse rounded-full bg-linear-to-r from-sky-600 to-blue-500 dark:from-sky-400"
-            ></div>
-          </div>
-          <p
-            class="mt-3 text-sm font-medium tracking-widest text-slate-500 uppercase dark:text-slate-400"
-          >
-            Development in progress
-          </p>
-        </div>
-
-        <p class="pt-6 text-lg text-slate-500 italic dark:text-slate-400">
-          Stay tuned for the official launch.
-        </p>
-      </div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <ProjectCard v-for="project in projects" :key="project.title" v-bind="project" />
     </div>
-  </section>
+  </div>
 </template>
