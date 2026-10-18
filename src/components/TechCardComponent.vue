@@ -4,6 +4,10 @@ defineProps({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    default: '',
+  },
   skills: {
     type: Array,
     required: true,
@@ -21,7 +25,7 @@ defineProps({
     class="group flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:shadow-lg dark:border-white/[0.08] dark:bg-[#111827]/80 dark:hover:border-sky-500/30 dark:hover:shadow-sky-950/20"
   >
     <div>
-      <div class="mb-4 flex items-center justify-between">
+      <div class="mb-2 flex items-center justify-between">
         <h3
           class="text-lg font-bold tracking-tight text-slate-900 transition-colors group-hover:text-sky-600 dark:text-[#F3F4F6] dark:group-hover:text-sky-400"
         >
@@ -34,6 +38,10 @@ defineProps({
           aria-hidden="true"
         />
       </div>
+
+      <p v-if="description" class="mb-4 text-xs leading-relaxed text-slate-500 dark:text-[#9CA3AF]">
+        {{ description }}
+      </p>
 
       <ul class="flex flex-wrap gap-2" role="list">
         <li
