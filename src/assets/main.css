@@ -29,8 +29,6 @@
   }
 
   body {
-    min-height: 100%;
-    overflow-x: hidden;
     background-color: #f8fafc;
     color: #475569;
     transition-property: color, background-color, border-color;
