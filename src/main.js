@@ -62,6 +62,6 @@ app.use(MotionPlugin, {
 })
 
 const themeStore = useThemeStore()
-themeStore.applyTheme()
+themeStore.initTheme()
 
 app.mount('#app')

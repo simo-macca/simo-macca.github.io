@@ -12,7 +12,7 @@ import HomeView from '@/views/HomeView.vue'
 const themeStore = useThemeStore()
 
 onMounted(() => {
-  themeStore.applyTheme()
+  themeStore.initTheme()
 })
 </script>
 
