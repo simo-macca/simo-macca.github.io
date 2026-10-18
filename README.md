@@ -53,7 +53,7 @@ The application is engineered as a high-performance single-page application (SPA
 
 - **PyTamaro-Web: Pedagogical Analytics & Static Code Analysis** _(Bachelor's Thesis Researcher & Software Engineer)_
   - _"From Raw Data to Pedagogical Insights."_ Static Python AST parsing pipeline extracting aggregate misconception patterns into an interactive pedagogical dashboard.
-  - [Read Thesis (PDF)](docs/thesis.pdf) &middot; _No Source Code (Institutional Project)_
+  - [Read Thesis (PDF)](public/docs/thesis.pdf) &middot; _No Source Code (Institutional Project)_
 
 ---
 
@@ -68,29 +68,42 @@ The application is engineered as a high-performance single-page application (SPA
 │   ├── assets/
 │   │   └── main.css           # Tailwind CSS v4 directives, design system variables, dark mode
 │   ├── components/
+│   │   ├── contact/
+│   │   │   ├── FormAlert.vue          # Accessible form notification and alert states
+│   │   │   └── FormField.vue          # Modular form field with accessible labels and error handling
+│   │   ├── layout/
+│   │   │   └── MobileNavDrawer.vue    # Decomposed mobile navigation drawer with accessible transitions
+│   │   ├── projects/
+│   │   │   ├── ProjectBadge.vue       # Monospace tag chips with standard padding and color variants
+│   │   │   ├── ProjectCard.vue        # Structured engineering case study cards with bottom-aligned actions
+│   │   │   ├── ProjectFilterTabs.vue  # Accessible category tab switcher
+│   │   │   └── ProjectGrid.vue        # Responsive grid managing list rendering and empty states
 │   │   ├── ContactCardComponent.vue   # Individual contact method card
-│   │   ├── ContactFormComponent.vue   # Accessible validated contact form (Web3Forms + hCaptcha)
+│   │   ├── ContactFormComponent.vue   # Orchestrator contact form (Web3Forms + hCaptcha)
 │   │   ├── DarkModeComponent.vue      # Theme toggle button with Lucide icons
 │   │   ├── FooterComponent.vue        # Semantic footer with dynamic copyright & social links
 │   │   ├── GitHubComponent.vue        # Accessible GitHub link
 │   │   ├── LinkedinComponent.vue      # Accessible LinkedIn link
-│   │   ├── NavbarComponent.vue        # Responsive header with mobile drawer navigation
-│   │   ├── ProjectCard.vue            # Structured engineering case study cards
+│   │   ├── NavbarComponent.vue        # Responsive header orchestrator
 │   │   ├── SendButtonComponent.vue    # Async state-driven submission button
 │   │   └── TechCardComponent.vue      # Domain capability cards with mono badges
+│   ├── data/
+│   │   ├── projects.js        # Decoupled project case studies, categories, and links
+│   │   ├── skills.js          # Technical capabilities, quadrant categories, and icons
+│   │   └── socials.js         # Navigation links and contact methods
 │   ├── stores/
 │   │   └── ThemeStore.js      # Pinia store syncing system theme, localStorage & cross-tab state
 │   ├── views/
 │   │   ├── AboutView.vue      # Technical background & academic trajectory (ETH Zurich & USI)
 │   │   ├── ContactView.vue    # Contact section with structured grid layout
 │   │   ├── HomeView.vue       # Hero section positioned around systems & machine intelligence
-│   │   ├── ProjectsView.vue   # Categorized engineering case study matrix with filtering
+│   │   ├── ProjectsView.vue   # Orchestrating case study view with active filter state
 │   │   └── SkillsView.vue     # 4-quadrant technical capabilities matrix
 │   ├── App.vue                # Root application layout with ambient glow backdrop
 │   └── main.js                # Vue initialization, Pinia, MotionPlugin, and theme bootstrap
 ├── index.html                 # HTML entry with FOUC prevention script & Open Graph tags
 ├── vite.config.js             # Vite configuration with Tailwind v4 and path aliases
-└── package.json               # Dependencies and scripts
+└── package.json               # Dependencies, allowScripts, and scripts
 ```
 
 ---

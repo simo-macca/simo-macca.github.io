@@ -1,9 +1,10 @@
 <script setup>
 import { computed, ref, reactive } from 'vue'
 import SendButtonComponent from '@/components/SendButtonComponent.vue'
+import FormField from '@/components/contact/FormField.vue'
+import FormAlert from '@/components/contact/FormAlert.vue'
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
 import { useThemeStore } from '@/stores/ThemeStore.js'
-import { AlertCircle } from '@lucide/vue'
 
 const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 const HCAPTCHA_SITEKEY = import.meta.env.VITE_HCAPTCHA_SITEKEY
@@ -158,122 +159,40 @@ const submitForm = async () => {
         connect.
       </p>
 
-      <div
-        v-if="errors.general"
-        class="mb-4 flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-950/30 dark:text-rose-400"
-        role="alert"
-      >
-        <AlertCircle class="h-4 w-4 shrink-0" />
-        <span>{{ errors.general }}</span>
-      </div>
+      <FormAlert :message="errors.general" variant="error" />
 
       <div class="space-y-4">
-        <!-- Name Field -->
-        <div>
-          <label
-            for="contact-name"
-            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-[#9CA3AF]"
-          >
-            Your Name <span class="text-rose-500">*</span>
-          </label>
-          <input
-            v-model="form.name"
-            @input="errors.name = ''"
-            type="text"
-            id="contact-name"
-            name="name"
-            required
-            :aria-invalid="Boolean(errors.name)"
-            :aria-describedby="errors.name ? 'contact-name-error' : undefined"
-            class="mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
-            :class="
-              errors.name
-                ? 'border-rose-400 dark:border-rose-500'
-                : 'border-slate-200/80 dark:border-white/[0.08]'
-            "
-            placeholder="Ada Lovelace"
-            autocomplete="name"
-          />
-          <p
-            v-if="errors.name"
-            id="contact-name-error"
-            class="mt-1 text-xs text-rose-500"
-            role="alert"
-          >
-            {{ errors.name }}
-          </p>
-        </div>
+        <FormField
+          id="contact-name"
+          label="Your Name"
+          v-model="form.name"
+          :error="errors.name"
+          @input="errors.name = ''"
+          placeholder="Ada Lovelace"
+          autocomplete="name"
+        />
 
-        <!-- Email Field -->
-        <div>
-          <label
-            for="contact-email"
-            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-[#9CA3AF]"
-          >
-            Email Address <span class="text-rose-500">*</span>
-          </label>
-          <input
-            v-model="form.email"
-            @input="errors.email = ''"
-            type="email"
-            id="contact-email"
-            name="email"
-            required
-            :aria-invalid="Boolean(errors.email)"
-            :aria-describedby="errors.email ? 'contact-email-error' : undefined"
-            class="mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
-            :class="
-              errors.email
-                ? 'border-rose-400 dark:border-rose-500'
-                : 'border-slate-200/80 dark:border-white/[0.08]'
-            "
-            placeholder="ada@example.com"
-            autocomplete="email"
-          />
-          <p
-            v-if="errors.email"
-            id="contact-email-error"
-            class="mt-1 text-xs text-rose-500"
-            role="alert"
-          >
-            {{ errors.email }}
-          </p>
-        </div>
+        <FormField
+          id="contact-email"
+          label="Email Address"
+          type="email"
+          v-model="form.email"
+          :error="errors.email"
+          @input="errors.email = ''"
+          placeholder="ada@example.com"
+          autocomplete="email"
+        />
 
-        <!-- Message Field -->
-        <div>
-          <label
-            for="contact-message"
-            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-[#9CA3AF]"
-          >
-            Your Message <span class="text-rose-500">*</span>
-          </label>
-          <textarea
-            v-model="form.message"
-            @input="errors.message = ''"
-            id="contact-message"
-            name="message"
-            rows="4"
-            required
-            :aria-invalid="Boolean(errors.message)"
-            :aria-describedby="errors.message ? 'contact-message-error' : undefined"
-            class="mt-1.5 min-h-[100px] w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
-            :class="
-              errors.message
-                ? 'border-rose-400 dark:border-rose-500'
-                : 'border-slate-200/80 dark:border-white/[0.08]'
-            "
-            placeholder="Tell me about your technical project, research problem, or collaboration..."
-          />
-          <p
-            v-if="errors.message"
-            id="contact-message-error"
-            class="mt-1 text-xs text-rose-500"
-            role="alert"
-          >
-            {{ errors.message }}
-          </p>
-        </div>
+        <FormField
+          id="contact-message"
+          label="Your Message"
+          type="textarea"
+          v-model="form.message"
+          :error="errors.message"
+          @input="errors.message = ''"
+          rows="4"
+          placeholder="Tell me about your technical project, research problem, or collaboration..."
+        />
       </div>
 
       <!-- Optional HCaptcha -->

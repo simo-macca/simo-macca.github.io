@@ -54,5 +54,8 @@
     "*.{css,html,json,md}": [
       "prettier --write"
     ]
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
   }
 }

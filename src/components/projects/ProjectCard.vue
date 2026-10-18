@@ -1,55 +1,11 @@
 <script setup>
 import { ArrowUpRight, ExternalLink, FileText, Sparkles } from '@lucide/vue'
+import ProjectBadge from './ProjectBadge.vue'
 
 defineProps({
-  title: {
-    type: String,
+  project: {
+    type: Object,
     required: true,
-  },
-  role: {
-    type: String,
-    required: true,
-  },
-  domain: {
-    type: String,
-    required: true,
-  },
-  contextBadge: {
-    type: String,
-    default: '',
-  },
-  problem: {
-    type: String,
-    required: true,
-  },
-  architecture: {
-    type: String,
-    required: true,
-  },
-  techStack: {
-    type: Array,
-    required: true,
-    validator: (arr) => arr.every((item) => typeof item === 'string'),
-  },
-  githubUrl: {
-    type: String,
-    default: null,
-  },
-  liveUrl: {
-    type: String,
-    default: null,
-  },
-  pdfUrl: {
-    type: String,
-    default: null,
-  },
-  noSourceCode: {
-    type: Boolean,
-    default: false,
-  },
-  isFlagship: {
-    type: Boolean,
-    default: false,
   },
 })
 </script>
@@ -58,14 +14,14 @@ defineProps({
   <article
     class="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     :class="[
-      isFlagship
+      project.isFlagship
         ? 'border-sky-500/40 bg-white/95 shadow-md shadow-sky-500/5 dark:border-sky-400/30 dark:bg-[#111827]/90 dark:shadow-sky-950/20'
         : 'border-slate-200/80 bg-white/90 shadow-xs dark:border-white/[0.08] dark:bg-[#111827]/80',
     ]"
   >
     <!-- Top accent highlight for flagship projects -->
     <div
-      v-if="isFlagship"
+      v-if="project.isFlagship"
       class="h-1.5 w-full bg-gradient-to-r from-sky-400 via-indigo-500 to-cyan-400"
       aria-hidden="true"
     />
@@ -77,12 +33,12 @@ defineProps({
         <span
           class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/90 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-slate-700 dark:border-white/[0.08] dark:bg-[#1F2937] dark:text-[#F3F4F6]"
         >
-          {{ domain }}
+          {{ project.domain }}
         </span>
 
         <!-- Flagship Badge -->
         <span
-          v-if="isFlagship"
+          v-if="project.isFlagship"
           class="inline-flex items-center gap-1 rounded-md border border-sky-400/40 bg-sky-50 px-2 py-0.5 text-xs font-semibold text-sky-700 dark:border-sky-500/30 dark:bg-sky-950/40 dark:text-sky-300"
         >
           <Sparkles class="h-3 w-3" aria-hidden="true" />
@@ -91,19 +47,14 @@ defineProps({
 
         <!-- Context Badge -->
         <span
-          v-else-if="contextBadge"
+          v-else-if="project.contextBadge"
           class="inline-flex items-center rounded-md border border-slate-200/60 bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 dark:border-white/[0.06] dark:bg-[#1F2937]/60 dark:text-[#9CA3AF]"
         >
-          {{ contextBadge }}
+          {{ project.contextBadge }}
         </span>
 
-        <!-- No Source Code subtle badge (neutral, no lock/warning) -->
-        <span
-          v-if="noSourceCode"
-          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2 py-0.5 text-xs font-medium text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400"
-        >
-          No Source Code
-        </span>
+        <!-- Neutral No Source Code Pill -->
+        <ProjectBadge v-if="project.noSourceCode" text="No Source Code" variant="neutral" />
       </div>
 
       <!-- Project Title & Role -->
@@ -111,21 +62,22 @@ defineProps({
         <h3
           class="text-xl font-bold tracking-tight text-slate-900 transition-colors group-hover:text-sky-600 sm:text-2xl dark:text-[#F3F4F6] dark:group-hover:text-sky-400"
         >
-          {{ title }}
+          {{ project.title }}
         </h3>
         <p class="mt-1 text-xs font-medium tracking-wide text-sky-700 dark:text-sky-400">
-          Role: <span class="font-semibold text-slate-700 dark:text-[#9CA3AF]">{{ role }}</span>
+          Role:
+          <span class="font-semibold text-slate-700 dark:text-[#9CA3AF]">{{ project.role }}</span>
         </p>
       </div>
 
-      <!-- Technical Problem & Architectural Decision -->
+      <!-- Technical Problem & Architectural Decisions -->
       <div class="my-4 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-[#9CA3AF]">
         <div>
           <h4 class="text-xs font-bold tracking-wider text-slate-900 uppercase dark:text-[#F3F4F6]">
             Technical Challenge
           </h4>
           <p class="mt-1 text-xs leading-relaxed sm:text-sm">
-            {{ problem }}
+            {{ project.challenge }}
           </p>
         </div>
 
@@ -134,7 +86,7 @@ defineProps({
             Architecture &amp; Key Decisions
           </h4>
           <p class="mt-1 text-xs leading-relaxed sm:text-sm">
-            {{ architecture }}
+            {{ project.architecture }}
           </p>
         </div>
       </div>
@@ -142,13 +94,7 @@ defineProps({
       <!-- Tech Stack Badges (font-mono, py-1 px-2.5) -->
       <div class="mt-auto pt-4">
         <div class="flex flex-wrap gap-1.5" role="list" aria-label="Technologies used">
-          <span
-            v-for="tech in techStack"
-            :key="tech"
-            class="inline-flex items-center rounded-md border border-slate-200/70 bg-slate-100/80 px-2.5 py-1 font-mono text-xs font-medium text-slate-700 transition-colors group-hover:border-sky-300/40 dark:border-white/[0.06] dark:bg-[#1F2937]/90 dark:text-[#F3F4F6]"
-          >
-            {{ tech }}
-          </span>
+          <ProjectBadge v-for="tag in project.tags || project.techStack" :key="tag" :text="tag" />
         </div>
       </div>
     </div>
@@ -160,12 +106,12 @@ defineProps({
       <div class="flex items-center gap-3">
         <!-- GitHub Link -->
         <a
-          v-if="githubUrl"
-          :href="githubUrl"
+          v-if="project.links?.github || project.githubUrl"
+          :href="project.links?.github || project.githubUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 transition-colors hover:text-sky-600 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-[#9CA3AF] dark:hover:text-[#F3F4F6]"
-          :aria-label="`View source code for ${title} on GitHub`"
+          :aria-label="`View source code for ${project.title} on GitHub`"
         >
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -180,7 +126,7 @@ defineProps({
 
         <!-- Neutral No Source Code Pill if no GitHub URL -->
         <span
-          v-else-if="noSourceCode"
+          v-else-if="project.noSourceCode"
           class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2.5 py-1 text-xs font-medium text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400"
         >
           No Source Code
@@ -190,24 +136,24 @@ defineProps({
       <!-- Action Button: Read Thesis (PDF) or Live Demo -->
       <div class="flex items-center gap-2">
         <a
-          v-if="pdfUrl"
-          :href="pdfUrl"
+          v-if="project.links?.pdf || project.pdfUrl"
+          :href="project.links?.pdf || project.pdfUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
-          :aria-label="`Read Thesis PDF for ${title}`"
+          :aria-label="`Read Thesis PDF for ${project.title}`"
         >
           <FileText class="h-3.5 w-3.5" aria-hidden="true" />
           <span>Read Thesis (PDF)</span>
         </a>
 
         <a
-          v-if="liveUrl"
-          :href="liveUrl"
+          v-if="project.links?.demo || project.liveUrl"
+          :href="project.links?.demo || project.liveUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
-          :aria-label="`Open live deployment for ${title}`"
+          :aria-label="`Open live deployment for ${project.title}`"
         >
           <span>Live Demo</span>
           <ExternalLink class="h-3.5 w-3.5" aria-hidden="true" />

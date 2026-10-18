@@ -1,44 +1,14 @@
 <script setup>
-import { Mail, MapPin } from '@lucide/vue'
-import GitHubComponent from '@/components/GitHubComponent.vue'
-import LinkedinComponent from '@/components/LinkedinComponent.vue'
 import ContactCardComponent from '@/components/ContactCardComponent.vue'
 import ContactFormComponent from '@/components/ContactFormComponent.vue'
-
-const contactMethods = [
-  {
-    icon: Mail,
-    title: 'Email',
-    value: 'simone.maccario04@gmail.com',
-    link: 'mailto:simone.maccario04@gmail.com',
-    description: 'Drop me an email anytime',
-  },
-  {
-    icon: GitHubComponent,
-    title: 'GitHub',
-    value: 'github.com/simo-macca',
-    link: 'https://github.com/simo-macca',
-    description: 'Check out my repositories',
-  },
-  {
-    icon: LinkedinComponent,
-    title: 'LinkedIn',
-    value: 'linkedin.com/in/simone-maccario-70a339362',
-    link: 'https://www.linkedin.com/in/simone-maccario-70a339362/',
-    description: "Let's connect professionally",
-  },
-  {
-    icon: MapPin,
-    title: 'Location',
-    value: 'Zurich, Switzerland',
-    link: 'https://maps.google.com/?q=ETH+Zurich',
-    description: 'Master Student at ETH Zurich',
-  },
-]
+import { contactMethods } from '@/data/socials.js'
 </script>
 
 <template>
-  <section class="flex flex-col items-center justify-center gap-6 py-20">
+  <section
+    class="flex flex-col items-center justify-center gap-6 py-20"
+    aria-label="Contact section"
+  >
     <div class="mb-4 text-center" v-motion-fade-in>
       <h2
         class="mb-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white"

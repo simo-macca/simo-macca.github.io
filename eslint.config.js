@@ -19,6 +19,21 @@ export default defineConfig([
         ...globals.browser,
       },
     },
+    rules: {
+      'vue/block-order': [
+        'error',
+        {
+          order: ['script', 'template', 'style'],
+        },
+      ],
+      'no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+    },
   },
 
   js.configs.recommended,
