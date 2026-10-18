@@ -5,10 +5,10 @@ import ProjectCard from '@/components/ProjectCard.vue'
 const activeFilter = ref('all')
 
 const filterOptions = [
-  { id: 'all', label: 'All Projects' },
-  { id: 'flagship', label: 'Flagship & Web' },
-  { id: 'systems', label: 'Systems & Theory' },
-  { id: 'research', label: 'Academic & Research' },
+  { id: 'all', label: 'All' },
+  { id: 'personal', label: 'Personal Projects' },
+  { id: 'university', label: 'University Projects' },
+  { id: 'thesis', label: "Bachelor's Thesis" },
 ]
 
 const projects = [
@@ -17,8 +17,8 @@ const projects = [
     title: "Pandora's Box / Frantic Companion",
     role: 'Solo Developer & Architect',
     domain: 'Interactive Web Application',
-    contextBadge: 'Solo Project',
-    category: 'flagship',
+    contextBadge: 'Personal Project',
+    category: 'personal',
     isFlagship: true,
     problem:
       'Tabletop card games Frantic and Pandora’s Box involve intricate scoring rules, escalating penalty points across elimination rounds, and non-trivial card interaction effects requiring continuous rulebook verification.',
@@ -27,15 +27,16 @@ const projects = [
     techStack: ['TypeScript', 'Vue 3', 'Pinia', 'Tailwind CSS', 'Vite', 'Netlify CI/CD'],
     githubUrl: 'https://github.com/simo-macca/pandoras-box-app',
     liveUrl: 'https://pandoras-box-app.netlify.app/',
-    isConfidential: false,
+    pdfUrl: null,
+    noSourceCode: false,
   },
   {
     id: 'meme-search-engine',
     title: 'Meme Search Engine',
-    role: 'Academic Team Member & Full-Stack Lead',
+    role: 'Duo Team & Back-end Lead',
     domain: 'Information Retrieval & NLP',
-    contextBadge: 'University Team Project',
-    category: 'systems',
+    contextBadge: 'University Project',
+    category: 'university',
     isFlagship: false,
     problem:
       'Querying unstructured multimodal meme corpora requires extracting both image text and conceptual humor themes while handling noisy metadata, synonymy, typos, and high latency.',
@@ -44,15 +45,16 @@ const projects = [
     techStack: ['Python', 'Apache Solr', 'Scrapy', 'Vue.js', 'REST APIs', 'Docker'],
     githubUrl: 'https://github.com/simo-macca/meme-search-engine',
     liveUrl: null,
-    isConfidential: false,
+    pdfUrl: null,
+    noSourceCode: false,
   },
   {
     id: 'toc-movers-sat',
     title: 'TOC Movers SAT Solver',
-    role: 'Academic Team Member',
+    role: 'Front-end Lead & Group Team',
     domain: 'Theory of Computation & SAT',
-    contextBadge: 'University Team Project',
-    category: 'systems',
+    contextBadge: 'University Project',
+    category: 'university',
     isFlagship: false,
     problem:
       'Multi-agent grid motion planning with obstacle relocation is an NP-complete combinatorial problem where naive graph search experiences combinatorial explosion over large state spaces.',
@@ -61,15 +63,16 @@ const projects = [
     techStack: ['Python', 'SAT Solvers (Minisat)', 'CNF Encoding', 'Vue.js', 'Algorithms'],
     githubUrl: 'https://github.com/simo-macca/toc-movers-sat',
     liveUrl: null,
-    isConfidential: false,
+    pdfUrl: null,
+    noSourceCode: false,
   },
   {
     id: 'bachelor-thesis',
     title: 'PyTamaro-Web: Pedagogical Analytics & Static Code Analysis',
-    role: "Bachelor's Thesis Researcher & Engineer",
+    role: "Bachelor's Thesis Researcher & Software Engineer",
     domain: 'Static Code Analysis & Analytics',
-    contextBadge: 'Confidential / University Project',
-    category: 'research',
+    contextBadge: "Bachelor's Thesis",
+    category: 'thesis',
     isFlagship: false,
     problem:
       '"From Raw Data to Pedagogical Insights." University introductory programming environments accumulate vast volumes of student code attempts and runtime errors without structured diagnostic feedback for instructors.',
@@ -84,15 +87,16 @@ const projects = [
     ],
     githubUrl: null,
     liveUrl: null,
-    isConfidential: true,
+    pdfUrl: '/docs/thesis.pdf',
+    noSourceCode: true,
   },
   {
     id: 'seworld',
     title: 'Software Engineering World (SEWorld)',
-    role: 'Full-Stack Lead & Scrum Collaborator',
+    role: 'Full-Stack Lead & Group Team',
     domain: 'Educational Platform & Microservices',
-    contextBadge: 'Academic Team Collaboration',
-    category: 'flagship',
+    contextBadge: 'University Project',
+    category: 'university',
     isFlagship: false,
     problem:
       'Managing student exercises, grading workflows, and real-time statistics requires robust role-based security, modular backend architecture, and seamless collaborative workflows.',
@@ -101,15 +105,16 @@ const projects = [
     techStack: ['Java', 'Spring Boot', 'Vue.js', 'PostgreSQL', 'Docker', 'REST API'],
     githubUrl: 'https://github.com/simo-macca/SEWorld',
     liveUrl: null,
-    isConfidential: false,
+    pdfUrl: null,
+    noSourceCode: false,
   },
   {
     id: 'battleship',
     title: 'Battleship Engine & Graphical AI',
-    role: 'Academic Team Member & Lead Architect',
+    role: 'Duo team',
     domain: 'Object-Oriented Architecture',
-    contextBadge: 'Academic Team Project',
-    category: 'systems',
+    contextBadge: 'University Project',
+    category: 'university',
     isFlagship: false,
     problem:
       'Coordinating complex turn-based gameplay, deterministic rule checking, multi-tiered AI opponents, and GUI rendering without tight state coupling.',
@@ -118,15 +123,16 @@ const projects = [
     techStack: ['Java 17', 'State Pattern', 'Visitor Pattern', 'JUnit 5', 'Gradle', 'GUI'],
     githubUrl: 'https://github.com/simo-macca/battleship',
     liveUrl: null,
-    isConfidential: false,
+    pdfUrl: null,
+    noSourceCode: false,
   },
   {
     id: 'snake-racket',
     title: 'Snake in Functional Racket',
-    role: 'Solo / Academic Collaborator',
+    role: 'Duo team',
     domain: 'Functional Programming Paradigms',
-    contextBadge: 'Academic Showcase',
-    category: 'research',
+    contextBadge: 'University Project',
+    category: 'university',
     isFlagship: false,
     problem:
       'Implementing an interactive game with real-time collision detection and growing state without using mutable variables or global state side effects.',
@@ -135,7 +141,8 @@ const projects = [
     techStack: ['Racket (Lisp)', 'Functional Programming', '2htdp/universe', 'Recursion'],
     githubUrl: 'https://github.com/simo-macca/snake-racket',
     liveUrl: null,
-    isConfidential: false,
+    pdfUrl: null,
+    noSourceCode: false,
   },
 ]
 
@@ -157,10 +164,10 @@ const filteredProjects = computed(() => {
         </h2>
         <p class="mt-3 text-base text-slate-600 sm:text-lg dark:text-[#9CA3AF]">
           A curated portfolio of systems architectures, algorithmic solvers, information retrieval
-          engines, and reactive web applications.
+          engines, and reactive applications.
         </p>
 
-        <!-- Category Filter Tabs -->
+        <!-- Category Filter Tabs: Exactly All | Personal Projects | University Projects | Bachelor's Thesis -->
         <div class="mt-8 flex flex-wrap justify-center gap-2">
           <button
             v-for="opt in filterOptions"
@@ -180,8 +187,8 @@ const filteredProjects = computed(() => {
         </div>
       </div>
 
-      <!-- Projects Grid -->
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Projects Grid with full-height cards and aligned bottoms -->
+      <div class="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 lg:grid-cols-3">
         <ProjectCard
           v-for="(project, index) in filteredProjects"
           :key="project.id"

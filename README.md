@@ -23,29 +23,37 @@ The application is engineered as a high-performance single-page application (SPA
 
 ---
 
-## Featured Engineering Case Studies
+## Project Taxonomy & Case Studies
 
-1. **Pandora's Box / Frantic Companion App** _(Solo Developer & Architect)_
-   - Interactive companion app and digital scorekeeper for card games with client-side reactive state tracking, card dictionaries, and automated CI/CD on Netlify.
-   - [Repository](https://github.com/simo-macca/pandoras-box-app) &middot; [Live Demo](https://pandoras-box-app.netlify.app/)
-2. **Meme Search Engine** _(Academic Team Member & Full-Stack Lead)_
-   - Multi-modal information retrieval system featuring Scrapy spiders, Apache Solr indexing cluster, BM25 scoring, and sub-second faceted query retrieval in Vue.js.
-   - [Repository](https://github.com/simo-macca/meme-search-engine)
-3. **TOC Movers SAT Solver** _(Academic Team Member)_
-   - Polynomial-time reduction of multi-agent grid motion planning to Conjunctive Normal Form (CNF) with automated DIMACS generation and Minisat solving.
-   - [Repository](https://github.com/simo-macca/toc-movers-sat)
-4. **Software Engineering World (SEWorld)** _(Full-Stack Lead & Scrum Collaborator)_
-   - Microservices-backed educational management platform built with Spring Boot, PostgreSQL, role-based access control (RBAC), and Vue.js.
-   - [Repository](https://github.com/simo-macca/SEWorld)
-5. **Battleship Engine & Graphical AI** _(Lead Architect)_
-   - Object-oriented Java game engine utilizing the State Pattern for lifecycle control, Visitor Pattern for board traversal, and multi-tier heuristic AI opponents.
-   - [Repository](https://github.com/simo-macca/battleship)
-6. **Snake in Functional Racket** _(Solo / Academic Collaborator)_
-   - Classic game engineered entirely in Racket without mutable state, modeled as recursive immutable world states over 2htdp/universe.
-   - [Repository](https://github.com/simo-macca/snake-racket)
-7. **PyTamaro-Web: Pedagogical Analytics & Static Code Analysis** _(Bachelor's Thesis Showcase)_
-   - _"From Raw Data to Pedagogical Insights."_ Static Python AST parsing pipeline extracting aggregate misconception patterns into an interactive pedagogical dashboard.
-   - _Confidential University Project (USI Lugano)_
+### 1. Personal Projects
+
+- **Pandora's Box / Frantic Companion App** _(Solo Developer & Architect)_
+  - Interactive companion app and digital scorekeeper for card games with client-side reactive state tracking, card dictionaries, and automated CI/CD on Netlify.
+  - [Repository](https://github.com/simo-macca/pandoras-box-app) &middot; [Live Demo](https://pandoras-box-app.netlify.app/)
+
+### 2. University Projects
+
+- **Meme Search Engine** _(Duo Team & Back-end Lead)_
+  - Multi-modal information retrieval system featuring Scrapy spiders, Apache Solr indexing cluster, BM25 scoring, and sub-second faceted query retrieval in Vue.js.
+  - [Repository](https://github.com/simo-macca/meme-search-engine)
+- **TOC Movers SAT Solver** _(Front-end Lead & Group Team)_
+  - Polynomial-time reduction of multi-agent grid motion planning to Conjunctive Normal Form (CNF) with automated DIMACS generation and Minisat solving.
+  - [Repository](https://github.com/simo-macca/toc-movers-sat)
+- **Software Engineering World (SEWorld)** _(Full-Stack Lead & Group Team)_
+  - Microservices-backed educational management platform built with Spring Boot, PostgreSQL, role-based access control (RBAC), and Vue.js.
+  - [Repository](https://github.com/simo-macca/SEWorld)
+- **Battleship Engine & Graphical AI** _(Duo team)_
+  - Object-oriented Java game engine utilizing the State Pattern for lifecycle control, Visitor Pattern for board traversal, and multi-tier heuristic AI opponents.
+  - [Repository](https://github.com/simo-macca/battleship)
+- **Snake in Functional Racket** _(Duo team)_
+  - Classic game engineered entirely in Racket without mutable state, modeled as recursive immutable world states over 2htdp/universe.
+  - [Repository](https://github.com/simo-macca/snake-racket)
+
+### 3. Bachelor's Thesis
+
+- **PyTamaro-Web: Pedagogical Analytics & Static Code Analysis** _(Bachelor's Thesis Researcher & Software Engineer)_
+  - _"From Raw Data to Pedagogical Insights."_ Static Python AST parsing pipeline extracting aggregate misconception patterns into an interactive pedagogical dashboard.
+  - [Read Thesis (PDF)](docs/thesis.pdf) &middot; _No Source Code (Institutional Project)_
 
 ---
 

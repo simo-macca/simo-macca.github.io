@@ -11,7 +11,7 @@ const techHighlights = [
 
 <template>
   <section
-    class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-16 text-center"
+    class="flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center py-16 text-center sm:py-20"
     aria-label="Hero section"
   >
     <!-- Academic Badge -->

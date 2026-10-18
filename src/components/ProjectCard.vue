@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowUpRight, ExternalLink, Lock, Sparkles } from '@lucide/vue'
+import { ArrowUpRight, ExternalLink, FileText, Sparkles } from '@lucide/vue'
 
 defineProps({
   title: {
@@ -39,7 +39,11 @@ defineProps({
     type: String,
     default: null,
   },
-  isConfidential: {
+  pdfUrl: {
+    type: String,
+    default: null,
+  },
+  noSourceCode: {
     type: Boolean,
     default: false,
   },
@@ -52,7 +56,7 @@ defineProps({
 
 <template>
   <article
-    class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+    class="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     :class="[
       isFlagship
         ? 'border-sky-500/40 bg-white/95 shadow-md shadow-sky-500/5 dark:border-sky-400/30 dark:bg-[#111827]/90 dark:shadow-sky-950/20'
@@ -76,7 +80,7 @@ defineProps({
           {{ domain }}
         </span>
 
-        <!-- Role / Context Badge -->
+        <!-- Flagship Badge -->
         <span
           v-if="isFlagship"
           class="inline-flex items-center gap-1 rounded-md border border-sky-400/40 bg-sky-50 px-2 py-0.5 text-xs font-semibold text-sky-700 dark:border-sky-500/30 dark:bg-sky-950/40 dark:text-sky-300"
@@ -84,18 +88,21 @@ defineProps({
           <Sparkles class="h-3 w-3" aria-hidden="true" />
           Flagship Project
         </span>
-        <span
-          v-else-if="isConfidential"
-          class="inline-flex items-center gap-1 rounded-md border border-amber-400/40 bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-300"
-        >
-          <Lock class="h-3 w-3" aria-hidden="true" />
-          {{ contextBadge || 'Confidential / University Project' }}
-        </span>
+
+        <!-- Context Badge -->
         <span
           v-else-if="contextBadge"
           class="inline-flex items-center rounded-md border border-slate-200/60 bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 dark:border-white/[0.06] dark:bg-[#1F2937]/60 dark:text-[#9CA3AF]"
         >
           {{ contextBadge }}
+        </span>
+
+        <!-- No Source Code subtle badge (neutral, no lock/warning) -->
+        <span
+          v-if="noSourceCode"
+          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2 py-0.5 text-xs font-medium text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400"
+        >
+          No Source Code
         </span>
       </div>
 
@@ -132,13 +139,13 @@ defineProps({
         </div>
       </div>
 
-      <!-- Tech Stack Badges -->
+      <!-- Tech Stack Badges (font-mono, py-1 px-2.5) -->
       <div class="mt-auto pt-4">
         <div class="flex flex-wrap gap-1.5" role="list" aria-label="Technologies used">
           <span
             v-for="tech in techStack"
             :key="tech"
-            class="inline-flex items-center rounded-md border border-slate-200/70 bg-slate-100/80 px-2 py-0.5 font-mono text-[11px] font-medium text-slate-700 transition-colors group-hover:border-sky-300/40 dark:border-white/[0.06] dark:bg-[#1F2937]/90 dark:text-[#F3F4F6]"
+            class="inline-flex items-center rounded-md border border-slate-200/70 bg-slate-100/80 px-2.5 py-1 font-mono text-xs font-medium text-slate-700 transition-colors group-hover:border-sky-300/40 dark:border-white/[0.06] dark:bg-[#1F2937]/90 dark:text-[#F3F4F6]"
           >
             {{ tech }}
           </span>
@@ -146,9 +153,9 @@ defineProps({
       </div>
     </div>
 
-    <!-- Actionable Links Footer -->
+    <!-- Actionable Links Footer (margin-top: auto) -->
     <div
-      class="flex items-center justify-between border-t border-slate-200/80 bg-slate-50/70 px-6 py-3.5 dark:border-white/[0.08] dark:bg-[#0B0F17]/60"
+      class="mt-auto flex items-center justify-between border-t border-slate-200/80 bg-slate-50/70 px-6 py-3.5 dark:border-white/[0.08] dark:bg-[#0B0F17]/60"
     >
       <div class="flex items-center gap-3">
         <!-- GitHub Link -->
@@ -171,28 +178,41 @@ defineProps({
           <ArrowUpRight class="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
         </a>
 
-        <!-- Confidential Notice -->
-        <div
-          v-else-if="isConfidential"
-          class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-[#9CA3AF]"
+        <!-- Neutral No Source Code Pill if no GitHub URL -->
+        <span
+          v-else-if="noSourceCode"
+          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2.5 py-1 text-xs font-medium text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400"
         >
-          <Lock class="h-3.5 w-3.5" aria-hidden="true" />
-          <span>Institutional / Private Codebase</span>
-        </div>
+          No Source Code
+        </span>
       </div>
 
-      <!-- Live Demo Link -->
-      <a
-        v-if="liveUrl"
-        :href="liveUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
-        :aria-label="`Open live deployment for ${title}`"
-      >
-        <span>Live Demo</span>
-        <ExternalLink class="h-3.5 w-3.5" aria-hidden="true" />
-      </a>
+      <!-- Action Button: Read Thesis (PDF) or Live Demo -->
+      <div class="flex items-center gap-2">
+        <a
+          v-if="pdfUrl"
+          :href="pdfUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
+          :aria-label="`Read Thesis PDF for ${title}`"
+        >
+          <FileText class="h-3.5 w-3.5" aria-hidden="true" />
+          <span>Read Thesis (PDF)</span>
+        </a>
+
+        <a
+          v-if="liveUrl"
+          :href="liveUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
+          :aria-label="`Open live deployment for ${title}`"
+        >
+          <span>Live Demo</span>
+          <ExternalLink class="h-3.5 w-3.5" aria-hidden="true" />
+        </a>
+      </div>
     </div>
   </article>
 </template>

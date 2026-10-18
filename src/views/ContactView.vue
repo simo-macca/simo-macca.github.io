@@ -38,7 +38,7 @@ const contactMethods = [
 </script>
 
 <template>
-  <section class="flex min-h-dvh flex-col items-center justify-center gap-6 py-20">
+  <section class="flex flex-col items-center justify-center gap-6 py-20">
     <div class="mb-4 text-center" v-motion-fade-in>
       <h2
         class="mb-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white"

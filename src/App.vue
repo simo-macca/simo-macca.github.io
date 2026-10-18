@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative min-h-screen overflow-x-hidden">
+  <div class="relative">
     <!-- Ambient background glow -->
     <div
       class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[500px] overflow-hidden opacity-50 blur-3xl dark:opacity-25"
