@@ -90,7 +90,6 @@ const submitForm = async () => {
   if (!btn.value) return
 
   await btn.value.submit(async () => {
-    // If Web3Forms key is not provided (e.g. preview/local environment)
     if (!WEB3FORMS_ACCESS_KEY) {
       console.warn('VITE_WEB3FORMS_KEY is not defined. Simulating successful submission.')
       form.name = ''
@@ -147,20 +146,21 @@ const submitForm = async () => {
   <form
     @submit.prevent="submitForm"
     novalidate
-    class="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-xs backdrop-blur-sm sm:p-8 dark:border-slate-800/80 dark:bg-slate-900/70"
+    class="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-xs backdrop-blur-sm sm:p-8 dark:border-white/[0.08] dark:bg-[#111827]/80"
     aria-label="Contact form"
   >
     <div>
-      <h2 class="mb-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+      <h2 class="mb-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-[#F3F4F6]">
         Send Me a Message
       </h2>
-      <p class="mb-6 text-sm text-slate-600 dark:text-slate-400">
-        Have a technical question, research idea, or engineering opportunity? Let's connect.
+      <p class="mb-6 text-sm text-slate-600 dark:text-[#9CA3AF]">
+        Have a technical inquiry, distributed systems discussion, or collaboration proposal? Let's
+        connect.
       </p>
 
       <div
         v-if="errors.general"
-        class="mb-4 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-400"
+        class="mb-4 flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-950/30 dark:text-rose-400"
         role="alert"
       >
         <AlertCircle class="h-4 w-4 shrink-0" />
@@ -172,7 +172,7 @@ const submitForm = async () => {
         <div>
           <label
             for="contact-name"
-            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-slate-300"
+            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-[#9CA3AF]"
           >
             Your Name <span class="text-rose-500">*</span>
           </label>
@@ -185,11 +185,11 @@ const submitForm = async () => {
             required
             :aria-invalid="Boolean(errors.name)"
             :aria-describedby="errors.name ? 'contact-name-error' : undefined"
-            class="mt-1.5 w-full rounded-xl border bg-slate-50/60 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-slate-800 dark:bg-slate-950/50 dark:text-white dark:placeholder-slate-500 dark:focus:bg-slate-900 dark:focus:ring-sky-400"
+            class="mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
             :class="
               errors.name
                 ? 'border-rose-400 dark:border-rose-500'
-                : 'border-slate-200 dark:border-slate-800'
+                : 'border-slate-200/80 dark:border-white/[0.08]'
             "
             placeholder="Ada Lovelace"
             autocomplete="name"
@@ -208,7 +208,7 @@ const submitForm = async () => {
         <div>
           <label
             for="contact-email"
-            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-slate-300"
+            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-[#9CA3AF]"
           >
             Email Address <span class="text-rose-500">*</span>
           </label>
@@ -221,11 +221,11 @@ const submitForm = async () => {
             required
             :aria-invalid="Boolean(errors.email)"
             :aria-describedby="errors.email ? 'contact-email-error' : undefined"
-            class="mt-1.5 w-full rounded-xl border bg-slate-50/60 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-slate-800 dark:bg-slate-950/50 dark:text-white dark:placeholder-slate-500 dark:focus:bg-slate-900 dark:focus:ring-sky-400"
+            class="mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
             :class="
               errors.email
                 ? 'border-rose-400 dark:border-rose-500'
-                : 'border-slate-200 dark:border-slate-800'
+                : 'border-slate-200/80 dark:border-white/[0.08]'
             "
             placeholder="ada@example.com"
             autocomplete="email"
@@ -244,7 +244,7 @@ const submitForm = async () => {
         <div>
           <label
             for="contact-message"
-            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-slate-300"
+            class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-[#9CA3AF]"
           >
             Your Message <span class="text-rose-500">*</span>
           </label>
@@ -257,13 +257,13 @@ const submitForm = async () => {
             required
             :aria-invalid="Boolean(errors.message)"
             :aria-describedby="errors.message ? 'contact-message-error' : undefined"
-            class="mt-1.5 min-h-[100px] w-full rounded-xl border bg-slate-50/60 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:bg-white focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-slate-800 dark:bg-slate-950/50 dark:text-white dark:placeholder-slate-500 dark:focus:bg-slate-900 dark:focus:ring-sky-400"
+            class="mt-1.5 min-h-[100px] w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
             :class="
               errors.message
                 ? 'border-rose-400 dark:border-rose-500'
-                : 'border-slate-200 dark:border-slate-800'
+                : 'border-slate-200/80 dark:border-white/[0.08]'
             "
-            placeholder="Tell me about your technical project, research question, or collaboration..."
+            placeholder="Tell me about your technical project, research problem, or collaboration..."
           />
           <p
             v-if="errors.message"
@@ -295,9 +295,9 @@ const submitForm = async () => {
       <SendButtonComponent ref="btn" />
     </div>
 
-    <div class="mt-6 border-t border-slate-200/70 pt-4 dark:border-slate-800/80">
-      <p class="text-center text-xs text-slate-500 dark:text-slate-400">
-        Direct email response typically within 24-48 hours.
+    <div class="mt-6 border-t border-slate-200/80 pt-4 dark:border-white/[0.08]">
+      <p class="text-center text-xs text-slate-500 dark:text-[#9CA3AF]">
+        Direct response typically within 24-48 hours.
       </p>
     </div>
   </form>

@@ -28,15 +28,15 @@ const closeMobileMenu = () => {
       <!-- Brand Logo & Name -->
       <a
         href="#"
-        class="flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
-        aria-label="Simone Maccario portfolio homepage"
+        class="group flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+        aria-label="Simone Maccario homepage"
         v-motion-slide-down
         :delay="100"
       >
         <IconLogoPortfolio
-          class="h-9 w-9 text-sky-500 transition-transform duration-300 hover:scale-105"
+          class="h-9 w-9 text-sky-500 transition-transform duration-300 group-hover:scale-105 dark:text-sky-400"
         />
-        <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-[#F3F4F6]">
           Simone Maccario
         </span>
       </a>
@@ -49,7 +49,7 @@ const closeMobileMenu = () => {
           v-for="(link, index) in navLinks"
           :key="link.href"
           :href="link.href"
-          class="rounded-lg px-3.5 py-2 text-sm font-medium text-slate-600 transition-colors duration-200 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-slate-300 dark:hover:bg-slate-800/80 dark:hover:text-white"
+          class="rounded-lg px-3.5 py-2 text-sm font-medium text-slate-600 transition-colors duration-200 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-[#9CA3AF] dark:hover:bg-white/[0.06] dark:hover:text-[#F3F4F6]"
           v-motion-slide-down
           :delay="200 + index * 50"
         >
@@ -65,7 +65,7 @@ const closeMobileMenu = () => {
         <button
           type="button"
           @click="toggleMobileMenu"
-          class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/80 p-2 text-slate-700 shadow-sm backdrop-blur-sm transition-colors hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:hidden dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800 dark:hover:text-white"
+          class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/80 p-2 text-slate-700 shadow-xs backdrop-blur-sm transition-colors hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:hidden dark:border-white/[0.08] dark:bg-[#111827]/80 dark:text-[#9CA3AF] dark:hover:border-white/[0.16] dark:hover:bg-[#1F2937] dark:hover:text-[#F3F4F6]"
           :aria-expanded="isMobileMenuOpen"
           aria-controls="mobile-nav-menu"
           aria-label="Toggle navigation menu"
@@ -88,7 +88,7 @@ const closeMobileMenu = () => {
       <div
         v-if="isMobileMenuOpen"
         id="mobile-nav-menu"
-        class="border-b border-slate-200 bg-slate-50/95 px-4 pt-2 pb-4 shadow-lg backdrop-blur-md sm:hidden dark:border-slate-800 dark:bg-slate-900/95"
+        class="border-b border-slate-200 bg-white/95 px-4 pt-2 pb-4 shadow-lg backdrop-blur-md sm:hidden dark:border-white/[0.08] dark:bg-[#0B0F17]/95"
       >
         <div class="flex flex-col space-y-1">
           <a
@@ -96,7 +96,7 @@ const closeMobileMenu = () => {
             :key="link.href"
             :href="link.href"
             @click="closeMobileMenu"
-            class="rounded-lg px-4 py-2.5 text-base font-medium text-slate-700 transition-colors hover:bg-slate-200/70 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white"
+            class="rounded-lg px-4 py-2.5 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-[#9CA3AF] dark:hover:bg-white/[0.06] dark:hover:text-[#F3F4F6]"
           >
             {{ link.label }}
           </a>
