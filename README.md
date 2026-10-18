@@ -140,9 +140,14 @@ Launches the local Vite server at `http://localhost:3000`.
 # Run oxlint and eslint
 npm run lint
 
-# Format code with Prettier
+# Check formatting across all files
+npm run format:check
+
+# Format code with Prettier and auto-fix linting across all files
 npm run format
 ```
+
+A Git pre-commit hook configured via Husky automatically runs `npm run format` before every commit, blocking any commits that fail linting or formatting checks.
 
 ### Production Build
 

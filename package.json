@@ -14,7 +14,9 @@
     "lint:eslint": "eslint . --fix --cache",
     "lint": "run-s lint:*",
     "format": "run-s lint prettier",
-    "prettier": "prettier --write src/",
+    "format:check": "run-s lint prettier:check",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
     "prepare": "husky"
   },
   "dependencies": {
