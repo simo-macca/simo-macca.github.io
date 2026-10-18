@@ -71,6 +71,9 @@ The application is engineered as a high-performance single-page application (SPA
 │   │   ├── contact/
 │   │   │   ├── FormAlert.vue          # Accessible form notification and alert states
 │   │   │   └── FormField.vue          # Modular form field with accessible labels and error handling
+│   │   ├── icons/
+│   │   │   ├── GitHubIcon.vue         # Standalone SVG GitHub icon
+│   │   │   └── LinkedinIcon.vue       # Standalone SVG LinkedIn icon
 │   │   ├── layout/
 │   │   │   └── MobileNavDrawer.vue    # Decomposed mobile navigation drawer with accessible transitions
 │   │   ├── projects/

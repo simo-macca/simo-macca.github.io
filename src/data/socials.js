@@ -1,6 +1,6 @@
 import { Mail, MapPin } from '@lucide/vue'
-import GitHubComponent from '@/components/GitHubComponent.vue'
-import LinkedinComponent from '@/components/LinkedinComponent.vue'
+import GitHubIcon from '@/components/icons/GitHubIcon.vue'
+import LinkedinIcon from '@/components/icons/LinkedinIcon.vue'
 
 export const navLinks = [
   { href: '#about', label: 'About' },
@@ -18,14 +18,14 @@ export const contactMethods = [
     description: 'Drop me an email anytime',
   },
   {
-    icon: GitHubComponent,
+    icon: GitHubIcon,
     title: 'GitHub',
     value: 'github.com/simo-macca',
     link: 'https://github.com/simo-macca',
     description: 'Check out my repositories',
   },
   {
-    icon: LinkedinComponent,
+    icon: LinkedinIcon,
     title: 'LinkedIn',
     value: 'linkedin.com/in/simone-maccario-70a339362',
     link: 'https://www.linkedin.com/in/simone-maccario-70a339362/',

@@ -1,7 +1,26 @@
 <script setup>
+import { ref } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
 import ContactCardComponent from '@/components/ContactCardComponent.vue'
 import ContactFormComponent from '@/components/ContactFormComponent.vue'
 import { contactMethods } from '@/data/socials.js'
+
+const contactGridRef = ref(null)
+const isVisible = ref(false)
+
+const { stop } = useIntersectionObserver(
+  contactGridRef,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+      isVisible.value = true
+      stop()
+    }
+  },
+  {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px',
+  },
+)
 </script>
 
 <template>
@@ -23,17 +42,23 @@ import { contactMethods } from '@/data/socials.js'
       </p>
     </div>
 
-    <div class="grid w-full max-w-5xl gap-8 md:grid-cols-5">
+    <div ref="contactGridRef" class="grid w-full max-w-5xl gap-8 md:grid-cols-5">
       <div class="flex flex-col justify-between gap-4 md:col-span-2">
-        <ContactCardComponent
+        <div
           v-for="(method, index) in contactMethods"
           :key="method.title"
-          :method="method"
-          v-motion-slide-left
-          :delay="index * 100"
-        />
+          class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none"
+          :class="isVisible ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'"
+          :style="{ transitionDelay: `${index * 100}ms` }"
+        >
+          <ContactCardComponent :method="method" />
+        </div>
       </div>
-      <div class="md:col-span-3" v-motion-slide-right :delay="200">
+      <div
+        class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none md:col-span-3"
+        :class="isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
+        :style="{ transitionDelay: '150ms' }"
+      >
         <ContactFormComponent />
       </div>
     </div>
