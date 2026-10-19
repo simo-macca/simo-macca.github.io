@@ -17,13 +17,13 @@ defineProps({
     :class="[
       project.isFlagship
         ? 'border-sky-500/40 bg-white/95 shadow-md shadow-sky-500/5 dark:border-sky-400/30 dark:bg-[#111827]/90 dark:shadow-sky-950/20'
-        : 'border-slate-200/80 bg-white/90 shadow-xs dark:border-white/[0.08] dark:bg-[#111827]/80',
+        : 'border-slate-200/80 bg-white/90 shadow-xs dark:border-white/8 dark:bg-[#111827]/80',
     ]"
   >
     <!-- Top accent highlight for flagship projects -->
     <div
       v-if="project.isFlagship"
-      class="h-1.5 w-full bg-gradient-to-r from-sky-400 via-indigo-500 to-cyan-400"
+      class="h-1.5 w-full bg-linear-to-r from-sky-400 via-indigo-500 to-cyan-400"
       aria-hidden="true"
     />
 
@@ -32,7 +32,7 @@ defineProps({
       <div class="mb-4 flex flex-wrap items-center gap-2">
         <!-- Domain Badge -->
         <span
-          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/90 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-slate-700 dark:border-white/[0.08] dark:bg-[#1F2937] dark:text-[#F3F4F6]"
+          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/90 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-slate-700 dark:border-white/8 dark:bg-[#1F2937] dark:text-[#F3F4F6]"
         >
           {{ project.domain }}
         </span>
@@ -49,7 +49,7 @@ defineProps({
         <!-- Context Badge -->
         <span
           v-else-if="project.contextBadge"
-          class="inline-flex items-center rounded-md border border-slate-200/60 bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 dark:border-white/[0.06] dark:bg-[#1F2937]/60 dark:text-[#9CA3AF]"
+          class="inline-flex items-center rounded-md border border-slate-200/60 bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 dark:border-white/6 dark:bg-[#1F2937]/60 dark:text-[#9CA3AF]"
         >
           {{ project.contextBadge }}
         </span>
@@ -102,7 +102,7 @@ defineProps({
 
     <!-- Actionable Links Footer (margin-top: auto) -->
     <div
-      class="mt-auto flex items-center justify-between border-t border-slate-200/80 bg-slate-50/70 px-6 py-3.5 dark:border-white/[0.08] dark:bg-[#0B0F17]/60"
+      class="mt-auto flex items-center justify-between border-t border-slate-200/80 bg-slate-50/70 px-6 py-3.5 dark:border-white/8 dark:bg-[#0B0F17]/60"
     >
       <div class="flex items-center gap-3">
         <!-- GitHub Link -->
@@ -122,7 +122,7 @@ defineProps({
         <!-- Neutral No Source Code Pill if no GitHub URL -->
         <span
           v-else-if="project.noSourceCode"
-          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2.5 py-1 text-xs font-medium text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400"
+          class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2.5 py-1 text-xs font-medium text-slate-500 dark:border-white/8 dark:bg-white/4 dark:text-slate-400"
         >
           No Source Code
         </span>

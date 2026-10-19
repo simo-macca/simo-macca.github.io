@@ -66,11 +66,11 @@ const onInput = (event) => {
       :placeholder="placeholder"
       :aria-invalid="Boolean(error)"
       :aria-describedby="error ? `${id}-error` : undefined"
-      class="mt-1.5 min-h-[100px] w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
+      class="mt-1.5 min-h-25 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/8 dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
       :class="
         error
           ? 'border-rose-400 dark:border-rose-500'
-          : 'border-slate-200/80 dark:border-white/[0.08]'
+          : 'border-slate-200/80 dark:border-white/8'
       "
     />
 
@@ -86,11 +86,11 @@ const onInput = (event) => {
       :autocomplete="autocomplete"
       :aria-invalid="Boolean(error)"
       :aria-describedby="error ? `${id}-error` : undefined"
-      class="mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/[0.08] dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
+      class="mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none dark:border-white/8 dark:bg-[#0B0F17]/60 dark:text-[#F3F4F6] dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-[#0B0F17] dark:focus:ring-sky-400/20"
       :class="
         error
           ? 'border-rose-400 dark:border-rose-500'
-          : 'border-slate-200/80 dark:border-white/[0.08]'
+          : 'border-slate-200/80 dark:border-white/8'
       "
     />
 

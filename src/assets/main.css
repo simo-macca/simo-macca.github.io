@@ -48,10 +48,6 @@
 }
 
 /* Glow and gradient utility classes */
-.ambient-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
-}
-
 .text-gradient {
   background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
   -webkit-background-clip: text;

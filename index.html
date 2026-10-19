@@ -28,15 +28,15 @@
     <script>
       ;(function () {
         try {
-          var stored = localStorage.getItem('theme')
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-          var isDark = stored === 'dark' || (!stored && prefersDark)
+          const stored = localStorage.getItem('theme')
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isDark = stored === 'dark' || (!stored && prefersDark)
           if (isDark) {
             document.documentElement.classList.add('dark')
           } else {
             document.documentElement.classList.remove('dark')
           }
-          var meta = document.querySelector('meta[name="color-scheme"]')
+          const meta = document.querySelector('meta[name="color-scheme"]')
           if (meta) {
             meta.content = stored ? stored : 'light dark'
           }

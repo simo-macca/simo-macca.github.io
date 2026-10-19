@@ -53,7 +53,7 @@ const techHighlights = [
       <span
         v-for="chip in techHighlights"
         :key="chip"
-        class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-slate-700 shadow-2xs backdrop-blur-sm dark:border-white/[0.08] dark:bg-[#111827]/70 dark:text-[#9CA3AF]"
+        class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-medium text-slate-700 shadow-2xs backdrop-blur-sm dark:border-white/8 dark:bg-[#111827]/70 dark:text-[#9CA3AF]"
       >
         <Sparkles class="h-3 w-3 text-sky-500 dark:text-sky-400" aria-hidden="true" />
         {{ chip }}
@@ -75,7 +75,7 @@ const techHighlights = [
       </a>
       <a
         href="#about"
-        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 px-7 text-sm font-semibold tracking-wide text-slate-800 shadow-2xs transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 active:scale-95 sm:w-auto dark:border-white/[0.08] dark:bg-[#111827]/80 dark:text-[#F3F4F6] dark:hover:border-white/[0.16] dark:hover:bg-[#1F2937]"
+        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 px-7 text-sm font-semibold tracking-wide text-slate-800 shadow-2xs transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 active:scale-95 sm:w-auto dark:border-white/8 dark:bg-[#111827]/80 dark:text-[#F3F4F6] dark:hover:border-white/16 dark:hover:bg-[#1F2937]"
       >
         <span>Technical Background</span>
         <ArrowDown class="h-4 w-4" aria-hidden="true" />

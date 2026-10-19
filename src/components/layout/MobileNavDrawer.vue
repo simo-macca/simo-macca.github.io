@@ -25,7 +25,7 @@ defineEmits(['close'])
     <div
       v-if="isOpen"
       id="mobile-nav-menu"
-      class="border-b border-slate-200 bg-white/95 px-4 pt-2 pb-4 shadow-lg backdrop-blur-md sm:hidden dark:border-white/[0.08] dark:bg-[#0B0F17]/95"
+      class="border-b border-slate-200 bg-white/95 px-4 pt-2 pb-4 shadow-lg backdrop-blur-md sm:hidden dark:border-white/8 dark:bg-[#0B0F17]/95"
     >
       <div class="flex flex-col space-y-1">
         <a
@@ -33,7 +33,7 @@ defineEmits(['close'])
           :key="link.href"
           :href="link.href"
           @click="$emit('close')"
-          class="rounded-lg px-4 py-2.5 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-[#9CA3AF] dark:hover:bg-white/[0.06] dark:hover:text-[#F3F4F6]"
+          class="rounded-lg px-4 py-2.5 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-[#9CA3AF] dark:hover:bg-white/6 dark:hover:text-[#F3F4F6]"
         >
           {{ link.label }}
         </a>

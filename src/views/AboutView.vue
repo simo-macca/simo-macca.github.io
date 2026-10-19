@@ -46,7 +46,7 @@ const pillars = [
           <div class="group relative">
             <!-- Glow background -->
             <div
-              class="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 opacity-30 blur-md transition duration-300 group-hover:opacity-50"
+              class="absolute -inset-1 rounded-full bg-linear-to-r from-sky-500 to-indigo-500 opacity-30 blur-md transition duration-300 group-hover:opacity-50"
             />
             <img
               :src="profileImg"
@@ -60,7 +60,7 @@ const pillars = [
 
           <!-- Academic Snapshot Card -->
           <div
-            class="mt-6 w-full rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-xs backdrop-blur-sm dark:border-white/[0.08] dark:bg-[#111827]/80"
+            class="mt-6 w-full rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-xs backdrop-blur-sm dark:border-white/8 dark:bg-[#111827]/80"
           >
             <div
               class="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-[#F3F4F6]"
@@ -69,7 +69,7 @@ const pillars = [
               <span>Academic Trajectory</span>
             </div>
             <ul class="space-y-3 text-xs leading-relaxed text-slate-600 dark:text-[#9CA3AF]">
-              <li class="border-b border-slate-100 pb-2.5 dark:border-white/[0.04]">
+              <li class="border-b border-slate-100 pb-2.5 dark:border-white/4">
                 <strong class="block text-slate-800 dark:text-[#F3F4F6]">ETH Zurich</strong>
                 <span>MSc in Computer Science (Data Management &amp; Machine Intelligence)</span>
               </li>
@@ -121,7 +121,7 @@ const pillars = [
             <div
               v-for="pillar in pillars"
               :key="pillar.title"
-              class="rounded-xl border border-slate-200/80 bg-white/70 p-4 shadow-2xs backdrop-blur-sm transition-all hover:border-sky-400/40 dark:border-white/[0.08] dark:bg-[#111827]/70"
+              class="rounded-xl border border-slate-200/80 bg-white/70 p-4 shadow-2xs backdrop-blur-sm transition-all hover:border-sky-400/40 dark:border-white/8 dark:bg-[#111827]/70"
             >
               <component
                 :is="pillar.icon"
