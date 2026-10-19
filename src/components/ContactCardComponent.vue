@@ -11,13 +11,13 @@ defineProps({
 
 <template>
   <div
-    class="h-full min-w-0 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/50 hover:shadow-md dark:border-white/[0.08] dark:bg-[#111827]/80 dark:hover:border-sky-500/30"
+    class="min-w-0 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-xs backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/50 hover:shadow-md dark:border-white/[0.08] dark:bg-[#111827]/80 dark:hover:border-sky-500/30"
   >
     <a
       :href="method.link"
       target="_blank"
       rel="noopener noreferrer"
-      class="group flex h-full items-start gap-4 rounded-xl focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+      class="group flex items-start gap-4 rounded-xl focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
       :aria-label="`${method.title}: ${method.value}`"
     >
       <div

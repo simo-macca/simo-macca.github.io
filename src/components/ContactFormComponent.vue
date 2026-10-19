@@ -147,7 +147,7 @@ const submitForm = async () => {
   <form
     @submit.prevent="submitForm"
     novalidate
-    class="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-xs backdrop-blur-sm sm:p-8 dark:border-white/[0.08] dark:bg-[#111827]/80"
+    class="flex flex-col rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-xs backdrop-blur-sm sm:p-8 dark:border-white/[0.08] dark:bg-[#111827]/80"
     aria-label="Contact form"
   >
     <div>

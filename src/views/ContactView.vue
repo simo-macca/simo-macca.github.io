@@ -42,8 +42,11 @@ const { stop } = useIntersectionObserver(
       </p>
     </div>
 
-    <div ref="contactGridRef" class="grid w-full max-w-5xl gap-8 md:grid-cols-5">
-      <div class="flex flex-col justify-between gap-4 md:col-span-2">
+    <div
+      ref="contactGridRef"
+      class="grid w-full max-w-5xl grid-cols-1 items-start gap-8 lg:grid-cols-2"
+    >
+      <div class="flex flex-col justify-start gap-4">
         <div
           v-for="(method, index) in contactMethods"
           :key="method.title"
@@ -55,7 +58,7 @@ const { stop } = useIntersectionObserver(
         </div>
       </div>
       <div
-        class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none md:col-span-3"
+        class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none"
         :class="isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
         :style="{ transitionDelay: '150ms' }"
       >
