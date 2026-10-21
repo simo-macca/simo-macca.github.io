@@ -10,6 +10,7 @@
 
 :root {
   color-scheme: light dark;
+  interpolate-size: allow-keywords;
 }
 
 :root:has(> head > meta[name='color-scheme'][content='dark']) {
