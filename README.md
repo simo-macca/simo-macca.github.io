@@ -33,20 +33,20 @@ The application is engineered as a high-performance single-page application (SPA
 
 ### 2. University Projects
 
-- **Meme Search Engine** _(Duo Team & Back-end Lead)_
-  - Multi-modal information retrieval system featuring Scrapy spiders, Apache Solr indexing cluster, BM25 scoring, and sub-second faceted query retrieval in Vue.js.
-  - [Repository](https://github.com/simo-macca/meme-search-engine)
-- **TOC Movers SAT Solver** _(Front-end Lead & Group Team)_
-  - Polynomial-time reduction of multi-agent grid motion planning to Conjunctive Normal Form (CNF) with automated DIMACS generation and Minisat solving.
-  - [Repository](https://github.com/simo-macca/toc-movers-sat)
 - **Software Engineering World (SEWorld)** _(Full-Stack Lead & Group Team)_
-  - Microservices-backed educational management platform built with Spring Boot, PostgreSQL, role-based access control (RBAC), and Vue.js.
+  - Full-stack AI-augmented educational platform built with Spring Boot 3, PostgreSQL 17, OAuth2 (SWITCH Edu-ID Keycloak), local Ollama LLM integration, and Vue 3.
   - [Repository](https://github.com/simo-macca/SEWorld)
-- **Battleship Engine & Graphical AI** _(Duo team)_
-  - Object-oriented Java game engine utilizing the State Pattern for lifecycle control, Visitor Pattern for board traversal, and multi-tier heuristic AI opponents.
+- **Meme Search Engine** _(Back-End Lead & Duo Team)_
+  - End-to-end multimodal Information Retrieval platform featuring Playwright/Scrapy spiders, Apache Solr 9 Cloud, Carrot2 Lingo topic clustering, and Vue 3 via Nginx reverse proxy.
+  - [Repository](https://github.com/simo-macca/meme-search-engine)
+- **TOC Movers SAT Solver (OptiMove)** _(Front-End Lead & Group Team)_
+  - Polynomial-time reduction of multi-agent logistics planning to Propositional CNF across 13 constraint groups, solved via Glucose-3 with an interactive Vue 3 playback visualizer.
+  - [Repository](https://github.com/simo-macca/toc-movers-sat)
+- **Battleship Engine & Graphical AI** _(Software Engineer & Duo Team)_
+  - Modular Java 17 naval combat desktop application using JTamaro GUI, State/Strategy/Visitor design patterns, hunt-and-target AI, and PMD/JaCoCo quality verification.
   - [Repository](https://github.com/simo-macca/battleship)
-- **Snake in Functional Racket** _(Duo team)_
-  - Classic game engineered entirely in Racket without mutable state, modeled as recursive immutable world states over 2htdp/universe.
+- **Snake in Functional Racket** _(Software Engineer & Duo Team)_
+  - Pure functional arcade game built in Racket (ASL) via `2htdp/universe` immutable world states, dynamic speed curves, and 140 `check-expect` unit tests.
   - [Repository](https://github.com/simo-macca/snake-racket)
 
 ### 3. Bachelor's Thesis

@@ -1,14 +1,26 @@
 <script setup>
-import { ArrowUpRight, ExternalLink, FileText, Sparkles } from '@lucide/vue'
+import { computed, ref } from 'vue'
+import { ArrowUpRight, ChevronDown, ExternalLink, FileText, Sparkles } from '@lucide/vue'
 import GitHubIcon from '@/components/icons/GitHubIcon.vue'
 import ProjectBadge from './ProjectBadge.vue'
 
-defineProps({
+const props = defineProps({
   project: {
     type: Object,
     required: true,
   },
 })
+
+// Character threshold beyond which a description is considered too long
+const TEXT_THRESHOLD = 240
+
+const isChallengeExpanded = ref(false)
+const isArchitectureExpanded = ref(false)
+
+const isChallengeLong = computed(() => (props.project.challenge?.length || 0) > TEXT_THRESHOLD)
+const isArchitectureLong = computed(
+  () => (props.project.architecture?.length || 0) > TEXT_THRESHOLD,
+)
 </script>
 
 <template>
@@ -77,18 +89,52 @@ defineProps({
           <h4 class="text-xs font-bold tracking-wider text-slate-900 uppercase dark:text-[#F3F4F6]">
             Technical Challenge
           </h4>
-          <p class="mt-1 text-xs leading-relaxed sm:text-sm">
+          <p
+            class="mt-1 text-xs leading-relaxed sm:text-sm"
+            :class="{ 'line-clamp-3': isChallengeLong && !isChallengeExpanded }"
+          >
             {{ project.challenge }}
           </p>
+          <button
+            v-if="isChallengeLong"
+            type="button"
+            class="mt-1.5 inline-flex cursor-pointer items-center gap-1 rounded text-xs font-semibold text-sky-600 transition-colors hover:text-sky-700 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-sky-400 dark:hover:text-sky-300"
+            :aria-expanded="isChallengeExpanded"
+            @click="isChallengeExpanded = !isChallengeExpanded"
+          >
+            <span>{{ isChallengeExpanded ? 'Less' : 'More' }}</span>
+            <ChevronDown
+              class="h-3.5 w-3.5 transition-transform duration-200"
+              :class="{ 'rotate-180': isChallengeExpanded }"
+              aria-hidden="true"
+            />
+          </button>
         </div>
 
         <div>
           <h4 class="text-xs font-bold tracking-wider text-slate-900 uppercase dark:text-[#F3F4F6]">
             Architecture &amp; Key Decisions
           </h4>
-          <p class="mt-1 text-xs leading-relaxed sm:text-sm">
+          <p
+            class="mt-1 text-xs leading-relaxed sm:text-sm"
+            :class="{ 'line-clamp-3': isArchitectureLong && !isArchitectureExpanded }"
+          >
             {{ project.architecture }}
           </p>
+          <button
+            v-if="isArchitectureLong"
+            type="button"
+            class="mt-1.5 inline-flex cursor-pointer items-center gap-1 rounded text-xs font-semibold text-sky-600 transition-colors hover:text-sky-700 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-sky-400 dark:hover:text-sky-300"
+            :aria-expanded="isArchitectureExpanded"
+            @click="isArchitectureExpanded = !isArchitectureExpanded"
+          >
+            <span>{{ isArchitectureExpanded ? 'Less' : 'More' }}</span>
+            <ChevronDown
+              class="h-3.5 w-3.5 transition-transform duration-200"
+              :class="{ 'rotate-180': isArchitectureExpanded }"
+              aria-hidden="true"
+            />
+          </button>
         </div>
       </div>
 
