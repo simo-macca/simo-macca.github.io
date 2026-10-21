@@ -70,7 +70,7 @@ const techHighlights = [
         href="#projects"
         class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-sky-600 px-7 text-sm font-semibold tracking-wide text-white shadow-sm transition-all duration-200 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-500/20 active:scale-95 sm:w-auto dark:bg-sky-500 dark:hover:bg-sky-400"
       >
-        <span>Explore Case Studies</span>
+        <span>Explore Personal Projects</span>
         <ArrowRight class="h-4 w-4" aria-hidden="true" />
       </a>
       <a

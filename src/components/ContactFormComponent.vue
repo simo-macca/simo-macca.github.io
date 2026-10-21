@@ -155,8 +155,7 @@ const submitForm = async () => {
         Send Me a Message
       </h2>
       <p class="mb-6 text-sm text-slate-600 dark:text-[#9CA3AF]">
-        Have a technical inquiry, distributed systems discussion, or collaboration proposal? Let's
-        connect.
+        Have a distributed systems discussion, or collaboration proposal? Let's connect.
       </p>
 
       <FormAlert :message="errors.general" variant="error" />
@@ -168,7 +167,7 @@ const submitForm = async () => {
           v-model="form.name"
           :error="errors.name"
           @input="errors.name = ''"
-          placeholder="Ada Lovelace"
+          placeholder="John Doe"
           autocomplete="name"
         />
 
@@ -179,7 +178,7 @@ const submitForm = async () => {
           v-model="form.email"
           :error="errors.email"
           @input="errors.email = ''"
-          placeholder="ada@example.com"
+          placeholder="john.doe@example.com"
           autocomplete="email"
         />
 
@@ -203,6 +202,7 @@ const submitForm = async () => {
           :sitekey="HCAPTCHA_SITEKEY"
           class="h-captcha flex justify-center"
           :data-theme="captchaTheme"
+          language="en-US"
           @verify="onVerify"
           @expired="onExpire"
         />

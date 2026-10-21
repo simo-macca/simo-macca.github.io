@@ -35,7 +35,7 @@ const pillars = [
           About &amp; Engineering Philosophy
         </h2>
         <p class="mt-3 text-base text-slate-600 sm:text-lg dark:text-[#9CA3AF]">
-          Bridging mathematical rigor, database systems, and production-grade software engineering.
+          Bridging database systems, and production-grade software engineering.
         </p>
       </div>
 
@@ -87,9 +87,9 @@ const pillars = [
         <div class="flex flex-col gap-6 lg:col-span-8" v-motion-slide-right :delay="250">
           <div class="space-y-4 text-base leading-relaxed text-slate-600 dark:text-[#9CA3AF]">
             <p>
-              I am currently pursuing a
+              I am currently enrolled in
               <strong class="font-semibold text-slate-900 dark:text-[#F3F4F6]"
-                >Master of Science in Computer Science at ETH Zurich</strong
+                >Master of Computer Science at ETH Zurich</strong
               >, specializing in
               <strong class="font-semibold text-slate-900 dark:text-[#F3F4F6]"
                 >Data Management and Machine Intelligence</strong

@@ -29,50 +29,6 @@ export const projects = [
     },
   },
   {
-    id: 'meme-search-engine',
-    title: 'Meme Search Engine',
-    category: 'university',
-    role: 'Duo Team & Back-end Lead',
-    domain: 'Information Retrieval & NLP',
-    contextBadge: 'University Project',
-    isFlagship: false,
-    noSourceCode: false,
-    summary:
-      'Multi-modal search engine pipeline utilizing Solr cluster and Scrapy crawlers for rapid visual and textual meme discovery.',
-    challenge:
-      'Querying unstructured multimodal meme corpora requires extracting both image text and conceptual humor themes while handling noisy metadata, synonymy, typos, and high latency.',
-    architecture:
-      'Designed distributed web scraping spiders with Scrapy, configured an Apache Solr search cluster with custom token analysis, n-grams, and BM25 relevance tuning, and built a reactive Vue.js front-end achieving sub-second multi-field queries and faceted filtering.',
-    tags: ['Python', 'Apache Solr', 'Scrapy', 'Vue.js', 'REST APIs', 'Docker'],
-    links: {
-      github: 'https://github.com/simo-macca/meme-search-engine',
-      demo: null,
-      pdf: null,
-    },
-  },
-  {
-    id: 'toc-movers-sat',
-    title: 'TOC Movers SAT Solver',
-    category: 'university',
-    role: 'Front-end Lead & Group Team',
-    domain: 'Theory of Computation & SAT',
-    contextBadge: 'University Project',
-    isFlagship: false,
-    noSourceCode: false,
-    summary:
-      'Polynomial reduction of multi-agent grid movement problems to CNF with automated SAT solving and step visualizer.',
-    challenge:
-      'Multi-agent grid motion planning with obstacle relocation is an NP-complete combinatorial problem where naive graph search experiences combinatorial explosion over large state spaces.',
-    architecture:
-      'Formulated a formal polynomial-time reduction encoding grid topology, obstacle collision constraints, and temporal steps into Conjunctive Normal Form (CNF). Built automated DIMACS CNF generators and integrated SAT solvers (Minisat), complemented by a Vue.js step-by-step state visualizer.',
-    tags: ['Python', 'SAT Solvers (Minisat)', 'CNF Encoding', 'Vue.js', 'Algorithms'],
-    links: {
-      github: 'https://github.com/simo-macca/toc-movers-sat',
-      demo: null,
-      pdf: null,
-    },
-  },
-  {
     id: 'bachelor-thesis',
     title: 'PyTamaro-Web: Pedagogical Analytics & Static Code Analysis',
     category: 'thesis',
@@ -86,8 +42,8 @@ export const projects = [
     challenge:
       '"From Raw Data to Pedagogical Insights." University introductory programming environments accumulate vast volumes of student code attempts and runtime errors without structured diagnostic feedback for instructors.',
     architecture:
-      "Designed and engineered an automated static analysis pipeline that parses students' Python abstract syntax trees (ASTs), extracts common misconception patterns and structural errors, and visualizes aggregate learning progression in an interactive pedagogical dashboard with Tailwind CSS and Jinja2.",
-    tags: ['Python', 'Abstract Syntax Trees (AST)', 'Static Analysis', 'Jinja2', 'Tailwind CSS'],
+      'Designed and engineered an automated static analysis pipeline that queries a large database to retrieve and parse student code submissions, extracts common misconception patterns and structural errors, and visualizes aggregate learning progression in an interactive pedagogical dashboard with Tailwind CSS and Jinja2.',
+    tags: ['Python', 'Static Analysis', 'Jinja2', 'Tailwind CSS'],
     links: {
       github: null,
       demo: null,
@@ -95,10 +51,54 @@ export const projects = [
     },
   },
   {
+    id: 'meme-search-engine',
+    title: 'Meme Search Engine',
+    category: 'university',
+    role: 'Duo Team & Back-end Lead',
+    domain: 'Information Retrieval',
+    contextBadge: 'University Project',
+    isFlagship: false,
+    noSourceCode: false,
+    summary:
+      'Multi-modal search engine pipeline utilizing Solr cluster and Scrapy crawlers for rapid visual and textual meme discovery.',
+    challenge:
+      'Querying unstructured multimodal meme corpora requires extracting both image text and conceptual humor themes while handling noisy metadata, synonymy, typos, and high latency.',
+    architecture:
+      'Designed distributed web scraping spiders with Scrapy, configured an Apache Solr search cluster and built a reactive Vue.js front-end achieving sub-second multi-field queries and faceted filtering.',
+    tags: ['Python', 'Apache Solr', 'Scrapy', 'Vue.js', 'REST APIs', 'Docker'],
+    links: {
+      github: 'https://github.com/simo-macca/meme-search-engine',
+      demo: null,
+      pdf: null,
+    },
+  },
+  {
+    id: 'toc-movers-sat',
+    title: 'TOC Movers SAT Solver',
+    category: 'university',
+    role: 'Group Team & Front-end Lead',
+    domain: 'Theory of Computation & SAT',
+    contextBadge: 'University Project',
+    isFlagship: false,
+    noSourceCode: false,
+    summary:
+      'Polynomial reduction of Concurrent grid movement problems to CNF with automated SAT solving and step visualizer.',
+    challenge:
+      'Concurrent grid motion planning with obstacle relocation is an NP-complete combinatorial problem where naive graph search experiences combinatorial explosion over large state spaces.',
+    architecture:
+      'Formulated a formal polynomial-time reduction encoding grid topology, obstacle collision constraints, and temporal steps into Conjunctive Normal Form (CNF). Built automated DIMACS CNF generators and integrated SAT solvers (Minisat), complemented by a Vue.js step-by-step state visualizer.',
+    tags: ['Python', 'SAT Solvers (Minisat)', 'CNF Encoding', 'Vue.js', 'Algorithms'],
+    links: {
+      github: 'https://github.com/simo-macca/toc-movers-sat',
+      demo: null,
+      pdf: null,
+    },
+  },
+  {
     id: 'seworld',
     title: 'Software Engineering World (SEWorld)',
     category: 'university',
-    role: 'Full-Stack Lead & Group Team',
+    role: 'Group Team & Full-Stack Lead',
     domain: 'Educational Platform & Microservices',
     contextBadge: 'University Project',
     isFlagship: false,
