@@ -51,6 +51,28 @@ export const projects = [
     },
   },
   {
+    id: 'seworld',
+    title: 'Software Engineering World (SEWorld)',
+    category: 'university',
+    role: 'Group Team & Full-Stack Lead',
+    domain: 'Educational Platform & Microservices',
+    contextBadge: 'University Project',
+    isFlagship: false,
+    noSourceCode: false,
+    summary:
+      'Full-stack education and exercise platform with automated validation and role-based access control.',
+    challenge:
+      'Managing student exercises, grading workflows, and real-time statistics requires robust role-based security, modular backend architecture, and seamless collaborative workflows.',
+    architecture:
+      'Built a layered Spring Boot application adhering to Domain-Driven Design (DDD) with JWT security, PostgreSQL persistence, and comprehensive unit/integration test suites. Coupled with a responsive Vue.js UI and automated Docker/GitLab CI pipelines under agile Scrum practices.',
+    tags: ['Java', 'Spring Boot', 'Vue.js', 'PostgreSQL', 'Docker', 'REST API'],
+    links: {
+      github: 'https://github.com/simo-macca/SEWorld',
+      demo: null,
+      pdf: null,
+    },
+  },
+  {
     id: 'meme-search-engine',
     title: 'Meme Search Engine',
     category: 'university',
@@ -90,28 +112,6 @@ export const projects = [
     tags: ['Python', 'SAT Solvers (Minisat)', 'CNF Encoding', 'Vue.js', 'Algorithms'],
     links: {
       github: 'https://github.com/simo-macca/toc-movers-sat',
-      demo: null,
-      pdf: null,
-    },
-  },
-  {
-    id: 'seworld',
-    title: 'Software Engineering World (SEWorld)',
-    category: 'university',
-    role: 'Group Team & Full-Stack Lead',
-    domain: 'Educational Platform & Microservices',
-    contextBadge: 'University Project',
-    isFlagship: false,
-    noSourceCode: false,
-    summary:
-      'Full-stack education and exercise platform with automated validation and role-based access control.',
-    challenge:
-      'Managing student exercises, grading workflows, and real-time statistics requires robust role-based security, modular backend architecture, and seamless collaborative workflows.',
-    architecture:
-      'Built a layered Spring Boot application adhering to Domain-Driven Design (DDD) with JWT security, PostgreSQL persistence, and comprehensive unit/integration test suites. Coupled with a responsive Vue.js UI and automated Docker/GitLab CI pipelines under agile Scrum practices.',
-    tags: ['Java', 'Spring Boot', 'Vue.js', 'PostgreSQL', 'Docker', 'REST API'],
-    links: {
-      github: 'https://github.com/simo-macca/SEWorld',
       demo: null,
       pdf: null,
     },

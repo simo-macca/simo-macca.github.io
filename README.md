@@ -147,7 +147,7 @@ npm run format:check
 npm run format
 ```
 
-A Git pre-commit hook configured via Husky automatically runs `npm run format` before every commit, blocking any commits that fail linting or formatting checks.
+A Git pre-commit hook configured via Husky and Lint-Staged automatically lints and formats staged files before every commit, auto-staging formatted changes and blocking any commits that fail checks.
 
 ### Production Build
 
