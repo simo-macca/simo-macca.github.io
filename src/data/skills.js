@@ -22,8 +22,7 @@ export const skillCategories = [
     id: 'intelligence',
     topic: 'Machine Intelligence & Applied Math',
     categoryIcon: Cpu,
-    description:
-      'Information retrieval, SAT solver formal reductions, and algorithmic modeling.',
+    description: 'Information retrieval, SAT solver formal reductions, and algorithmic modeling.',
     skills: [
       'Multi-Modal IR',
       'SAT Solvers',
