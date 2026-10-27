@@ -36,7 +36,8 @@ const handleKeyToggle = () => {
 
 <template>
   <article
-    class="group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-xl md:cursor-default md:hover:-translate-y-1"
+    :id="`project-${project.id}`"
+    class="group relative flex h-full cursor-pointer scroll-mt-20 flex-col justify-between overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-xl sm:scroll-mt-24 md:cursor-default md:hover:-translate-y-1"
     :class="[
       project.isFlagship
         ? 'border-sky-500/40 bg-white/95 shadow-md shadow-sky-500/5 dark:border-sky-400/30 dark:bg-[#111827]/90 dark:shadow-sky-950/20'
@@ -108,7 +109,7 @@ const handleKeyToggle = () => {
         class="grid transition-all duration-300 ease-in-out"
         :class="isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
       >
-        <div class="overflow-hidden">
+        <div data-project-collapsible class="overflow-hidden">
           <div
             class="space-y-3.5 border-t border-slate-100 pt-3.5 pb-1 text-sm leading-relaxed text-slate-600 dark:border-white/6 dark:text-[#9CA3AF]"
           >
