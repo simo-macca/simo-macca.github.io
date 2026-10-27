@@ -47,7 +47,7 @@ The application is engineered as a zero-runtime-overhead Single Page Application
 1. **Dedicated Branches:** Do not perform direct work or commits on `main`. Always create and switch to a targeted local branch (e.g. `feat/...` or `fix/...`).
 2. **Pre-Commit Staging:** A pre-commit hook runs `lint-staged` (`oxlint --fix`, `eslint --fix`, and `prettier --write`).
 3. **Unstaged Working Tree Rules:** If the user specifies that changes must remain unstaged or asks for a `git diff` review, **STRICTLY FORBIDDEN** from running `git add`, `git commit`, or `git push` until explicit user confirmation is given.
-4. **Rebase & Cleanup:** When changes are approved and rebased into `main`, clean up feature branches locally and remotely.
+4. **Integration & Cleanup:** When changes are approved, rebase the feature branch onto `main`, integrate via `git merge --ff-only`, and delete the feature branch both locally and remotely.
 
 ---
 
