@@ -2,6 +2,9 @@
 import { ref, watch } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 import ProjectCard from './ProjectCard.vue'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
+
+const languageStore = useLanguageStore()
 
 const props = defineProps({
   projects: {
@@ -148,6 +151,8 @@ watch(isDesktop, (desktop) => {
     v-else
     class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 p-12 text-center dark:border-slate-800"
   >
-    <p class="text-sm text-slate-500 dark:text-slate-400">No projects found in this category.</p>
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+      {{ languageStore.t.projects.emptyState }}
+    </p>
   </div>
 </template>

@@ -1,6 +1,10 @@
 <script setup>
-import { ref } from 'vue'
-import { SendHorizontal, Check, X, Loader2 } from '@lucide/vue'
+import { computed, ref } from 'vue'
+import { Check, Loader2, SendHorizontal, X } from '@lucide/vue'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
+
+const languageStore = useLanguageStore()
+const t = computed(() => languageStore.t.contact.button)
 
 const state = ref('idle') // idle | loading | success | error
 
@@ -38,7 +42,7 @@ defineExpose({ submit })
   >
     <!-- IDLE -->
     <span v-if="state === 'idle'" class="inline-flex items-center gap-2">
-      Send Message
+      {{ t.idle }}
       <SendHorizontal class="h-4 w-4" aria-hidden="true" />
     </span>
 
@@ -50,7 +54,7 @@ defineExpose({ submit })
       aria-live="polite"
     >
       <Loader2 class="h-4 w-4 animate-spin" aria-hidden="true" />
-      <span>Sending...</span>
+      <span>{{ t.loading }}</span>
     </span>
 
     <!-- SUCCESS -->
@@ -61,7 +65,7 @@ defineExpose({ submit })
       aria-live="polite"
     >
       <Check class="h-4 w-4" :stroke-width="3" aria-hidden="true" />
-      <span>Message Sent!</span>
+      <span>{{ t.success }}</span>
     </span>
 
     <!-- ERROR -->
@@ -72,7 +76,7 @@ defineExpose({ submit })
       aria-live="polite"
     >
       <X class="h-4 w-4" :stroke-width="3" aria-hidden="true" />
-      <span>Failed, Please Try Again</span>
+      <span>{{ t.error }}</span>
     </span>
   </button>
 </template>

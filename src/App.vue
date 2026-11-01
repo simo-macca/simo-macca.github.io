@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useThemeStore } from '@/stores/ThemeStore.js'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
 import AboutView from '@/views/AboutView.vue'
 import SkillsView from '@/views/SkillsView.vue'
 import ProjectsView from '@/views/ProjectsView.vue'
@@ -10,9 +11,11 @@ import NavbarComponent from '@/components/NavbarComponent.vue'
 import HomeView from '@/views/HomeView.vue'
 
 const themeStore = useThemeStore()
+const languageStore = useLanguageStore()
 
 onMounted(() => {
   themeStore.initTheme()
+  languageStore.initLanguage()
 })
 </script>
 

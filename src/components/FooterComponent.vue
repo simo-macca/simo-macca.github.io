@@ -2,7 +2,9 @@
 import { Copyright } from '@lucide/vue'
 import LinkedinComponent from '@/components/LinkedinComponent.vue'
 import GitHubComponent from '@/components/GitHubComponent.vue'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
 
+const languageStore = useLanguageStore()
 const currentYear = new Date().getFullYear()
 </script>
 
@@ -17,7 +19,7 @@ const currentYear = new Date().getFullYear()
         :delay="100"
       >
         <Copyright class="h-4 w-4" aria-hidden="true" />
-        <span>{{ currentYear }} Simone Maccario. Built with Vue 3 & Tailwind CSS.</span>
+        <span>{{ currentYear }} Simone Maccario. {{ languageStore.t.footer.builtWith }}</span>
       </p>
       <div class="flex items-center gap-4">
         <GitHubComponent v-motion-slide-up :delay="200" />

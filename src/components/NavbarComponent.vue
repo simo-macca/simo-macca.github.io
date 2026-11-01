@@ -1,11 +1,15 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import DarkModeComponent from '@/components/DarkModeComponent.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import IconLogoPortfolio from '@/components/icons/IconLogoPortfolio.vue'
 import MobileNavDrawer from '@/components/layout/MobileNavDrawer.vue'
-import { navLinks } from '@/data/socials.js'
+import { getNavLinks } from '@/data/socials.js'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
 import { FileDown, Menu, X } from '@lucide/vue'
 
+const languageStore = useLanguageStore()
+const navLinks = computed(() => getNavLinks(languageStore.currentLanguage))
 const isMobileMenuOpen = ref(false)
 
 const toggleMobileMenu = () => {
@@ -52,21 +56,23 @@ const closeMobileMenu = () => {
         </a>
       </div>
 
-      <!-- Action Items: Download CV, Dark Mode & Mobile Menu Button -->
+      <!-- Action Items: Download CV, Language Switcher, Dark Mode & Mobile Menu Button -->
       <div class="flex items-center gap-2">
         <a
-          href="/docs/CV_en.pdf"
+          :href="languageStore.cvLink"
           target="_blank"
           rel="noopener noreferrer"
-          download="Simone_Maccario_CV.pdf"
+          :download="languageStore.cvFileName"
           class="hidden items-center gap-1.5 rounded-lg border border-slate-200/80 bg-white/80 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs backdrop-blur-sm transition-colors hover:border-sky-400/50 hover:bg-slate-50 hover:text-sky-600 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:inline-flex dark:border-white/8 dark:bg-[#111827]/80 dark:text-[#9CA3AF] dark:hover:border-white/16 dark:hover:bg-[#1F2937] dark:hover:text-[#F3F4F6]"
-          aria-label="Download Simone Maccario Curriculum Vitae (PDF)"
+          :aria-label="languageStore.t.hero.cvAriaLabel"
           v-motion-slide-down
           :delay="350"
         >
           <FileDown class="h-3.5 w-3.5 text-sky-500 dark:text-sky-400" aria-hidden="true" />
           <span>CV</span>
         </a>
+
+        <LanguageSwitcher class="hidden sm:inline-flex" v-motion-slide-down :delay="380" />
 
         <DarkModeComponent v-motion-slide-down :delay="400" />
 

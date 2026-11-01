@@ -5,6 +5,7 @@ import FormField from '@/components/contact/FormField.vue'
 import FormAlert from '@/components/contact/FormAlert.vue'
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
 import { useThemeStore } from '@/stores/ThemeStore.js'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
 
 const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 const HCAPTCHA_SITEKEY = import.meta.env.VITE_HCAPTCHA_SITEKEY
@@ -27,6 +28,8 @@ const hCaptchaToken = ref(null)
 const hCaptchaComponent = ref(null)
 const btn = ref(null)
 const theme = useThemeStore()
+const languageStore = useLanguageStore()
+const t = computed(() => languageStore.t.contact)
 
 const captchaTheme = computed(() => (theme.isDark ? 'dark' : 'light'))
 
@@ -43,31 +46,31 @@ const validate = () => {
   errors.general = ''
 
   if (!form.name.trim()) {
-    errors.name = 'Please enter your name.'
+    errors.name = t.value.validation.nameRequired
     isValid = false
   } else if (form.name.trim().length < 2) {
-    errors.name = 'Name must be at least 2 characters.'
+    errors.name = t.value.validation.nameMin
     isValid = false
   }
 
   if (!form.email.trim()) {
-    errors.email = 'Please enter your email address.'
+    errors.email = t.value.validation.emailRequired
     isValid = false
   } else if (!validateEmail(form.email.trim())) {
-    errors.email = 'Please enter a valid email address.'
+    errors.email = t.value.validation.emailInvalid
     isValid = false
   }
 
   if (!form.message.trim()) {
-    errors.message = 'Please enter a message.'
+    errors.message = t.value.validation.messageRequired
     isValid = false
   } else if (form.message.trim().length < 10) {
-    errors.message = 'Message must be at least 10 characters long.'
+    errors.message = t.value.validation.messageMin
     isValid = false
   }
 
   if (HCAPTCHA_SITEKEY && !hCaptchaToken.value) {
-    errors.captcha = 'Please complete the captcha verification.'
+    errors.captcha = t.value.validation.captchaRequired
     isValid = false
   }
 
@@ -128,7 +131,7 @@ const submitForm = async () => {
     const result = await resp.json()
 
     if (!result.success) {
-      errors.general = result.message || 'Submission failed. Please try again.'
+      errors.general = result.message || t.value.validation.submitFailed
       throw new Error(errors.general)
     }
 
@@ -152,10 +155,10 @@ const submitForm = async () => {
   >
     <div>
       <h2 class="mb-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-[#F3F4F6]">
-        Send Me a Message
+        {{ t.formTitle }}
       </h2>
       <p class="mb-6 text-sm text-slate-600 dark:text-[#9CA3AF]">
-        Have a distributed systems discussion, or collaboration proposal? Let's connect.
+        {{ t.formSubtitle }}
       </p>
 
       <FormAlert :message="errors.general" variant="error" />
@@ -163,34 +166,34 @@ const submitForm = async () => {
       <div class="space-y-4">
         <FormField
           id="contact-name"
-          label="Your Name"
+          :label="t.nameLabel"
           v-model="form.name"
           :error="errors.name"
           @input="errors.name = ''"
-          placeholder="John Doe"
+          :placeholder="t.namePlaceholder"
           autocomplete="name"
         />
 
         <FormField
           id="contact-email"
-          label="Email Address"
+          :label="t.emailLabel"
           type="email"
           v-model="form.email"
           :error="errors.email"
           @input="errors.email = ''"
-          placeholder="john.doe@example.com"
+          :placeholder="t.emailPlaceholder"
           autocomplete="email"
         />
 
         <FormField
           id="contact-message"
-          label="Your Message"
+          :label="t.messageLabel"
           type="textarea"
           v-model="form.message"
           :error="errors.message"
           @input="errors.message = ''"
           rows="4"
-          placeholder="Tell me about your technical project, research problem, or collaboration..."
+          :placeholder="t.messagePlaceholder"
         />
       </div>
 
@@ -198,11 +201,11 @@ const submitForm = async () => {
       <div v-if="HCAPTCHA_SITEKEY" class="mt-4 flex flex-col items-center">
         <VueHcaptcha
           ref="hCaptchaComponent"
-          :key="captchaTheme"
+          :key="`${captchaTheme}-${languageStore.currentLanguage}`"
           :sitekey="HCAPTCHA_SITEKEY"
           class="h-captcha flex justify-center"
           :data-theme="captchaTheme"
-          language="en-US"
+          :language="languageStore.isItalian ? 'it' : 'en-US'"
           @verify="onVerify"
           @expired="onExpire"
         />
@@ -216,7 +219,7 @@ const submitForm = async () => {
 
     <div class="mt-6 border-t border-slate-200/80 pt-4 dark:border-white/8">
       <p class="text-center text-xs text-slate-500 dark:text-[#9CA3AF]">
-        Direct response typically within 24-48 hours.
+        {{ t.footerNote }}
       </p>
     </div>
   </form>

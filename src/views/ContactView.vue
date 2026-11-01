@@ -1,9 +1,14 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import ContactCardComponent from '@/components/ContactCardComponent.vue'
 import ContactFormComponent from '@/components/ContactFormComponent.vue'
-import { contactMethods } from '@/data/socials.js'
+import { getContactMethods } from '@/data/socials.js'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
+
+const languageStore = useLanguageStore()
+const t = computed(() => languageStore.t.contact)
+const localizedContactMethods = computed(() => getContactMethods(languageStore.currentLanguage))
 
 const contactGridRef = ref(null)
 const isVisible = ref(false)
@@ -32,13 +37,13 @@ const { stop } = useIntersectionObserver(
       <h2
         class="mb-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white"
       >
-        Let's Work <span class="text-sky-500 dark:text-sky-400">Together</span>
+        {{ t.sectionTitlePrefix }}
+        <span class="text-sky-500 dark:text-sky-400">{{ t.sectionTitleHighlight }}</span>
       </h2>
       <p
         class="mx-auto max-w-2xl px-4 text-center text-lg text-slate-600 sm:text-xl dark:text-slate-300"
       >
-        I'm always interested in technical discussions, collaborative research, and engineering
-        opportunities. Feel free to reach out!
+        {{ t.sectionSubtitle }}
       </p>
     </div>
 
@@ -48,7 +53,7 @@ const { stop } = useIntersectionObserver(
     >
       <div class="flex flex-col justify-start gap-4">
         <div
-          v-for="(method, index) in contactMethods"
+          v-for="(method, index) in localizedContactMethods"
           :key="method.title"
           class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none"
           :class="isVisible ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'"

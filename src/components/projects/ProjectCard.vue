@@ -1,7 +1,12 @@
 <script setup>
+import { computed } from 'vue'
 import { ArrowUpRight, ChevronDown, ExternalLink, FileText, Sparkles } from '@lucide/vue'
 import GitHubIcon from '@/components/icons/GitHubIcon.vue'
 import ProjectBadge from './ProjectBadge.vue'
+import { useLanguageStore } from '@/stores/LanguageStore.js'
+
+const languageStore = useLanguageStore()
+const t = computed(() => languageStore.t.projects)
 
 defineProps({
   project: {
@@ -71,7 +76,7 @@ const handleKeyToggle = () => {
           class="inline-flex items-center gap-1 rounded-md border border-sky-400/40 bg-sky-50 px-2 py-0.5 text-xs font-semibold text-sky-700 dark:border-sky-500/30 dark:bg-sky-950/40 dark:text-sky-300"
         >
           <Sparkles class="h-3 w-3" aria-hidden="true" />
-          Flagship Project
+          {{ t.flagshipBadge }}
         </span>
 
         <!-- Context Badge -->
@@ -83,7 +88,7 @@ const handleKeyToggle = () => {
         </span>
 
         <!-- Neutral No Source Code Pill -->
-        <ProjectBadge v-if="project.noSourceCode" text="No Source Code" variant="neutral" />
+        <ProjectBadge v-if="project.noSourceCode" :text="t.noSourceCode" variant="neutral" />
       </div>
 
       <!-- Project Title & Role -->
@@ -94,7 +99,7 @@ const handleKeyToggle = () => {
           {{ project.title }}
         </h3>
         <p class="mt-1 text-xs font-medium tracking-wide text-sky-700 dark:text-sky-400">
-          Role:
+          {{ t.roleLabel }}
           <span class="font-semibold text-slate-700 dark:text-[#9CA3AF]">{{ project.role }}</span>
         </p>
       </div>
@@ -118,7 +123,7 @@ const handleKeyToggle = () => {
               <h4
                 class="text-xs font-bold tracking-wider text-slate-900 uppercase dark:text-[#F3F4F6]"
               >
-                Technical Challenge
+                {{ t.challengeTitle }}
               </h4>
               <p class="mt-1 text-xs leading-relaxed sm:text-sm">
                 {{ project.challenge }}
@@ -130,7 +135,7 @@ const handleKeyToggle = () => {
               <h4
                 class="text-xs font-bold tracking-wider text-slate-900 uppercase dark:text-[#F3F4F6]"
               >
-                Architecture &amp; Key Decisions
+                {{ t.architectureTitle }}
               </h4>
               <p class="mt-1 text-xs leading-relaxed sm:text-sm">
                 {{ project.architecture }}
@@ -147,15 +152,13 @@ const handleKeyToggle = () => {
           class="inline-flex cursor-pointer items-center gap-1.5 rounded-lg py-1 text-xs font-semibold text-sky-600 transition-colors hover:text-sky-700 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-sky-400 dark:hover:text-sky-300"
           :aria-expanded="isExpanded"
           :aria-label="
-            isExpanded
-              ? `Show less details for ${project.title}`
-              : `Read more details for ${project.title}`
+            isExpanded ? `${t.showLessAria} ${project.title}` : `${t.readMoreAria} ${project.title}`
           "
           @click.stop="$emit('toggle')"
           @keydown.enter.prevent="handleKeyToggle"
           @keydown.space.prevent="handleKeyToggle"
         >
-          <span>{{ isExpanded ? 'Show less' : 'Read more details' }}</span>
+          <span>{{ isExpanded ? t.showLess : t.readMore }}</span>
           <ChevronDown
             class="h-3.5 w-3.5 transition-transform duration-300 ease-in-out"
             :class="{ 'rotate-180': isExpanded }"
@@ -184,11 +187,11 @@ const handleKeyToggle = () => {
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 transition-colors hover:text-sky-600 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none dark:text-[#9CA3AF] dark:hover:text-[#F3F4F6]"
-          :aria-label="`View source code for ${project.title} on GitHub`"
+          :aria-label="`${t.sourceCodeAria} ${project.title} ${t.onGithub}`"
           @click.stop
         >
           <GitHubIcon class="h-4 w-4" />
-          <span>Source Code</span>
+          <span>{{ t.sourceCode }}</span>
           <ArrowUpRight class="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
         </a>
 
@@ -197,7 +200,7 @@ const handleKeyToggle = () => {
           v-else-if="project.noSourceCode"
           class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/70 px-2.5 py-1 text-xs font-medium text-slate-500 dark:border-white/8 dark:bg-white/4 dark:text-slate-400"
         >
-          No Source Code
+          {{ t.noSourceCode }}
         </span>
       </div>
 
@@ -209,11 +212,11 @@ const handleKeyToggle = () => {
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
-          :aria-label="`Read Thesis PDF for ${project.title}`"
+          :aria-label="`${t.readThesisAria} ${project.title}`"
           @click.stop
         >
           <FileText class="h-3.5 w-3.5" aria-hidden="true" />
-          <span>Read Thesis (PDF)</span>
+          <span>{{ t.readThesis }}</span>
         </a>
 
         <a
@@ -222,10 +225,10 @@ const handleKeyToggle = () => {
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-2xs transition-all hover:bg-sky-500 hover:shadow-xs focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400"
-          :aria-label="`Open live deployment for ${project.title}`"
+          :aria-label="`${t.liveDemoAria} ${project.title}`"
           @click.stop
         >
-          <span>Live Demo</span>
+          <span>{{ t.liveDemo }}</span>
           <ExternalLink class="h-3.5 w-3.5" aria-hidden="true" />
         </a>
       </div>
