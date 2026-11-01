@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowDown, ArrowRight, GraduationCap, Sparkles } from '@lucide/vue'
+import { ArrowDown, ArrowRight, FileDown, GraduationCap, Sparkles } from '@lucide/vue'
 
 const techHighlights = [
   'Data Management Systems',
@@ -62,20 +62,31 @@ const techHighlights = [
 
     <!-- Action Buttons -->
     <div
-      class="mt-10 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+      class="mt-10 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
       v-motion-slide-up
       :delay="400"
     >
       <a
         href="#projects"
-        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-sky-600 px-7 text-sm font-semibold tracking-wide text-white shadow-sm transition-all duration-200 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-500/20 active:scale-95 sm:w-auto dark:bg-sky-500 dark:hover:bg-sky-400"
+        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-sky-600 px-6 text-sm font-semibold tracking-wide text-white shadow-sm transition-all duration-200 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-500/20 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 sm:w-auto dark:bg-sky-500 dark:hover:bg-sky-400"
       >
         <span>Explore Personal Projects</span>
         <ArrowRight class="h-4 w-4" aria-hidden="true" />
       </a>
       <a
+        href="/docs/CV_en.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        download="Simone_Maccario_CV.pdf"
+        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-sky-500/30 bg-sky-50/70 px-6 text-sm font-semibold tracking-wide text-sky-700 shadow-2xs backdrop-blur-sm transition-all duration-200 hover:border-sky-400/50 hover:bg-sky-100/80 hover:text-sky-800 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 sm:w-auto dark:border-sky-400/20 dark:bg-sky-950/40 dark:text-sky-300 dark:hover:bg-sky-900/50 dark:hover:text-sky-200"
+        aria-label="Download Simone Maccario Curriculum Vitae in English (PDF)"
+      >
+        <FileDown class="h-4 w-4 text-sky-600 dark:text-sky-400" aria-hidden="true" />
+        <span>Download CV</span>
+      </a>
+      <a
         href="#about"
-        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 px-7 text-sm font-semibold tracking-wide text-slate-800 shadow-2xs transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 active:scale-95 sm:w-auto dark:border-white/8 dark:bg-[#111827]/80 dark:text-[#F3F4F6] dark:hover:border-white/16 dark:hover:bg-[#1F2937]"
+        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 px-6 text-sm font-semibold tracking-wide text-slate-800 shadow-2xs transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 sm:w-auto dark:border-white/8 dark:bg-[#111827]/80 dark:text-[#F3F4F6] dark:hover:border-white/16 dark:hover:bg-[#1F2937]"
       >
         <span>Technical Background</span>
         <ArrowDown class="h-4 w-4" aria-hidden="true" />

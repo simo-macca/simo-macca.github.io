@@ -1,4 +1,6 @@
 <script setup>
+import { FileDown } from '@lucide/vue'
+
 defineProps({
   isOpen: {
     type: Boolean,
@@ -37,6 +39,20 @@ defineEmits(['close'])
         >
           {{ link.label }}
         </a>
+
+        <div class="mt-1 border-t border-slate-100 pt-2 dark:border-white/6">
+          <a
+            href="/docs/CV_en.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            download="Simone_Maccario_CV.pdf"
+            class="flex items-center gap-2 rounded-lg px-4 py-2.5 text-base font-semibold text-sky-600 transition-colors hover:bg-slate-100 hover:text-sky-700 dark:text-sky-400 dark:hover:bg-white/6 dark:hover:text-sky-300"
+            @click="$emit('close')"
+          >
+            <FileDown class="h-4 w-4" aria-hidden="true" />
+            <span>Download CV (PDF)</span>
+          </a>
+        </div>
       </div>
     </div>
   </transition>

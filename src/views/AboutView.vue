@@ -1,6 +1,6 @@
 <script setup>
 import profileImg from '@/components/icons/my_profile.jpeg'
-import { BookOpen, Cpu, Database, Network } from '@lucide/vue'
+import { BookOpen, Cpu, Database, FileDown, Network } from '@lucide/vue'
 
 const pillars = [
   {
@@ -81,6 +81,19 @@ const pillars = [
               </li>
             </ul>
           </div>
+
+          <!-- Download CV Action Button -->
+          <a
+            href="/docs/CV_en.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            download="Simone_Maccario_CV.pdf"
+            class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 px-4 py-3 text-xs font-semibold text-slate-800 shadow-2xs backdrop-blur-sm transition-all duration-200 hover:border-sky-400/50 hover:bg-slate-50 hover:text-sky-600 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none active:scale-95 sm:text-sm dark:border-white/8 dark:bg-[#111827]/80 dark:text-[#F3F4F6] dark:hover:border-sky-500/30 dark:hover:bg-[#1F2937] dark:hover:text-sky-400"
+            aria-label="Download Simone Maccario Curriculum Vitae in English (PDF)"
+          >
+            <FileDown class="h-4 w-4 text-sky-600 dark:text-sky-400" aria-hidden="true" />
+            <span>Download Curriculum Vitae (PDF)</span>
+          </a>
         </div>
 
         <!-- Right Column: Narrative & Technical Pillars -->
