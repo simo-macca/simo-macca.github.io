@@ -1,0 +1,197 @@
+/**
+ * Italian UI strings. Keep the shape identical to `en.js`.
+ */
+export default {
+  meta: {
+    title: 'Simone Maccario | Sistemi Dati & Ingegneria del Software',
+    description:
+      'Portfolio di Simone Maccario, studente del Master in Computer Science all’ETH di Zurigo (Data Management & Machine Intelligence): pipeline di dati, analisi statica, sistemi di ricerca e applicazioni full-stack.',
+  },
+  a11y: {
+    skipToContent: 'Vai al contenuto principale',
+    mainNav: 'Navigazione principale',
+    homeLink: 'Simone Maccario, torna all’inizio',
+    openMenu: 'Apri il menu di navigazione',
+    closeMenu: 'Chiudi il menu di navigazione',
+    themeToDark: 'Passa al tema scuro',
+    themeToLight: 'Passa al tema chiaro',
+    backToTop: 'Torna all’inizio',
+    githubProfile: 'Simone Maccario su GitHub',
+    linkedinProfile: 'Simone Maccario su LinkedIn',
+    opensInNewTab: '(si apre in una nuova scheda)',
+  },
+  nav: {
+    about: 'Chi Sono',
+    skills: 'Competenze',
+    projects: 'Progetti',
+    contact: 'Contatti',
+    cv: 'CV',
+    cvLong: 'Scarica CV (PDF)',
+    language: 'Lingua',
+  },
+  languageSwitcher: {
+    label: 'Selezione della lingua',
+    enLabel: 'Switch to English',
+    itLabel: 'Passa all’italiano',
+  },
+  hero: {
+    sectionLabel: 'Introduzione',
+    availability: 'Disponibile per stage e lavoro part-time',
+    academicBadgeOrg: 'ETH Zurigo',
+    academicBadgeDegree: 'MSc in Computer Science',
+    academicBadgeTrack: 'Data Management & Machine Intelligence',
+    titlePrefix: 'Progetto Sistemi Dati',
+    titleGradient: '& Software Affidabili',
+    pitch: [
+      'Ciao, sono ',
+      { strong: 'Simone Maccario' },
+      '. Sviluppo pipeline di dati, strumenti di analisi e applicazioni full-stack: dall’analisi statica di oltre 100.000 esecuzioni di codice di studenti alle web app offline-first usate al tavolo da gioco.',
+    ],
+    chips: ['Data Engineering', 'Analisi Statica', 'Information Retrieval', 'Sviluppo Full-Stack'],
+    exploreProjects: 'Esplora i Progetti',
+    getInTouch: 'Contattami',
+    scrollHint: 'Scorri alla sezione Chi Sono',
+  },
+  about: {
+    sectionLabel: 'Chi sono',
+    eyebrow: 'Chi sono',
+    sectionTitle: 'Percorso & Approccio',
+    sectionSubtitle: 'Dove i sistemi di dati incontrano un software progettato con cura.',
+    profileAlt: 'Ritratto di Simone Maccario',
+    journeyTitle: 'Percorso',
+    educationLabel: 'Formazione',
+    experienceLabel: 'Esperienza',
+    downloadCv: 'Scarica il Curriculum Vitae (PDF)',
+    cvAriaLabel: 'Scarica il Curriculum Vitae di Simone Maccario in italiano (PDF)',
+    narrative: [
+      [
+        'Sono uno ',
+        { strong: 'studente del Master in Computer Science all’ETH di Zurigo' },
+        ', con specializzazione in ',
+        { strong: 'Data Management e Machine Intelligence' },
+        '. Mi interessa come i dati vengono memorizzati, elaborati e trasformati in decisioni, e il software che rende tutto questo affidabile.',
+      ],
+      [
+        'Mi sono laureato magna cum laude in Informatica all’USI di Lugano. Per la tesi triennale ho sviluppato una pipeline di analisi che ricostruisce le sessioni degli utenti dalla telemetria PostgreSQL ed esegue l’analisi statica su oltre 100.000 esecuzioni di codice. Come ',
+        { strong: 'Data Engineering Intern presso Brightside Capital' },
+        ' ho automatizzato l’importazione e la validazione di dati bancari da AWS.',
+      ],
+      [
+        'Mi piace anche realizzare prodotti curati: dalle interfacce sviluppate con ',
+        { strong: 'React, Vue 3 e Tailwind CSS' },
+        ' ai back end con ',
+        { strong: 'Spring Boot, FastAPI e Docker' },
+        ', punto a un software modulare, testato e facile da mantenere.',
+      ],
+    ],
+    pillars: [
+      {
+        title: 'Pipeline di Dati & Analisi',
+        description:
+          'Pipeline Python su dati relazionali, elaborazione a batch con caching e analisi statica del codice su larga scala.',
+      },
+      {
+        title: 'Ricerca & Ragionamento Formale',
+        description:
+          'Information retrieval con Solr e clustering Carrot2, e problemi di pianificazione codificati in SAT.',
+      },
+      {
+        title: 'Prodotti Full-Stack',
+        description:
+          'Web app responsive (React, Vue 3), back end REST (Spring Boot, FastAPI), test automatici e CI/CD.',
+      },
+    ],
+  },
+  skills: {
+    sectionLabel: 'Competenze',
+    eyebrow: 'Strumenti',
+    sectionTitle: 'Competenze Tecniche',
+    sectionSubtitle:
+      'I linguaggi, i framework e gli strumenti che uso per dati, back end e front end.',
+  },
+  projects: {
+    sectionLabel: 'Progetti',
+    eyebrow: 'Lavori selezionati',
+    sectionTitle: 'Progetti & Ricerca',
+    sectionSubtitle:
+      'Progetti personali e universitari, dai pianificatori basati su SAT ai motori di ricerca, fino alla mia tesi triennale.',
+    filterLabel: 'Filtra i progetti per categoria',
+    categories: {
+      all: 'Tutti',
+      personal: 'Personali',
+      university: 'Universitari',
+      thesis: 'Tesi',
+    },
+    flagshipBadge: 'In evidenza',
+    contextBadges: {
+      personal: 'Progetto Personale',
+      university: 'Progetto Universitario',
+      thesis: 'Tesi Triennale',
+    },
+    privateCode: 'Codice sorgente privato',
+    privateCodeHint: 'Il codice sorgente fa parte di un progetto istituzionale e non è pubblico.',
+    openDetails: 'Dettagli',
+    openDetailsAria: 'Apri i dettagli di',
+    closeDialog: 'Chiudi i dettagli',
+    challengeTitle: 'La sfida',
+    approachTitle: 'Approccio & architettura',
+    highlightsTitle: 'Risultati chiave',
+    stackTitle: 'Tecnologie',
+    moreTags: 'altre',
+    sourceCode: 'Codice sorgente',
+    sourceCodeAria: 'Visualizza il codice sorgente di',
+    readThesis: 'Leggi la tesi',
+    readThesisAria: 'Leggi il PDF della tesi',
+    liveDemo: 'Demo online',
+    liveDemoAria: 'Apri la demo online di',
+    emptyState: 'Nessun progetto trovato in questa categoria.',
+  },
+  contact: {
+    sectionLabel: 'Contatti',
+    eyebrow: 'Contatti',
+    sectionTitlePrefix: 'Collaboriamo',
+    sectionTitleHighlight: 'Insieme',
+    sectionSubtitle:
+      'Sono aperto a stage, ruoli part-time e conversazioni tecniche interessanti. Non esitare a contattarmi!',
+    formTitle: 'Inviami un Messaggio',
+    formSubtitle:
+      'Hai un’opportunità, un’idea di progetto o una domanda? Mi farà piacere sentirti.',
+    formAria: 'Modulo di contatto',
+    nameLabel: 'Il Tuo Nome',
+    namePlaceholder: 'Mario Rossi',
+    emailLabel: 'Indirizzo Email',
+    emailPlaceholder: 'mario.rossi@example.com',
+    messageLabel: 'Il Tuo Messaggio',
+    messagePlaceholder: 'Raccontami del ruolo, del progetto o della domanda che hai in mente…',
+    footerNote: 'Di solito rispondo entro 24–48 ore.',
+    successMessage: 'Grazie per il messaggio! Ti risponderò al più presto.',
+    methods: {
+      email: 'Scrivimi un’email quando vuoi',
+      github: 'Esplora i miei repository',
+      linkedin: 'Connettiamoci professionalmente',
+      locationTitle: 'Posizione',
+      locationValue: 'Zurigo, Svizzera',
+      location: 'Studente di Master all’ETH di Zurigo',
+    },
+    validation: {
+      nameRequired: 'Per favore inserisci il tuo nome.',
+      nameMin: 'Il nome deve contenere almeno 2 caratteri.',
+      emailRequired: 'Per favore inserisci il tuo indirizzo email.',
+      emailInvalid: 'Per favore inserisci un indirizzo email valido.',
+      messageRequired: 'Per favore inserisci un messaggio.',
+      messageMin: 'Il messaggio deve contenere almeno 10 caratteri.',
+      captchaRequired: 'Per favore completa la verifica captcha.',
+      submitFailed:
+        'Non è stato possibile inviare il messaggio. Riprova o scrivimi direttamente via email.',
+    },
+    button: {
+      idle: 'Invia Messaggio',
+      loading: 'Invio in corso…',
+      success: 'Messaggio Inviato!',
+      error: 'Invio Fallito, Riprova',
+    },
+  },
+  footer: {
+    builtWith: 'Realizzato con Vue 3 & Tailwind CSS.',
+  },
+}

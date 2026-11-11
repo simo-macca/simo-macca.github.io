@@ -1,0 +1,217 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+ * Design tokens
+ * ------------------------------------------------------------------------ */
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Dark-mode surfaces and text (graphite palette) */
+  --color-night-950: #0b0f17;
+  --color-night-900: #111827;
+  --color-night-800: #1f2937;
+  --color-mist-100: #f3f4f6;
+  --color-mist-400: #9ca3af;
+
+  --animate-gradient-pan: gradient-pan 8s ease-in-out infinite;
+  --animate-float-slow: float 14s ease-in-out infinite;
+  --animate-float-slower: float 20s ease-in-out infinite reverse;
+  --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
+  --animate-draw: draw 900ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  --animate-dialog-in: dialog-in 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-backdrop-in: fade-in 200ms ease-out;
+
+  @keyframes gradient-pan {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(3%, 4%, 0) scale(1.06);
+    }
+  }
+
+  @keyframes bounce-soft {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 100;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Manual dark mode via the `dark` class on <html> (set before first paint in index.html). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+ * Reusable utilities (use them like any Tailwind class, variants included)
+ * ------------------------------------------------------------------------ */
+@utility focus-ring {
+  @apply focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none;
+}
+
+@utility surface-card {
+  @apply rounded-2xl border border-slate-200/80 bg-white/90 shadow-xs backdrop-blur-sm dark:border-white/8 dark:bg-night-900/80;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 font-semibold text-white shadow-sm focus-ring transition-all duration-200 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-500/20 active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 font-semibold text-slate-800 shadow-2xs focus-ring transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 active:scale-95 dark:border-white/8 dark:bg-night-900/80 dark:text-mist-100 dark:hover:border-white/16 dark:hover:bg-night-800;
+}
+
+@utility icon-button {
+  @apply flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/80 bg-white/80 text-slate-700 shadow-xs focus-ring backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/8 dark:bg-night-900/80 dark:text-mist-400 dark:hover:border-white/16 dark:hover:bg-night-800 dark:hover:text-mist-100;
+}
+
+/* Cursor-following highlight. JS sets --spot-x / --spot-y on pointer move. */
+@utility spotlight {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    background: radial-gradient(
+      420px circle at var(--spot-x, 50%) var(--spot-y, 0%),
+      rgb(14 165 233 / 0.1),
+      transparent 60%
+    );
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Base styles
+ * ------------------------------------------------------------------------ */
+:root {
+  color-scheme: light dark;
+  interpolate-size: allow-keywords;
+}
+
+:root:has(> head > meta[name='color-scheme'][content='dark']) {
+  color-scheme: dark;
+}
+
+:root:has(> head > meta[name='color-scheme'][content='light']) {
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Leaves room for the sticky header when jumping to #anchors. */
+    scroll-padding-top: 5rem;
+    font-family: var(--font-sans);
+    min-height: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent background scrolling while a modal dialog is open. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  body {
+    background-color: #f8fafc;
+    color: #475569;
+    transition-property: color, background-color, border-color;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark body {
+    background-color: var(--color-night-950);
+    color: var(--color-mist-400);
+  }
+
+  ::selection {
+    background-color: rgb(14 165 233 / 0.25);
+    color: inherit;
+  }
+
+  main:focus {
+    outline: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Text gradient (animated in the hero)
+ * ------------------------------------------------------------------------ */
+.text-gradient {
+  background: linear-gradient(120deg, #0284c7 0%, #2563eb 35%, #4f46e5 65%, #0284c7 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient {
+  background-image: linear-gradient(120deg, #38bdf8 0%, #60a5fa 35%, #818cf8 65%, #38bdf8 100%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Accessibility: honour reduced-motion preferences everywhere
+ * ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

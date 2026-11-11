@@ -1,71 +1,82 @@
 ---
-description: Pinia store conventions and static data structures in src/data/
-globs: 'src/{stores,data}/**/*.js'
+description: Pinia stores, i18n files and static data schemas (projects, skills, journey, socials)
+globs: 'src/{stores,data,i18n}/**/*.js'
 trigger: glob
 ---
 
-# State Management & Static Data Conventions
+# Stores, Translations & Static Data
 
-These rules apply to all state stores and static data modules under `src/{stores,data}/**/*.js`.
+Applies to `src/stores/**`, `src/data/**` and `src/i18n/**`.
 
----
+## 1. Pinia stores (`src/stores/`)
 
-## 1. Pinia Store Conventions (`src/stores/`)
+- Setup-style stores: `defineStore('id', () => { ... return { ... } })`, files named after the store (`theme.js` → `useThemeStore`, `language.js` → `useLanguageStore`).
+- Guard browser APIs (`window`, `document`, `navigator`, `matchMedia`) with `typeof window !== 'undefined'`.
+- Never call `localStorage` directly: use `readStorage` / `writeStorage` and `STORAGE_KEYS` from `src/utils/storage.js`.
+- `init*()` actions register global listeners and must be idempotent (guarded by an `initialized` flag). They are called once in `main.js` before mounting.
+- DOM side effects (classes on `<html>`, meta tags, `document.title`) live in one `applyToDocument()` function per store.
 
-- **Store Definition:** Use Pinia's `defineStore` syntax (e.g., `useThemeStore` in `src/stores/ThemeStore.js`).
-- **Browser & SSR Safety:** Always guard browser-only APIs (`window`, `document`, `localStorage`, `matchMedia`) with `typeof window !== 'undefined'` checks before invocation.
-- **Reactive Theme Synchronization:**
-  - Synchronize dark/light mode with system preference (`prefers-color-scheme: dark`) and persistent storage (`localStorage.getItem('theme')`).
-  - Support cross-tab syncing via `window.addEventListener('storage', ...)` to reflect preference changes across active tabs.
-  - Encapsulate DOM side-effects (e.g., toggling `.dark` on `document.documentElement`, synchronizing `<meta name="color-scheme">`) cleanly within store actions.
-- **Deterministic Mutations:** State mutations must be deterministic and predictable. Avoid uncontrolled side-effects inside state getters.
+### Theme (`theme.js`)
 
----
+- No stored value → follow `prefers-color-scheme` live. After `toggle()` → persist `'dark' | 'light'`.
+- Sync across tabs with the `storage` event; keep `meta[name=color-scheme]` and `meta[name=theme-color]` updated.
+- `index.html` contains an inline script with the same logic to avoid a flash; keep both in sync.
 
-## 2. Static Data Models (`src/data/`)
+### Language (`language.js`)
 
-All static content (projects, skills, navigation, contact methods) resides in `src/data/` as clean, immutable JavaScript data models.
+- Initial language: stored value → browser language (`navigator.languages`) → `'en'`.
+- Exposes `currentLanguage`, `isEnglish`, `isItalian`, `t`, `cv`, `localized(data)`, `setLanguage(lang)`, `initLanguage()`.
 
-### A. Project Case Study Schema (`src/data/projects.js`)
+## 2. Translations (`src/i18n/`)
 
-Every project entry in the `projects` array must strictly conform to the following schema:
+- `en.js` and `it.js` must have **exactly the same shape**. Add every key to both files in the same change.
+- Group keys by section (`hero`, `about`, `skills`, `projects`, `contact`, `footer`) plus `meta`, `a11y`, `nav`, `languageSwitcher`.
+- Accessible labels belong in `a11y` (or next to their section) and are translated like visible text.
+- Emphasised sentences are segment arrays: `['Hi, I am ', { strong: 'Simone' }, '.']`.
+- `index.js` exports `SUPPORTED_LANGUAGES`, `DEFAULT_LANGUAGE`, `messages` and `cvFiles`.
 
-```javascript
+## 3. Static data (`src/data/`)
+
+- Export frozen constants (`Object.freeze([...])`). No functions that depend on the language, no state, no fetching, no side effects.
+- Translatable values are `{ en: '...', it: '...' }` pairs; language-independent values are plain strings. Components resolve them with `languageStore.localized(data)`.
+- Vue components (icons) go under the key `icon`, which `localize()` leaves untouched.
+
+### Project schema (`projects.js`)
+
+```js
 {
-  id: 'project-slug',                     // Unique kebab-case identifier
-  title: 'Display Title',                  // Clean project title
-  category: 'personal' | 'university' | 'thesis', // Matches projectCategories filter ID
-  role: 'Technical Role & Team Format',   // Role first, e.g. "Full-Stack Lead & Group Team"
-  domain: 'Architectural Domain',         // Domain badge string
-  contextBadge: 'Context Label',          // "Personal Project" | "University Project" | "Bachelor's Thesis"
-  isFlagship: false,                      // Boolean: adds top gradient highlight & badge if true
-  noSourceCode: false,                    // Boolean: displays "No Source Code" pill if true
-  summary: '1-2 sentence overview',       // Concise preview summary displayed in collapsed cards
-  challenge: 'Problem statement',         // Deep technical difficulty and engineering hurdles
-  architecture: 'Technical decisions',    // Concrete stack, design patterns, protocols, and libraries
-  tags: ['Tech1', 'Tech2'],               // Array of technology badges
-  links: {
-    github: 'https://github.com/...',     // GitHub URL or null
-    demo: 'https://...',                  // Live demo URL or null
-    pdf: '/docs/...',                     // Path to PDF paper/thesis or null
-  },
+  id: 'project-slug',                 // unique kebab-case id, also used for #project-<id>
+  category: 'personal' | 'university' | 'thesis',
+  icon: LucideIcon,                   // card and dialog icon
+  isFlagship: false,                  // gradient accent + "Featured" badge
+  title: 'Name' | { en, it },
+  domain: { en, it },                 // short area badge, e.g. "SAT Encoding & Planning"
+  role: { en, it },                   // "<role> · <team size>", e.g. "Back-end lead · team of 2"
+  context: { en, it },                // course / institution / year, only if verifiable
+  summary: { en, it },                // 1–2 sentences, shown on the card
+  challenge: { en, it },              // the problem (dialog)
+  approach: { en, it },               // architecture and decisions, including your own part (dialog)
+  highlights: [{ en, it }],           // short factual results (dialog)
+  tags: ['Tech', { en, it }],         // first five appear on the card
+  links: { github: url | null, demo: url | null, pdf: '/docs/x.pdf' | null },
 }
 ```
 
-- **Role Standard:** Always place the candidate's specialized role first, followed by the collaboration context (e.g., `Full-Stack Lead & Group Team`, `Back-End Lead & Duo Team`, `Software Engineer & Duo Team`, `Solo Developer & Architect`).
-- **Summary vs. Challenge/Architecture:** The `summary` is displayed in the card's collapsed preview state, whereas `challenge` and `architecture` are disclosed when expanding the card accordion.
+- Order in the array is the display order. Add new categories to `projectCategoryIds` and to `projects.categories` / `projects.contextBadges` in both translation files; empty categories are hidden automatically.
+- `links.github: null` renders "Private source code". The thesis must stay that way.
+- Facts (stack, numbers, team size, role) must come from the project's repository, report or CV; never invent them.
 
-### B. Technical Skills Matrix (`src/data/skills.js`)
+### Skills (`skills.js`)
 
-- Maintain the 4-quadrant categorization: `systems`, `intelligence`, `frontend`, and `devops`.
-- Each category must provide: `id`, `topic`, `categoryIcon` (Lucide Vue component), `description`, and `skills` (string array of concrete technologies and domains).
+Four categories, each `{ id, icon, topic, description, skills }`; `skills` is an array of strings or `{ en, it }` pairs.
 
-### C. Social Channels & Navigation (`src/data/socials.js`)
+### Journey (`journey.js`)
 
-- `navLinks`: Anchor navigation list (`href`, `label`).
-- `contactMethods`: Accessible channels with `icon` (Lucide or custom SVG from `src/components/icons/`), `title`, `value`, `link`, and `description`.
+Newest first: `{ id, type: 'education' | 'experience', icon, period, title, organization, detail }`.
 
-### D. Purity & Immutability
+### Socials (`socials.js`)
 
-- Static data files must export immutable data constants.
-- **NEVER** introduce runtime state, API fetching logic, or side-effects inside files within `src/data/`.
+- `profileLinks`: the single source for the email, GitHub, LinkedIn and site URLs.
+- `navLinks`: `{ id, labelKey }`, where `id` is a section id and `labelKey` a key of `t.nav`.
+- `socialLinks`: footer icons, `{ id, href, icon, ariaKey }` (`ariaKey` in `t.a11y`).
+- `contactMethods`: `{ id, icon, title | titleKey, value | valueKey, href, descriptionKey, external }`; keys point into `t.contact.methods`.

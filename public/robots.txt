@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://simo-macca.github.io/sitemap.xml

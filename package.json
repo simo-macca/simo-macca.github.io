@@ -1,6 +1,7 @@
 {
-  "name": "my-portfolio",
-  "version": "0.0.0",
+  "name": "simo-macca.github.io",
+  "version": "2.0.0",
+  "description": "Personal portfolio of Simone Maccario, built with Vue 3, Tailwind CSS v4 and Vite.",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,13 +11,13 @@
     "dev": "vite --port 3000",
     "build": "vite build",
     "preview": "vite preview --port 8080",
+    "lint": "run-s lint:oxlint lint:eslint",
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix --cache",
-    "lint": "run-s lint:*",
-    "format": "run-s lint prettier",
-    "format:check": "run-s lint prettier:check",
-    "prettier": "prettier --write .",
-    "prettier:check": "prettier --check .",
+    "lint:check": "oxlint . -D correctness --ignore-path .gitignore && eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "run-s lint:check format:check build",
     "prepare": "husky"
   },
   "dependencies": {
@@ -27,8 +28,7 @@
     "@vueuse/motion": "^3.0.3",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.3.1",
-    "vue": "^3.5.38",
-    "vue-router": "^5.1.0"
+    "vue": "^3.5.38"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

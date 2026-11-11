@@ -1,11 +1,19 @@
 <script setup>
+/**
+ * Category filter rendered as a group of toggle buttons (`aria-pressed`).
+ * Each option shows how many projects it contains.
+ */
 defineProps({
   modelValue: {
     type: String,
     required: true,
   },
-  categories: {
+  options: {
     type: Array,
+    required: true,
+  },
+  label: {
+    type: String,
     required: true,
   },
 })
@@ -14,21 +22,32 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-center gap-2" role="tablist" aria-label="Project categories">
+  <div class="flex flex-wrap justify-center gap-2" role="group" :aria-label="label">
     <button
-      v-for="cat in categories"
-      :key="cat.id"
+      v-for="option in options"
+      :key="option.id"
       type="button"
-      @click="$emit('update:modelValue', cat.id)"
-      class="rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
-      :class="[
-        modelValue === cat.id
-          ? 'bg-sky-600 text-white shadow-xs dark:bg-sky-500'
-          : 'border border-slate-200/80 bg-white/80 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-white/8 dark:bg-[#111827]/80 dark:text-[#9CA3AF] dark:hover:border-white/16 dark:hover:bg-[#1F2937] dark:hover:text-[#F3F4F6]',
-      ]"
-      :aria-pressed="modelValue === cat.id"
+      class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold tracking-wide focus-ring transition-all duration-200 active:scale-95"
+      :class="
+        modelValue === option.id
+          ? 'bg-sky-600 text-white shadow-md shadow-sky-500/20 dark:bg-sky-500'
+          : 'border border-slate-200/80 bg-white/80 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-white/8 dark:bg-night-900/80 dark:text-mist-400 dark:hover:border-white/16 dark:hover:bg-night-800 dark:hover:text-mist-100'
+      "
+      :aria-pressed="modelValue === option.id"
+      @click="$emit('update:modelValue', option.id)"
     >
-      {{ cat.label }}
+      {{ option.label }}
+      <span
+        class="rounded-md px-1.5 py-0.5 font-mono text-[10px] leading-none"
+        :class="
+          modelValue === option.id
+            ? 'bg-white/20 text-white'
+            : 'bg-slate-100 text-slate-500 dark:bg-white/6 dark:text-slate-400'
+        "
+        aria-hidden="true"
+      >
+        {{ option.count }}
+      </span>
     </button>
   </div>
 </template>

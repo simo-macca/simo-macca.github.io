@@ -1,9 +1,7 @@
 <script setup>
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import { useLanguageStore } from '@/stores/LanguageStore.js'
 import { FileDown } from '@lucide/vue'
-
-const languageStore = useLanguageStore()
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import { useLanguageStore } from '@/stores/language.js'
 
 defineProps({
   isOpen: {
@@ -14,62 +12,63 @@ defineProps({
     type: Array,
     required: true,
   },
+  activeId: {
+    type: String,
+    default: null,
+  },
 })
 
 defineEmits(['close'])
+
+const languageStore = useLanguageStore()
 </script>
 
 <template>
-  <transition
+  <Transition
     enter-active-class="transition duration-200 ease-out"
     enter-from-class="opacity-0 -translate-y-2"
-    enter-to-class="opacity-100 translate-y-0"
     leave-active-class="transition duration-150 ease-in"
-    leave-from-class="opacity-100 translate-y-0"
     leave-to-class="opacity-0 -translate-y-2"
   >
+    <!-- Overlay below the sticky header: opening it never shifts the page content -->
     <div
       v-if="isOpen"
       id="mobile-nav-menu"
-      class="border-b border-slate-200 bg-white/95 px-4 pt-2 pb-4 shadow-lg backdrop-blur-md sm:hidden dark:border-white/8 dark:bg-[#0B0F17]/95"
+      class="absolute inset-x-0 top-full max-h-[calc(100svh-4rem)] overflow-y-auto border-b border-slate-200/80 bg-white/95 px-4 pb-4 shadow-lg backdrop-blur-md sm:hidden dark:border-white/8 dark:bg-night-950/95"
     >
-      <div class="flex flex-col space-y-1">
-        <!-- Language Switcher Row -->
-        <div
-          class="mb-1 flex items-center justify-between border-b border-slate-100 px-4 py-2 dark:border-white/6"
-        >
-          <span class="text-xs font-semibold text-slate-500 dark:text-[#9CA3AF]">
-            {{ languageStore.currentLanguage === 'it' ? 'Lingua' : 'Language' }}
-          </span>
-          <LanguageSwitcher />
-        </div>
-
-        <a
-          v-for="link in links"
-          :key="link.href"
-          :href="link.href"
-          @click="$emit('close')"
-          class="rounded-lg px-4 py-2.5 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-[#9CA3AF] dark:hover:bg-white/6 dark:hover:text-[#F3F4F6]"
-        >
-          {{ link.label }}
-        </a>
-
-        <div class="mt-1 border-t border-slate-100 pt-2 dark:border-white/6">
+      <ul class="flex flex-col gap-1 border-t border-slate-200/80 pt-3 dark:border-white/8">
+        <li v-for="(link, index) in links" :key="link.id">
           <a
-            :href="languageStore.cvLink"
-            target="_blank"
-            rel="noopener noreferrer"
-            :download="languageStore.cvFileName"
-            class="flex items-center gap-2 rounded-lg px-4 py-2.5 text-base font-semibold text-sky-600 transition-colors hover:bg-slate-100 hover:text-sky-700 dark:text-sky-400 dark:hover:bg-white/6 dark:hover:text-sky-300"
+            :href="link.href"
+            class="flex items-center rounded-lg px-4 py-3 text-base font-medium focus-ring transition-colors"
+            :class="
+              activeId === link.id
+                ? 'bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300'
+                : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-mist-400 dark:hover:bg-white/6 dark:hover:text-mist-100'
+            "
+            :style="{ transitionDelay: `${index * 30}ms` }"
+            :aria-current="activeId === link.id ? 'location' : undefined"
             @click="$emit('close')"
           >
-            <FileDown class="h-4 w-4" aria-hidden="true" />
-            <span>{{
-              languageStore.currentLanguage === 'it' ? 'Scarica CV (PDF)' : 'Download CV (PDF)'
-            }}</span>
+            {{ link.label }}
           </a>
-        </div>
+        </li>
+      </ul>
+
+      <div
+        class="mt-3 flex items-center justify-between gap-3 border-t border-slate-200/80 px-4 pt-3 dark:border-white/8"
+      >
+        <a
+          :href="languageStore.cv.href"
+          :download="languageStore.cv.fileName"
+          class="inline-flex items-center gap-2 rounded-lg py-2 text-sm font-semibold text-sky-600 focus-ring transition-colors hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+          @click="$emit('close')"
+        >
+          <FileDown class="h-4 w-4" aria-hidden="true" />
+          <span>{{ languageStore.t.nav.cvLong }}</span>
+        </a>
+        <LanguageSwitcher />
       </div>
     </div>
-  </transition>
+  </Transition>
 </template>

@@ -1,59 +1,65 @@
 ---
-description: Vue 3 SFC (<script setup>), Tailwind CSS utility patterns, icon usage, and mobile accessibility rules
-globs: 'src/components/**/*.vue'
+description: Vue 3 SFC conventions, Tailwind CSS v4 patterns, icons, motion, i18n and accessibility for components and sections
+globs: 'src/{components,sections}/**/*.vue'
 trigger: glob
 ---
 
-# Vue 3 Component & UI Guidelines
+# Vue Components & Sections
 
-These guidelines apply to all Single File Components (SFCs) under `src/components/**/*.vue`.
+Applies to every SFC in `src/components/**` and `src/sections/**`.
 
----
+## 1. Where files go
 
-## 1. Vue 3 Composition API & SFC Conventions
+| Folder                  | Contents                                                                      |
+| :---------------------- | :---------------------------------------------------------------------------- |
+| `src/sections/`         | One component per page section (`HeroSection`, `AboutSection`, …)             |
+| `src/components/layout` | Page chrome: `AppHeader`, `MobileNavDrawer`, `AppFooter`, `AmbientBackground` |
+| `src/components/common` | Reusable, domain-free pieces: `SectionHeader`, `RichText`, `ThemeToggle`, …   |
+| `src/components/<area>` | Pieces of one area: `projects/`, `contact/`, `skills/`, `about/`              |
+| `src/components/icons`  | Custom SVG icons (brand marks, logo)                                          |
+| `src/composables/`      | Reusable logic (`useActiveSection`, `useScrollProgress`, `useSpotlight`)      |
 
-- **`<script setup>` Syntax:** Always use `<script setup>` syntax for Single File Components.
-- **Props & Emits Declaration:**
-  - Declare component props with `defineProps({ ... })` using explicit runtime types (`type: Object`, `type: Boolean`, `type: Array`) and `required` / `default` flags.
-  - Declare component events with `defineEmits([...])`.
-  - **ESLint Rule:** Do not assign `const props = defineProps(...)` if props are only referenced in the `<template>` block; use bare `defineProps({ ... })` or prefix with `_props` to avoid `no-unused-vars` errors.
-- **Component Modularity:** Decompose complex UI sections into focused sub-components (e.g., `src/components/projects/` contains `ProjectBadge.vue`, `ProjectCard.vue`, `ProjectGrid.vue`, `ProjectFilterTabs.vue`).
+Name components in PascalCase after what they are (`ProjectCard.vue`), without a `Component` suffix. A section should mostly compose smaller components; split a component when it mixes several responsibilities or grows past ~150 lines of template.
 
----
+## 2. SFC conventions
 
-## 2. Tailwind CSS v4 Utility Patterns
+- Always `<script setup>`; block order `script` → `template` → `style` (enforced by ESLint).
+- Props via `defineProps({ ... })` with runtime `type`, `required` / `default` and a `validator` for string enums. Assign `const props = defineProps(...)` only when the script uses `props`.
+- Events via `defineEmits([...])`; use `defineModel()` for `v-model` inputs.
+- Use the `@/` alias for imports outside the current folder.
+- Read UI text from the language store (`languageStore.t.<section>.<key>`) and localise data with `languageStore.localized(data)`. Never hard-code visible text or `aria-label`s.
+- Bilingual sentences with emphasis are arrays of segments rendered by `RichText.vue`, never `v-html`.
 
-- **Native Tailwind v4 Directives:** All utilities derive from `@import 'tailwindcss';` defined in `src/assets/main.css`.
-- **Color System & Dark Mode:**
-  - Use semantic slate shades for text and borders:
-    - Light mode: `text-slate-900`, `text-slate-600`, `border-slate-200/80`, `bg-white/90`
-    - Dark mode: `dark:text-[#F3F4F6]`, `dark:text-[#9CA3AF]`, `dark:border-white/8`, `dark:bg-[#111827]/80`
-  - Use sky accent tokens for interactive states, links, and focus rings:
-    - `text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300`
-    - `bg-sky-600 hover:bg-sky-500 dark:bg-sky-500 dark:hover:bg-sky-400`
-    - `focus-visible:ring-2 focus-visible:ring-sky-500`
-- **Smooth Transitions & Animations:**
-  - Avoid instant snapping; apply smooth CSS transitions: `transition-all duration-300 ease-in-out` or `transition-transform duration-300`.
-  - For expandable/collapsible content, use **CSS Grid transitions** (`grid-template-rows: 0fr` to `1fr` with `overflow-hidden`) combined with `:root { interpolate-size: allow-keywords; }` rather than brittle pixel-based `max-height` hacks.
-- **Responsive Prefixes:** Always develop mobile-first, progressively applying `sm:`, `md:`, and `lg:` breakpoints.
+## 3. Tailwind CSS v4
 
----
+- Mobile-first: base classes for phones, then `sm:` / `md:` / `lg:`.
+- Shared utilities defined in `src/assets/styles/main.css`; prefer them to repeating long class lists:
+  - `surface-card`: standard card surface (border, background, blur, radius, dark variant)
+  - `btn-primary`, `btn-secondary`, `icon-button`: buttons (sizing/padding added per use)
+  - `focus-ring`: visible keyboard focus ring
+  - `spotlight`: cursor-following highlight (pair with `useSpotlight().onPointerMove`)
+- Colour tokens: slate for light mode; `night-950/900/800` (surfaces) and `mist-100/400` (text) for dark mode; sky for accents and interactive states. Example: `text-slate-900 dark:text-mist-100`, `dark:bg-night-900/80`.
+- Do not add a `tailwind.config.js`; extend `@theme` in `main.css` instead.
 
-## 3. Icon Usage Standards
+## 4. Icons
 
-- **UI & Navigation Icons:** Import generic UI icons from `@lucide/vue` (e.g., `ChevronDown`, `ExternalLink`, `FileText`, `Sparkles`, `ArrowUpRight`, `Mail`, `MapPin`).
-- **Brand & Custom SVGs:** Import custom brand icons directly from `src/components/icons/` (e.g., `GitHubIcon.vue`, `LinkedinIcon.vue`, `IconLogoPortfolio.vue`).
-- **Accessibility:**
-  - Mark decorative icons with `aria-hidden="true"` when accompanied by descriptive text.
-  - Provide explicit `aria-label` or screen-reader text when an icon button is standalone.
+- UI icons: `@lucide/vue` (verify the export exists, e.g. `CodeXml`, not the alias `Code2`).
+- Brand/custom icons: `src/components/icons/` (`LogoIcon`, `GitHubIcon`, `LinkedinIcon`), all using `currentColor`.
+- Decorative icons get `aria-hidden="true"`; an icon-only button needs an `aria-label` (and usually a `title`).
 
----
+## 5. Motion
 
-## 4. Mobile Accessibility & Touch Interactions
+- Entrance animations use the presets from `src/plugins/motion.js`: `v-motion-slide-up|down|left|right`, `v-motion-pop-in`, `v-motion-fade-in`, with `:delay`.
+- **Never** put a `v-motion-*` directive on an element that also animates `transform` on hover (e.g. `hover:-translate-y-1`): motion writes an inline `transform` that overrides the hover. Put the directive on a wrapper element instead.
+- Use `<Transition>` / `<TransitionGroup>` for enter/leave and re-ordering.
+- Reduced motion is handled globally (motion presets start in their final state, CSS durations collapse). Infinite decorative animations should also carry `motion-reduce:hidden` or similar when they convey nothing.
 
-- **Touch Targets:** Maintain comfortable touch hitboxes on mobile devices (minimum 36×36px or 44×44px interactive tap area).
-- **Keyboard Navigation:** Support keyboard navigation on all interactive elements:
-  - Handle `@keydown.enter.prevent` and `@keydown.space.prevent`.
-  - Provide visible focus indicators using `focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none`.
-- **State Synchronization:** Keep ARIA state synchronized with reactive data (e.g., `:aria-expanded="isExpanded"` on toggle buttons).
-- **Click Propagation in Tappable Surfaces:** When an entire card or container is tappable on mobile viewports, always attach `@click.stop` to nested interactive elements (`<a>`, external buttons) to prevent triggering parent container toggles.
+## 6. Accessibility & mobile
+
+- Touch targets at least 40×40 px (44 px preferred).
+- Keyboard: every action reachable with Tab and operable with Enter/Space; visible focus via `focus-ring`.
+- Keep ARIA in sync with state: `aria-expanded` (menus), `aria-pressed` (toggle groups such as the filter and language switcher), `aria-current="location"` (active nav link).
+- Modals use the native `<dialog>` with `showModal()` (see `ProjectDetailsDialog.vue`): focus trap, Escape and focus restoration come for free; the page scroll is locked by CSS.
+- When a whole card is clickable, ignore clicks whose target is inside an `a` or `button` so nested links keep working.
+- Form inputs use `text-base` on mobile (prevents iOS zoom) and link errors with `aria-describedby`.
+- Check every change at ~375 px and ~1440 px, in light and dark mode, in English and Italian.

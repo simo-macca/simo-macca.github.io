@@ -2,67 +2,92 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-
-    <title>Simone Maccario | Systems Engineering & Machine Intelligence</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="title" content="Simone Maccario | Systems Engineering & Machine Intelligence" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Simone Maccario | Data Systems & Software Engineering</title>
     <meta
       name="description"
-      content="Portfolio of Simone Maccario, a Computer Science student and aspiring Full-Stack Developer specializing in Vue.js, Tailwind CSS, and modern web solutions."
-    />
-    <meta
-      name="keywords"
-      content="Simone Maccario, Full-Stack Developer, Vue.js, Tailwind CSS, Portfolio, Computer Science, USI, Web Development, Software Engineer"
+      content="Portfolio of Simone Maccario, MSc Computer Science student at ETH Zurich (Data Management & Machine Intelligence): data pipelines, static analysis, search systems and full-stack applications."
     />
     <meta name="author" content="Simone Maccario" />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://simo-macca.github.io/" />
 
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Theme: values are updated at runtime by src/stores/theme.js -->
     <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f8fafc" />
     <script>
+      // Apply the saved/system theme before first paint to avoid a flash of the wrong theme.
       ;(function () {
+        var stored = null
         try {
-          const stored = localStorage.getItem('theme')
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isDark = stored === 'dark' || (!stored && prefersDark)
-          if (isDark) {
-            document.documentElement.classList.add('dark')
-          } else {
-            document.documentElement.classList.remove('dark')
-          }
-          const meta = document.querySelector('meta[name="color-scheme"]')
-          if (meta) {
-            meta.content = stored ? stored : 'light dark'
-          }
+          stored = localStorage.getItem('theme')
         } catch (e) {}
+        if (stored !== 'dark' && stored !== 'light') stored = null
+        var isDark = stored
+          ? stored === 'dark'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.classList.toggle('dark', isDark)
+        document.querySelector('meta[name="color-scheme"]').content = stored || 'light dark'
+        document.querySelector('meta[name="theme-color"]').content = isDark ? '#0b0f17' : '#f8fafc'
       })()
     </script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400..600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph / social preview -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Simone Maccario" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="it_IT" />
     <meta property="og:url" content="https://simo-macca.github.io/" />
-    <meta property="og:title" content="Simone Maccario | Portfolio & Systems Engineering" />
+    <meta property="og:title" content="Simone Maccario | Data Systems & Software Engineering" />
     <meta
       property="og:description"
-      content="Portfolio of Simone Maccario, Master's student in Computer Science at ETH Zurich specializing in Data Management and Machine Intelligence."
+      content="MSc Computer Science student at ETH Zurich. Data pipelines, static analysis, search systems and full-stack applications."
     />
     <meta property="og:image" content="https://simo-macca.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Simone Maccario portfolio preview" />
 
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://simo-macca.github.io/" />
-    <meta property="twitter:title" content="Simone Maccario | Portfolio & Systems Engineering" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Simone Maccario | Data Systems & Software Engineering" />
     <meta
-      property="twitter:description"
-      content="Portfolio of Simone Maccario, Master's student in Computer Science at ETH Zurich specializing in Data Management and Machine Intelligence."
+      name="twitter:description"
+      content="MSc Computer Science student at ETH Zurich. Data pipelines, static analysis, search systems and full-stack applications."
     />
-    <meta property="twitter:image" content="https://simo-macca.github.io/og-image.png" />
+    <meta name="twitter:image" content="https://simo-macca.github.io/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Simone Maccario",
+        "url": "https://simo-macca.github.io/",
+        "jobTitle": "MSc Computer Science Student",
+        "affiliation": { "@type": "CollegeOrUniversity", "name": "ETH Zurich" },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Università della Svizzera italiana"
+        },
+        "sameAs": ["https://github.com/simo-macca", "https://www.linkedin.com/in/simone-maccario/"]
+      }
+    </script>
   </head>
   <body>
+    <noscript>
+      <p style="padding: 1rem; font-family: sans-serif">
+        This portfolio needs JavaScript. You can still reach me at simone.maccario04@gmail.com.
+      </p>
+    </noscript>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>

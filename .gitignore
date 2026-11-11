@@ -2,34 +2,25 @@
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
+# Dependencies & build output
 node_modules
-.DS_Store
 dist
 dist-ssr
 coverage
-*.local
-
-# Editor directories and files
-.vscode/
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
 *.tsbuildinfo
-
 .eslintcache
 
-# Cypress
-/cypress/videos/
-/cypress/screenshots/
+# Local environment (VITE_WEB3FORMS_KEY, VITE_HCAPTCHA_SITEKEY, ...)
+.env
+.env.*
+!.env.example
+*.local
 
-# Vitest
-__screenshots__/
+# OS / editors (keep the shared VS Code recommendations)
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.sw?

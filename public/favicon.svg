@@ -1,19 +1,16 @@
 <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <title>Portfolio Favicon</title>
-
-    <rect width="100" height="100" fill="#111827"/>
-
-    <!-- The "Code Symbol" Logo, centered -->
-    <path d="M 30,20 L 10,50 L 30,80"
-          stroke="#06B6D4"
-          stroke-width="12"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          fill="none"/>
-    <path d="M 70,20 L 90,50 L 70,80"
-          stroke="#06B6D4"
-          stroke-width="12"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          fill="none"/>
+  <title>Simone Maccario</title>
+  <rect width="100" height="100" rx="22" fill="#0b0f17" />
+  <g
+    fill="none"
+    stroke="#38bdf8"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    transform="translate(10 10) scale(0.8)"
+  >
+    <path d="M 32,22 L 10,50 L 32,78" />
+    <path d="M 58,18 L 42,82" opacity="0.8" />
+    <path d="M 68,22 L 90,50 L 68,78" />
+  </g>
 </svg>
