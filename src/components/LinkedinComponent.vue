@@ -4,7 +4,7 @@ import LinkedinIcon from '@/components/icons/LinkedinIcon.vue'
 
 <template>
   <a
-    href="https://www.linkedin.com/in/simone-maccario-70a339362/"
+    href="https://www.linkedin.com/in/simone-maccario/"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Simone Maccario on LinkedIn"

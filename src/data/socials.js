@@ -28,8 +28,8 @@ export const getContactMethods = (lang = 'en') => [
   {
     icon: LinkedinIcon,
     title: 'LinkedIn',
-    value: 'linkedin.com/in/simone-maccario-70a339362',
-    link: 'https://www.linkedin.com/in/simone-maccario-70a339362/',
+    value: 'linkedin.com/in/simone-maccario',
+    link: 'https://www.linkedin.com/in/simone-maccario/',
     description: lang === 'it' ? 'Connettiamoci professionalmente' : 'Let’s connect professionally',
   },
   {
