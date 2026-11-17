@@ -6,21 +6,21 @@ const languageStore = useLanguageStore()
 </script>
 
 <template>
-  <ul class="flex items-center gap-2">
-    <li
-      v-for="(link, index) in socialLinks"
-      :key="link.id"
-      v-motion-slide-up
-      :delay="200 + index * 100"
-    >
+  <ul class="flex items-center gap-1">
+    <li v-for="link in socialLinks" :key="link.id">
       <a
         :href="link.href"
-        target="_blank"
-        rel="noopener noreferrer"
-        :aria-label="`${languageStore.t.a11y[link.ariaKey]} ${languageStore.t.a11y.opensInNewTab}`"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 focus-ring transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:text-sky-600 dark:text-slate-300 dark:hover:bg-white/6 dark:hover:text-sky-400"
+        :target="link.external ? '_blank' : undefined"
+        :rel="link.external ? 'noopener noreferrer' : undefined"
+        :aria-label="
+          link.external
+            ? `${languageStore.t.a11y[link.ariaKey]} ${languageStore.t.a11y.opensInNewTab}`
+            : languageStore.t.a11y[link.ariaKey]
+        "
+        :title="languageStore.t.a11y[link.ariaKey]"
+        class="icon-button hover:-translate-y-0.5"
       >
-        <component :is="link.icon" class="h-5 w-5" />
+        <component :is="link.icon" class="h-4.5 w-4.5" aria-hidden="true" />
       </a>
     </li>
   </ul>

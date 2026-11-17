@@ -1,4 +1,9 @@
+# https://simo-macca.github.io/robots.txt
 User-agent: *
 Allow: /
+
+# The CVs stay downloadable from the site but are kept out of search results,
+# so personal details in them are not indexed. The thesis PDF stays indexable.
+Disallow: /docs/CV_
 
 Sitemap: https://simo-macca.github.io/sitemap.xml

@@ -15,10 +15,10 @@ const languageStore = useLanguageStore()
 
 <template>
   <!-- overflow-x-clip hides off-screen entrance offsets without breaking the sticky header -->
-  <div class="relative isolate overflow-x-clip">
+  <div class="relative isolate min-h-svh overflow-x-clip">
     <a
       href="#main-content"
-      class="sr-only z-60 rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      class="sr-only z-60 rounded-full bg-brand-600 px-4 py-2 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
     >
       {{ languageStore.t.a11y.skipToContent }}
     </a>
@@ -27,7 +27,7 @@ const languageStore = useLanguageStore()
 
     <AppHeader />
 
-    <main id="main-content" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" tabindex="-1">
+    <main id="main-content" class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" tabindex="-1">
       <HeroSection id="home" />
       <AboutSection id="about" />
       <SkillsSection id="skills" />

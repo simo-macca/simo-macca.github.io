@@ -127,20 +127,20 @@ async function onSubmit() {
 
 <template>
   <form
-    class="flex flex-col surface-card p-6 sm:p-8"
+    class="flex flex-col surface-card p-6 sm:p-9"
     :aria-label="t.formAria"
     novalidate
     @submit.prevent="onSubmit"
   >
-    <h3 class="mb-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-mist-100">
+    <h3 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-mist-100">
       {{ t.formTitle }}
     </h3>
-    <p class="mb-6 text-sm text-slate-600 dark:text-mist-400">{{ t.formSubtitle }}</p>
+    <p class="mt-2 mb-8 text-sm text-slate-500 dark:text-mist-400">{{ t.formSubtitle }}</p>
 
     <FormAlert :message="errors.general" variant="error" />
     <FormAlert :message="showSuccess ? t.successMessage : ''" variant="success" />
 
-    <div class="space-y-4">
+    <div class="grid gap-5 sm:grid-cols-2">
       <FormField
         id="contact-name"
         v-model="form.name"
@@ -162,6 +162,7 @@ async function onSubmit() {
       />
       <FormField
         id="contact-message"
+        class="sm:col-span-2"
         v-model="form.message"
         type="textarea"
         :rows="5"
@@ -198,17 +199,11 @@ async function onSubmit() {
         "
         @expired="captchaToken = null"
       />
-      <p v-if="errors.captcha" class="mt-1 text-xs text-rose-500" role="alert">
+      <p v-if="errors.captcha" class="mt-1 text-xs text-rose-600 dark:text-rose-400" role="alert">
         {{ errors.captcha }}
       </p>
     </div>
 
     <SendButton ref="submitButton" />
-
-    <p
-      class="mt-6 border-t border-slate-200/80 pt-4 text-center text-xs text-slate-500 dark:border-white/8 dark:text-mist-400"
-    >
-      {{ t.footerNote }}
-    </p>
   </form>
 </template>

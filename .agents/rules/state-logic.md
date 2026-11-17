@@ -48,7 +48,7 @@ Applies to `src/stores/**`, `src/data/**` and `src/i18n/**`.
   id: 'project-slug',                 // unique kebab-case id, also used for #project-<id>
   category: 'personal' | 'university' | 'thesis',
   icon: LucideIcon,                   // card and dialog icon
-  isFlagship: false,                  // gradient accent + "Featured" badge
+  isFlagship: false,                  // gradient frame, "Featured" badge, full-width card
   title: 'Name' | { en, it },
   domain: { en, it },                 // short area badge, e.g. "SAT Encoding & Planning"
   role: { en, it },                   // "<role> · <team size>", e.g. "Back-end lead · team of 2"
@@ -63,7 +63,8 @@ Applies to `src/stores/**`, `src/data/**` and `src/i18n/**`.
 ```
 
 - Order in the array is the display order. Add new categories to `projectCategoryIds` and to `projects.categories` / `projects.contextBadges` in both translation files; empty categories are hidden automatically.
-- `links.github: null` renders "Private source code". The thesis must stay that way.
+- `links.github: null` renders "Private source". The thesis must stay that way.
+- `id` is public: it appears in shareable deep links (`/#project-<id>`), so do not rename ids casually.
 - Facts (stack, numbers, team size, role) must come from the project's repository, report or CV; never invent them.
 
 ### Skills (`skills.js`)
@@ -78,5 +79,5 @@ Newest first: `{ id, type: 'education' | 'experience', icon, period, title, orga
 
 - `profileLinks`: the single source for the email, GitHub, LinkedIn and site URLs.
 - `navLinks`: `{ id, labelKey }`, where `id` is a section id and `labelKey` a key of `t.nav`.
-- `socialLinks`: footer icons, `{ id, href, icon, ariaKey }` (`ariaKey` in `t.a11y`).
+- `socialLinks`: hero/footer icon links, `{ id, href, icon, ariaKey, external }` (`ariaKey` in `t.a11y`).
 - `contactMethods`: `{ id, icon, title | titleKey, value | valueKey, href, descriptionKey, external }`; keys point into `t.contact.methods`.

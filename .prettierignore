@@ -1,4 +1,11 @@
+# Build output and dependencies
 dist
 coverage
+node_modules
 package-lock.json
+
+# Generated / binary-like assets and tool state
 public/docs
+.husky/_
+.claude
+.idea

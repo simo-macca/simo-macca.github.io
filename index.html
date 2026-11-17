@@ -12,12 +12,15 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://simo-macca.github.io/" />
 
+    <!-- Icons: .ico for legacy browsers, SVG for modern ones, PNGs for iOS and Android (manifest) -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Theme: values are updated at runtime by src/stores/theme.js -->
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#f8fafc" />
+    <meta name="theme-color" content="#f7f8fa" />
     <script>
       // Apply the saved/system theme before first paint to avoid a flash of the wrong theme.
       ;(function () {
@@ -31,14 +34,14 @@
           : window.matchMedia('(prefers-color-scheme: dark)').matches
         document.documentElement.classList.toggle('dark', isDark)
         document.querySelector('meta[name="color-scheme"]').content = stored || 'light dark'
-        document.querySelector('meta[name="theme-color"]').content = isDark ? '#0b0f17' : '#f8fafc'
+        document.querySelector('meta[name="theme-color"]').content = isDark ? '#07080b' : '#f7f8fa'
       })()
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400..600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap"
       rel="stylesheet"
     />
 
@@ -53,10 +56,15 @@
       property="og:description"
       content="MSc Computer Science student at ETH Zurich. Data pipelines, static analysis, search systems and full-stack applications."
     />
-    <meta property="og:image" content="https://simo-macca.github.io/og-image.png" />
+    <!-- Bump ?v= whenever og-image.png changes so social networks fetch the new preview -->
+    <meta property="og:image" content="https://simo-macca.github.io/og-image.png?v=2" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Simone Maccario portfolio preview" />
+    <meta
+      property="og:image:alt"
+      content="Simone Maccario: I engineer reliable data systems &amp; software. MSc Computer Science student at ETH Zurich."
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Simone Maccario | Data Systems & Software Engineering" />
@@ -64,7 +72,7 @@
       name="twitter:description"
       content="MSc Computer Science student at ETH Zurich. Data pipelines, static analysis, search systems and full-stack applications."
     />
-    <meta name="twitter:image" content="https://simo-macca.github.io/og-image.png" />
+    <meta name="twitter:image" content="https://simo-macca.github.io/og-image.png?v=2" />
 
     <script type="application/ld+json">
       {

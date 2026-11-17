@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { AlertCircle, CheckCircle2 } from '@lucide/vue'
+import { CircleAlert, CircleCheck } from '@lucide/vue'
 
 const props = defineProps({
   message: {
@@ -14,7 +14,7 @@ const props = defineProps({
   },
 })
 
-const icon = computed(() => (props.variant === 'error' ? AlertCircle : CheckCircle2))
+const icon = computed(() => (props.variant === 'error' ? CircleAlert : CircleCheck))
 </script>
 
 <template>
@@ -26,11 +26,11 @@ const icon = computed(() => (props.variant === 'error' ? AlertCircle : CheckCirc
   >
     <div
       v-if="message"
-      class="mb-4 flex items-start gap-2 rounded-xl border p-3 text-sm"
+      class="mb-6 flex items-start gap-2.5 rounded-2xl border p-4 text-sm"
       :class="
         variant === 'error'
-          ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/40 dark:bg-rose-950/30 dark:text-rose-400'
-          : 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-400'
+          ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-400/20 dark:bg-rose-400/8 dark:text-rose-300'
+          : 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/8 dark:text-emerald-300'
       "
       :role="variant === 'error' ? 'alert' : 'status'"
     >

@@ -1,13 +1,13 @@
 <script setup>
+import { ref } from 'vue'
+import { useSlidingIndicator } from '@/composables/useSlidingIndicator.js'
+
 /**
- * Category filter rendered as a group of toggle buttons (`aria-pressed`).
- * Each option shows how many projects it contains.
+ * Category filter rendered as a segmented control of toggle buttons
+ * (`aria-pressed`). A single pill glides to the active option, and each option
+ * shows how many projects it contains.
  */
-defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
+const props = defineProps({
   options: {
     type: Array,
     required: true,
@@ -18,36 +18,51 @@ defineProps({
   },
 })
 
-defineEmits(['update:modelValue'])
+const model = defineModel({ type: String, required: true })
+
+const container = ref(null)
+const { style: indicatorStyle } = useSlidingIndicator(container, () =>
+  props.options.some((option) => option.id === model.value) ? model.value : null,
+)
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-center gap-2" role="group" :aria-label="label">
-    <button
-      v-for="option in options"
-      :key="option.id"
-      type="button"
-      class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold tracking-wide focus-ring transition-all duration-200 active:scale-95"
-      :class="
-        modelValue === option.id
-          ? 'bg-sky-600 text-white shadow-md shadow-sky-500/20 dark:bg-sky-500'
-          : 'border border-slate-200/80 bg-white/80 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-white/8 dark:bg-night-900/80 dark:text-mist-400 dark:hover:border-white/16 dark:hover:bg-night-800 dark:hover:text-mist-100'
-      "
-      :aria-pressed="modelValue === option.id"
-      @click="$emit('update:modelValue', option.id)"
+  <!-- Scrolls horizontally on very narrow screens instead of wrapping -->
+  <div class="-mx-4 scrollbar-none overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+    <div
+      ref="container"
+      class="relative inline-flex items-center gap-0.5 rounded-full border border-slate-200/80 bg-white/60 p-1 backdrop-blur-xl dark:border-white/8 dark:bg-white/3"
+      role="group"
+      :aria-label="label"
     >
-      {{ option.label }}
       <span
-        class="rounded-md px-1.5 py-0.5 font-mono text-[10px] leading-none"
-        :class="
-          modelValue === option.id
-            ? 'bg-white/20 text-white'
-            : 'bg-slate-100 text-slate-500 dark:bg-white/6 dark:text-slate-400'
-        "
+        class="pointer-events-none absolute top-0 left-0 rounded-full bg-slate-900 shadow-sm duration-500 ease-out-expo dark:bg-white"
+        :style="indicatorStyle"
         aria-hidden="true"
+      />
+      <button
+        v-for="option in options"
+        :key="option.id"
+        type="button"
+        :data-indicator-key="option.id"
+        class="relative z-10 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap focus-ring transition-colors duration-300"
+        :class="
+          model === option.id
+            ? 'text-white dark:text-night-950'
+            : 'text-slate-500 hover:text-slate-900 dark:text-mist-400 dark:hover:text-mist-100'
+        "
+        :aria-pressed="model === option.id"
+        @click="model = option.id"
       >
-        {{ option.count }}
-      </span>
-    </button>
+        {{ option.label }}
+        <span
+          class="font-mono text-2xs tabular-nums transition-opacity duration-300"
+          :class="model === option.id ? 'opacity-70' : 'opacity-50'"
+          aria-hidden="true"
+        >
+          {{ option.count }}
+        </span>
+      </button>
+    </div>
   </div>
 </template>

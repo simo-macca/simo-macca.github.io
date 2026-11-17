@@ -3,6 +3,10 @@ import { useSpotlight } from '@/composables/useSpotlight.js'
 
 /** One skill category: icon, title, description and technology chips. */
 defineProps({
+  index: {
+    type: Number,
+    default: null,
+  },
   topic: {
     type: String,
     required: true,
@@ -27,33 +31,42 @@ const { onPointerMove } = useSpotlight()
 
 <template>
   <article
-    class="group spotlight flex h-full flex-col surface-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:shadow-lg dark:hover:border-sky-500/30 dark:hover:shadow-sky-950/20"
+    class="group spotlight flex h-full surface-interactive flex-col surface-card p-6 sm:p-7"
     @pointermove="onPointerMove"
   >
-    <div class="mb-3 flex items-center gap-3">
+    <div class="mb-5 flex items-start justify-between gap-4">
       <span
         v-if="icon"
-        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500 transition-all duration-300 group-hover:rotate-6 group-hover:bg-sky-600 group-hover:text-white dark:bg-night-800 dark:text-slate-400 dark:group-hover:bg-sky-500 dark:group-hover:text-white"
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200/80 bg-white text-slate-700 shadow-xs transition duration-500 ease-out-expo group-hover:-rotate-6 group-hover:border-brand-300 group-hover:text-brand-600 dark:border-white/10 dark:bg-night-800 dark:text-mist-300 dark:group-hover:border-brand-400/40 dark:group-hover:text-brand-300"
+        aria-hidden="true"
       >
-        <component :is="icon" class="h-5 w-5" aria-hidden="true" />
+        <component :is="icon" class="h-5 w-5" />
       </span>
-      <h3
-        class="text-lg font-bold tracking-tight text-slate-900 transition-colors group-hover:text-sky-600 dark:text-mist-100 dark:group-hover:text-sky-400"
+      <span
+        v-if="index !== null"
+        class="font-mono text-xs text-slate-300 dark:text-white/20"
+        aria-hidden="true"
       >
-        {{ topic }}
-      </h3>
+        {{ String(index).padStart(2, '0') }}
+      </span>
     </div>
 
-    <p v-if="description" class="mb-4 text-sm leading-relaxed text-slate-500 dark:text-mist-400">
+    <h3 class="text-xl font-semibold tracking-tight text-slate-900 dark:text-mist-100">
+      {{ topic }}
+    </h3>
+    <p
+      v-if="description"
+      class="mt-2 mb-6 text-sm leading-relaxed text-slate-500 dark:text-mist-400"
+    >
       {{ description }}
     </p>
 
-    <ul class="mt-auto flex flex-wrap gap-2">
+    <ul class="mt-auto flex flex-wrap gap-1.5">
       <li
         v-for="(skill, index) in skills"
         :key="skill"
-        class="inline-flex items-center rounded-lg border border-slate-200/70 bg-slate-100/80 px-2.5 py-1 font-mono text-xs font-medium text-slate-700 transition-colors duration-200 group-hover:border-sky-200 group-hover:bg-sky-50/60 dark:border-white/6 dark:bg-night-800/90 dark:text-mist-100 dark:group-hover:border-sky-500/30"
-        :style="{ transitionDelay: `${index * 25}ms` }"
+        class="chip px-3 py-1 text-xs transition-colors duration-300 group-hover:border-brand-200 dark:group-hover:border-brand-400/25"
+        :style="{ transitionDelay: `${index * 30}ms` }"
       >
         {{ skill }}
       </li>

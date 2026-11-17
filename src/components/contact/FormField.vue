@@ -42,18 +42,17 @@ const model = defineModel({ type: String, required: true })
 const errorId = computed(() => `${props.id}-error`)
 
 const fieldClasses = computed(() => [
-  'mt-1.5 w-full rounded-xl border bg-slate-50/70 px-4 py-2.5 text-base text-slate-900 placeholder-slate-400 transition-colors focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:outline-none sm:text-sm dark:bg-night-950/60 dark:text-mist-100 dark:placeholder-slate-500 dark:focus:border-sky-400 dark:focus:bg-night-950 dark:focus:ring-sky-400/20',
-  props.error ? 'border-rose-400 dark:border-rose-500' : 'border-slate-200/80 dark:border-white/8',
+  'mt-2 w-full rounded-2xl border bg-white/70 px-4 py-3 text-base text-slate-900 placeholder-slate-400 shadow-2xs transition duration-300 focus:bg-white focus:ring-4 focus:outline-none sm:text-sm dark:bg-white/3 dark:text-mist-100 dark:placeholder-mist-400/60 dark:focus:bg-white/5',
+  props.error
+    ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/15 dark:border-rose-500/70'
+    : 'border-slate-200 focus:border-brand-500 focus:ring-brand-500/15 dark:border-white/10 dark:focus:border-brand-400 dark:focus:ring-brand-400/15',
 ])
 </script>
 
 <template>
   <div>
-    <label
-      :for="id"
-      class="block text-xs font-semibold tracking-wider text-slate-600 uppercase dark:text-mist-400"
-    >
-      {{ label }} <span v-if="required" class="text-rose-500" aria-hidden="true">*</span>
+    <label :for="id" class="block text-sm font-medium text-slate-700 dark:text-mist-300">
+      {{ label }} <span v-if="required" class="text-brand-500" aria-hidden="true">*</span>
     </label>
 
     <!-- text-base on mobile prevents iOS Safari from zooming into the field on focus -->
@@ -67,7 +66,7 @@ const fieldClasses = computed(() => [
       :placeholder="placeholder"
       :aria-invalid="Boolean(error)"
       :aria-describedby="error ? errorId : undefined"
-      class="min-h-28 resize-y"
+      class="min-h-36 resize-y"
       :class="fieldClasses"
     />
     <input
@@ -84,8 +83,15 @@ const fieldClasses = computed(() => [
       :class="fieldClasses"
     />
 
-    <p v-if="error" :id="errorId" class="mt-1 text-xs text-rose-500">
-      {{ error }}
-    </p>
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-1"
+      leave-active-class="transition duration-150 ease-in"
+      leave-to-class="opacity-0"
+    >
+      <p v-if="error" :id="errorId" class="mt-1.5 text-xs text-rose-600 dark:text-rose-400">
+        {{ error }}
+      </p>
+    </Transition>
   </div>
 </template>

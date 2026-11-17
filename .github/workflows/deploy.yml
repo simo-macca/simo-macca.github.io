@@ -35,14 +35,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint (no auto-fix)
-        run: npm run lint:check
-
-      - name: Check formatting
-        run: npm run format:check
-
-      - name: Build
-        run: npm run build
+      # One command, identical to the local gate: lint → format check → build.
+      - name: Lint, format check & build
+        run: npm run check
         env:
           VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
           VITE_HCAPTCHA_SITEKEY: ${{ secrets.VITE_HCAPTCHA_SITEKEY }}

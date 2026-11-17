@@ -18,8 +18,11 @@ Path-specific rules live in [`.agents/rules/`](.agents/rules/):
   - `stores/theme.js`: light/dark, follows the OS until the user toggles, persists to `localStorage` key `theme`, syncs across tabs.
   - `stores/language.js`: `en` / `it`, persists to `portfolio_language`, detects the browser language on first visit, updates `<html lang>`, `document.title` and the meta description. Exposes `t` (UI strings), `cv` (CV file) and `localized(data)`.
 - **Content is data.** Projects, skills, journey and links are plain objects in `src/data/`. UI strings are in `src/i18n/en.js` and `src/i18n/it.js`.
-- **Styling:** Tailwind v4 configured in `src/assets/styles/main.css` (`@theme` tokens, `@utility` helpers, keyframes, base styles). There is no `tailwind.config.js`.
-- **Motion:** `v-motion-*` presets from `src/plugins/motion.js` (reduced-motion aware) plus Vue `<Transition>` and CSS keyframes.
+- **Styling:** Tailwind v4 configured in `src/assets/styles/main.css` (`@theme` tokens including the `brand` accent scale, `@utility` helpers, keyframes, base styles). There is no `tailwind.config.js`.
+- **Motion:** the `v-reveal` directive (`src/directives/reveal.js`, Web Animations API + one shared IntersectionObserver, reduced-motion aware), Vue `<Transition>`, CSS keyframes, and the View Transitions API for theme/language switches (`src/composables/useViewTransition.js`).
+- **Deep links:** `#project-<id>` opens that project's dialog (handled in `ProjectsSection.vue`).
+- **SEO files:** `public/robots.txt` (CV PDFs disallowed, thesis allowed); `sitemap.xml` is generated at build time by the `sitemap()` plugin in `vite.config.js` (edit `SITEMAP_PATHS` to add pages).
+- **Share preview & icons:** `public/og-image.png` (1200×630 card in the site's style), `public/favicon.svg`, `favicon.ico` (16/32), `apple-touch-icon.png` (iOS) and the Android/PWA icons in `site.webmanifest` (`icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, logo kept inside the central 80% safe zone) use the brand colours. When the visual identity or headline changes, regenerate them to match and bump the `?v=` query on the `og:image` / `twitter:image` URLs in `index.html`.
 - **Browser storage** must go through `src/utils/storage.js` (it never throws).
 
 ## 2. Testing policy (important)
@@ -28,15 +31,15 @@ Path-specific rules live in [`.agents/rules/`](.agents/rules/):
 > There is **no** unit/E2E test suite (no Vitest, Jest, Cypress or Playwright) in this repository.
 >
 > - Do **not** run `npm test` or add test runners unless the user explicitly asks.
-> - Verify every change with: `npm run lint:check`, `npm run format:check` and `npm run build` (or all three at once with `npm run check`, the same gate CI uses).
+> - Run `npm run fix` to auto-fix lint issues and formatting, then verify every change with `npm run check` (lint → format check → build), the single gate CI also runs.
 > - For UI changes, also check the page at a phone width (~375 px) and a desktop width (~1440 px), in both themes and both languages.
 
 ## 3. Working protocol
 
-### A. Plan first
+### A. Act directly
 
-1. Read the affected components, data and styles before editing.
-2. For non-trivial work, outline the approach, the files involved, edge cases and accessibility impact before changing code.
+1. Do **not** stop to write or present a plan before working. Read the affected components, data and styles, then start implementing straight away.
+2. Make reasonable decisions on your own (layout, naming, edge cases, accessibility) and explain the notable ones in the final summary instead of asking up front. Only stop to ask when a choice is genuinely the owner's to make (content facts, anything published or pushed).
 3. Keep existing comments, naming and conventions unless the task is to change them.
 
 ### B. Content accuracy
@@ -56,14 +59,12 @@ Path-specific rules live in [`.agents/rules/`](.agents/rules/):
 
 ```bash
 npm run dev           # dev server on http://localhost:3000
-npm run lint          # Oxlint + ESLint with auto-fix
-npm run lint:check    # lint without fixing, zero warnings allowed (CI)
-npm run format        # Prettier write
-npm run format:check  # Prettier check (CI)
+npm run fix           # auto-fix everything: lint (Oxlint + ESLint) then format (Prettier)
+npm run check         # verify everything: lint:check + format:check + build (what CI runs)
 npm run build         # production build into dist/
-npm run check         # lint:check + format:check + build
+# Building blocks: lint, lint:check, format, format:check
 ```
 
 ## 5. CI/CD
 
-`.github/workflows/deploy.yml` runs lint, format check and build on every push and pull request to `main`, then deploys `dist/` to GitHub Pages for pushes to `main` only. The contact form keys (`VITE_WEB3FORMS_KEY`, `VITE_HCAPTCHA_SITEKEY`) are repository secrets; never commit them. `.github/dependabot.yml` keeps npm packages and Actions up to date.
+`.github/workflows/deploy.yml` runs `npm run check` (lint, format check, build) on every push and pull request to `main`, then deploys `dist/` to GitHub Pages for pushes to `main` only. The contact form keys (`VITE_WEB3FORMS_KEY`, `VITE_HCAPTCHA_SITEKEY`) are repository secrets; never commit them. `.github/dependabot.yml` keeps npm packages and Actions up to date.

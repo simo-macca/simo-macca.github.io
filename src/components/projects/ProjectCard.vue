@@ -1,15 +1,16 @@
 <script setup>
 import { computed } from 'vue'
-import { ArrowRight, Sparkles } from '@lucide/vue'
+import { ArrowRight, Check, Star } from '@lucide/vue'
 import ProjectBadge from '@/components/projects/ProjectBadge.vue'
 import ProjectLinks from '@/components/projects/ProjectLinks.vue'
 import { useSpotlight } from '@/composables/useSpotlight.js'
 import { useLanguageStore } from '@/stores/language.js'
 
 /**
- * Compact project preview. The full details open in `ProjectDetailsDialog`
- * via the "Details" button or by clicking any non-interactive part of the
- * card. Behaviour is identical on mobile and desktop and never shifts the grid.
+ * Project preview. The full details open in `ProjectDetailsDialog` via the
+ * "View details" button or by clicking any non-interactive part of the card.
+ * The flagship project gets a gradient frame and a wide two-column layout with
+ * a preview of its key results.
  */
 const props = defineProps({
   project: {
@@ -21,6 +22,7 @@ const props = defineProps({
 const emit = defineEmits(['open'])
 
 const MAX_VISIBLE_TAGS = 5
+const MAX_PREVIEW_HIGHLIGHTS = 3
 
 const languageStore = useLanguageStore()
 const t = computed(() => languageStore.t.projects)
@@ -28,6 +30,9 @@ const { onPointerMove } = useSpotlight()
 
 const visibleTags = computed(() => props.project.tags.slice(0, MAX_VISIBLE_TAGS))
 const hiddenTagCount = computed(() => Math.max(0, props.project.tags.length - MAX_VISIBLE_TAGS))
+const previewHighlights = computed(() =>
+  (props.project.highlights ?? []).slice(0, MAX_PREVIEW_HIGHLIGHTS),
+)
 
 const openDetails = () => emit('open', props.project.id)
 
@@ -39,94 +44,124 @@ const onCardClick = (event) => {
 </script>
 
 <template>
-  <article
-    :id="`project-${project.id}`"
-    class="group spotlight flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+  <!-- Gradient frame for the flagship (1px padding shows the gradient as a border) -->
+  <div
+    class="group/frame h-full rounded-3xl"
     :class="
       project.isFlagship
-        ? 'border-sky-500/40 bg-white/95 shadow-md shadow-sky-500/5 dark:border-sky-400/30 dark:bg-night-900/90 dark:shadow-sky-950/20'
-        : 'border-slate-200/80 bg-white/90 shadow-xs hover:border-sky-400/40 dark:border-white/8 dark:bg-night-900/80 dark:hover:border-sky-500/30'
+        ? 'bg-linear-to-br from-brand-400/70 via-violet-400/40 to-cyan-400/60 p-px shadow-xl shadow-brand-500/15 transition duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-500/25 dark:from-brand-400/50 dark:via-violet-400/20 dark:to-cyan-400/40'
+        : ''
     "
-    @click="onCardClick"
-    @pointermove="onPointerMove"
   >
-    <div
-      v-if="project.isFlagship"
-      class="h-1.5 w-full animate-gradient-pan bg-linear-to-r from-sky-400 via-indigo-500 to-cyan-400 bg-size-[200%_auto]"
-      aria-hidden="true"
-    />
+    <article
+      :id="`project-${project.id}`"
+      class="group spotlight flex h-full cursor-pointer flex-col overflow-hidden surface-card"
+      :class="
+        project.isFlagship
+          ? 'border-transparent! bg-white/96! dark:border-transparent! dark:bg-night-900/96!'
+          : 'surface-interactive'
+      "
+      @click="onCardClick"
+      @pointermove="onPointerMove"
+    >
+      <div
+        class="grid grow gap-8 p-6 sm:p-8"
+        :class="{ 'lg:grid-cols-[1.4fr_1fr] lg:gap-12': project.isFlagship }"
+      >
+        <div class="flex flex-col">
+          <!-- Icon + badges -->
+          <div class="mb-6 flex items-center gap-3">
+            <span
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border transition duration-500 ease-out-expo group-hover:scale-105 group-hover:-rotate-6"
+              :class="
+                project.isFlagship
+                  ? 'border-transparent bg-brand-600 text-white shadow-md shadow-brand-500/30 dark:bg-brand-500'
+                  : 'border-slate-200/80 bg-white text-slate-700 shadow-xs dark:border-white/10 dark:bg-night-800 dark:text-mist-300'
+              "
+              aria-hidden="true"
+            >
+              <component :is="project.icon" class="h-5 w-5" />
+            </span>
+            <div class="flex min-w-0 flex-wrap items-center gap-1.5">
+              <span
+                v-if="project.isFlagship"
+                class="inline-flex items-center gap-1 rounded-full bg-brand-600/10 px-2.5 py-0.5 text-xs font-medium text-brand-700 dark:bg-brand-400/15 dark:text-brand-200"
+              >
+                <Star class="h-3 w-3 fill-current" aria-hidden="true" />
+                {{ t.flagshipBadge }}
+              </span>
+              <span class="text-xs font-medium text-slate-500 dark:text-mist-400">
+                {{ t.contextBadges[project.category] }}
+              </span>
+            </div>
+          </div>
 
-    <div class="flex grow flex-col p-6 sm:p-7">
-      <!-- Icon + badges -->
-      <div class="mb-4 flex items-start gap-3">
-        <span
-          class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-600 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-sky-600 group-hover:text-white dark:bg-sky-950/50 dark:text-sky-400 dark:group-hover:bg-sky-500 dark:group-hover:text-white"
-          aria-hidden="true"
-        >
-          <component :is="project.icon" class="h-5 w-5" />
-        </span>
-        <div class="flex min-w-0 flex-wrap items-center gap-1.5">
-          <span
-            class="inline-flex items-center rounded-md border border-slate-200/80 bg-slate-100/90 px-2 py-0.5 text-xs font-semibold text-slate-700 dark:border-white/8 dark:bg-night-800 dark:text-mist-100"
+          <!-- Title, role, summary -->
+          <p class="mb-2 eyebrow text-2xs tracking-widest">{{ project.domain }}</p>
+          <h3
+            class="font-semibold tracking-tight text-balance text-slate-900 dark:text-mist-100"
+            :class="project.isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl'"
           >
-            {{ project.domain }}
-          </span>
-          <span
-            v-if="project.isFlagship"
-            class="inline-flex items-center gap-1 rounded-md border border-sky-400/40 bg-sky-50 px-2 py-0.5 text-xs font-semibold text-sky-700 dark:border-sky-500/30 dark:bg-sky-950/40 dark:text-sky-300"
+            {{ project.title }}
+          </h3>
+          <p class="mt-1.5 text-sm text-slate-500 dark:text-mist-400">{{ project.role }}</p>
+          <p
+            class="mt-4 leading-relaxed text-pretty text-slate-600 dark:text-mist-300"
+            :class="project.isFlagship ? 'text-base' : 'text-sm'"
           >
-            <Sparkles class="h-3 w-3" aria-hidden="true" />
-            {{ t.flagshipBadge }}
-          </span>
-          <span
-            v-else
-            class="inline-flex items-center rounded-md border border-slate-200/60 bg-slate-50 px-2 py-0.5 text-xs font-medium text-slate-600 dark:border-white/6 dark:bg-night-800/60 dark:text-mist-400"
-          >
-            {{ t.contextBadges[project.category] }}
-          </span>
+            {{ project.summary }}
+          </p>
+
+          <!-- Tech stack preview -->
+          <ul class="mt-auto flex flex-wrap gap-1.5 pt-6">
+            <li v-for="tag in visibleTags" :key="tag"><ProjectBadge :text="tag" /></li>
+            <li v-if="hiddenTagCount > 0">
+              <ProjectBadge :text="`+${hiddenTagCount} ${t.moreTags}`" variant="neutral" />
+            </li>
+          </ul>
+        </div>
+
+        <!-- Flagship only: key results preview -->
+        <div v-if="project.isFlagship && previewHighlights.length" class="hidden lg:block">
+          <p class="mb-4 eyebrow text-2xs text-slate-400! dark:text-mist-400!">
+            {{ t.highlightsTitle }}
+          </p>
+          <ul class="space-y-3">
+            <li
+              v-for="highlight in previewHighlights"
+              :key="highlight"
+              class="flex items-start gap-3 rounded-2xl border border-slate-200/70 bg-slate-50/70 p-4 text-sm leading-relaxed text-slate-600 dark:border-white/6 dark:bg-white/3 dark:text-mist-300"
+            >
+              <span
+                class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                aria-hidden="true"
+              >
+                <Check class="h-3 w-3" :stroke-width="3" />
+              </span>
+              {{ highlight }}
+            </li>
+          </ul>
         </div>
       </div>
 
-      <!-- Title, role, summary -->
-      <h3
-        class="text-xl font-bold tracking-tight text-slate-900 transition-colors group-hover:text-sky-600 dark:text-mist-100 dark:group-hover:text-sky-400"
+      <footer
+        class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200/70 px-6 py-3.5 sm:px-8 dark:border-white/6"
       >
-        {{ project.title }}
-      </h3>
-      <p class="mt-1 text-xs font-semibold tracking-wide text-sky-700 dark:text-sky-400">
-        {{ project.role }}
-      </p>
-      <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-mist-400">
-        {{ project.summary }}
-      </p>
-
-      <!-- Tech stack preview -->
-      <ul class="mt-auto flex flex-wrap gap-1.5 pt-5">
-        <li v-for="tag in visibleTags" :key="tag"><ProjectBadge :text="tag" /></li>
-        <li v-if="hiddenTagCount > 0">
-          <ProjectBadge :text="`+${hiddenTagCount} ${t.moreTags}`" variant="neutral" />
-        </li>
-      </ul>
-
-      <button
-        type="button"
-        class="group/btn mt-5 inline-flex w-fit items-center gap-1.5 rounded-lg py-1 text-sm font-semibold text-sky-600 focus-ring transition-colors hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-        :aria-label="`${t.openDetailsAria} ${project.title}`"
-        aria-haspopup="dialog"
-        @click="openDetails"
-      >
-        {{ t.openDetails }}
-        <ArrowRight
-          class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-          aria-hidden="true"
-        />
-      </button>
-    </div>
-
-    <footer
-      class="border-t border-slate-200/80 bg-slate-50/70 px-4 py-3 sm:px-5 dark:border-white/8 dark:bg-night-950/60"
-    >
-      <ProjectLinks :project="project" />
-    </footer>
-  </article>
+        <button
+          type="button"
+          class="group/btn inline-flex items-center gap-1.5 rounded-full py-1 text-sm font-medium text-slate-900 focus-ring dark:text-mist-100"
+          :aria-label="`${t.openDetailsAria} ${project.title}`"
+          aria-haspopup="dialog"
+          @click="openDetails"
+        >
+          {{ t.openDetails }}
+          <ArrowRight
+            class="h-4 w-4 text-brand-600 transition-transform duration-300 ease-out-expo group-hover:translate-x-1 dark:text-brand-300"
+            aria-hidden="true"
+          />
+        </button>
+        <ProjectLinks :project="project" />
+      </footer>
+    </article>
+  </div>
 </template>

@@ -7,6 +7,14 @@
   "printWidth": 100,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindStylesheet": "./src/assets/styles/main.css"
+  "plugins": ["@prettier/plugin-oxc", "prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/assets/styles/main.css",
+  "overrides": [
+    {
+      "files": "*.md",
+      "options": {
+        "proseWrap": "preserve"
+      }
+    }
+  ]
 }

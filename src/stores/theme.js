@@ -28,7 +28,7 @@ export const useThemeStore = defineStore('theme', () => {
       ?.setAttribute('content', storedTheme.value ?? 'light dark')
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', isDark.value ? '#0b0f17' : '#f8fafc')
+      ?.setAttribute('content', isDark.value ? '#07080b' : '#f7f8fa')
   }
 
   function toggle() {

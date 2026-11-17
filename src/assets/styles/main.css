@@ -4,28 +4,50 @@
  * Design tokens
  * ------------------------------------------------------------------------ */
 @theme {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  /* Dark-mode surfaces and text (graphite palette) */
-  --color-night-950: #0b0f17;
-  --color-night-900: #111827;
-  --color-night-800: #1f2937;
-  --color-mist-100: #f3f4f6;
-  --color-mist-400: #9ca3af;
+  /* Brand accent: a cool blue-violet. Change the hue here to re-skin the site. */
+  --color-brand-50: oklch(0.97 0.016 268);
+  --color-brand-100: oklch(0.94 0.032 268);
+  --color-brand-200: oklch(0.88 0.062 268);
+  --color-brand-300: oklch(0.8 0.105 268);
+  --color-brand-400: oklch(0.71 0.155 268);
+  --color-brand-500: oklch(0.62 0.2 268);
+  --color-brand-600: oklch(0.54 0.22 268);
+  --color-brand-700: oklch(0.47 0.2 268);
+  --color-brand-800: oklch(0.39 0.16 268);
+  --color-brand-900: oklch(0.32 0.12 268);
+  --color-brand-950: oklch(0.23 0.08 268);
 
-  --animate-gradient-pan: gradient-pan 8s ease-in-out infinite;
-  --animate-float-slow: float 14s ease-in-out infinite;
-  --animate-float-slower: float 20s ease-in-out infinite reverse;
-  --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
-  --animate-draw: draw 900ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  --animate-dialog-in: dialog-in 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-backdrop-in: fade-in 200ms ease-out;
+  /* Extra-small type for labels, chips and dates (12px is text-xs) */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  /* Dark-mode surfaces and text */
+  --color-night-950: #07080b;
+  --color-night-900: #0e1015;
+  --color-night-800: #161921;
+  --color-night-700: #20242f;
+  --color-mist-100: #eef0f4;
+  --color-mist-300: #b7bcc8;
+  --color-mist-400: #8d93a1;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-gradient-pan: gradient-pan 10s ease-in-out infinite;
+  --animate-float-slow: float 18s ease-in-out infinite;
+  --animate-float-slower: float 26s ease-in-out infinite reverse;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-draw: draw 900ms var(--ease-in-out-soft) forwards;
+  --animate-shimmer: shimmer 2.4s ease-in-out infinite;
 
   @keyframes gradient-pan {
     0%,
     100% {
-      background-position: 0% 50%;
+      background-position: 0 50%;
     }
     50% {
       background-position: 100% 50%;
@@ -38,17 +60,13 @@
       transform: translate3d(0, 0, 0) scale(1);
     }
     50% {
-      transform: translate3d(3%, 4%, 0) scale(1.06);
+      transform: translate3d(4%, 6%, 0) scale(1.08);
     }
   }
 
-  @keyframes bounce-soft {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(6px);
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
     }
   }
 
@@ -61,23 +79,13 @@
     }
   }
 
-  @keyframes dialog-in {
-    from {
-      opacity: 0;
-      transform: translateY(16px) scale(0.98);
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-120%);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
+    60%,
+    100% {
+      transform: translateX(120%);
     }
   }
 }
@@ -89,45 +97,79 @@
  * Reusable utilities (use them like any Tailwind class, variants included)
  * ------------------------------------------------------------------------ */
 @utility focus-ring {
-  @apply focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none;
+  @apply focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:focus-visible:ring-brand-400 dark:focus-visible:ring-offset-night-950;
 }
 
 @utility surface-card {
-  @apply rounded-2xl border border-slate-200/80 bg-white/90 shadow-xs backdrop-blur-sm dark:border-white/8 dark:bg-night-900/80;
+  @apply rounded-3xl border border-slate-200/80 bg-white/80 shadow-xs backdrop-blur-xl dark:border-white/7 dark:bg-night-900/70 dark:shadow-none;
+}
+
+@utility surface-interactive {
+  @apply transition duration-500 ease-out-expo hover:-translate-y-1 hover:border-brand-300/70 hover:shadow-xl hover:shadow-brand-500/10 dark:hover:border-brand-400/30 dark:hover:shadow-black/40;
 }
 
 @utility btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600 font-semibold text-white shadow-sm focus-ring transition-all duration-200 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-500/20 active:scale-95 dark:bg-sky-500 dark:hover:bg-sky-400;
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 font-medium text-white shadow-sm focus-ring transition duration-300 ease-out-expo hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30 active:scale-97 dark:bg-white dark:text-night-950 dark:hover:bg-brand-300;
 }
 
 @utility btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/80 bg-white/90 font-semibold text-slate-800 shadow-2xs focus-ring transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 active:scale-95 dark:border-white/8 dark:bg-night-900/80 dark:text-mist-100 dark:hover:border-white/16 dark:hover:bg-night-800;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/70 font-medium text-slate-800 focus-ring backdrop-blur-md transition duration-300 ease-out-expo hover:border-slate-300 hover:bg-white active:scale-97 dark:border-white/10 dark:bg-white/4 dark:text-mist-100 dark:hover:border-white/20 dark:hover:bg-white/8;
 }
 
 @utility icon-button {
-  @apply flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/80 bg-white/80 text-slate-700 shadow-xs focus-ring backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/8 dark:bg-night-900/80 dark:text-mist-400 dark:hover:border-white/16 dark:hover:bg-night-800 dark:hover:text-mist-100;
+  @apply inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-600 focus-ring transition duration-300 ease-out-expo hover:bg-slate-900/5 hover:text-slate-900 active:scale-90 dark:text-mist-400 dark:hover:bg-white/8 dark:hover:text-mist-100;
+}
+
+@utility chip {
+  @apply inline-flex items-center rounded-full border border-slate-200/80 bg-slate-50/80 px-2.5 py-0.5 font-mono text-2xs font-medium text-slate-600 dark:border-white/8 dark:bg-white/3 dark:text-mist-300;
+}
+
+@utility eyebrow {
+  @apply font-mono text-xs font-medium tracking-widest text-brand-600 uppercase dark:text-brand-300;
 }
 
 /* Cursor-following highlight. JS sets --spot-x / --spot-y on pointer move. */
 @utility spotlight {
   position: relative;
+  isolation: isolate;
   &::before {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: -1;
     border-radius: inherit;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 300ms ease;
+    transition: opacity 400ms ease;
     background: radial-gradient(
-      420px circle at var(--spot-x, 50%) var(--spot-y, 0%),
-      rgb(14 165 233 / 0.1),
-      transparent 60%
+      480px circle at var(--spot-x, 50%) var(--spot-y, 0%),
+      color-mix(in oklch, var(--color-brand-500) 12%, transparent),
+      transparent 65%
     );
   }
   &:hover::before {
     opacity: 1;
   }
+}
+
+/* Faint 56px grid that fades out from the top centre (hero backdrop). */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 100%);
+
+  &:where(.dark, .dark *) {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  }
+}
+
+/* Soft edge fade for horizontally scrolling content (marquee). */
+@utility fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -149,10 +191,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Leaves room for the sticky header when jumping to #anchors. */
-    scroll-padding-top: 5rem;
+    /* Leaves room for the floating header when jumping to #anchors. */
+    scroll-padding-top: 6rem;
     font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
     min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -162,11 +208,8 @@
   }
 
   body {
-    background-color: #f8fafc;
+    background-color: #f7f8fa;
     color: #475569;
-    transition-property: color, background-color, border-color;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark body {
@@ -175,7 +218,7 @@
   }
 
   ::selection {
-    background-color: rgb(14 165 233 / 0.25);
+    background-color: color-mix(in oklch, var(--color-brand-500) 25%, transparent);
     color: inherit;
   }
 
@@ -185,10 +228,16 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Text gradient (animated in the hero)
+ * Gradient text
  * ------------------------------------------------------------------------ */
 .text-gradient {
-  background: linear-gradient(120deg, #0284c7 0%, #2563eb 35%, #4f46e5 65%, #0284c7 100%);
+  background-image: linear-gradient(
+    110deg,
+    var(--color-brand-600) 0%,
+    #7c3aed 40%,
+    #0891b2 75%,
+    var(--color-brand-600) 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -196,7 +245,43 @@
 }
 
 .dark .text-gradient {
-  background-image: linear-gradient(120deg, #38bdf8 0%, #60a5fa 35%, #818cf8 65%, #38bdf8 100%);
+  background-image: linear-gradient(
+    110deg,
+    var(--color-brand-300) 0%,
+    #c4b5fd 40%,
+    #67e8f9 75%,
+    var(--color-brand-300) 100%
+  );
+}
+
+/* ---------------------------------------------------------------------------
+ * Theme switch: circular reveal driven by the View Transitions API
+ * (see src/composables/useViewTransition.js)
+ * ------------------------------------------------------------------------ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-vt='fade']::view-transition-old(root) {
+  animation: 220ms ease-out both vt-fade-out;
+}
+
+html[data-vt='fade']::view-transition-new(root) {
+  animation: 320ms ease-out both vt-fade-in;
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
 /* ---------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import SectionHeader from '@/components/common/SectionHeader.vue'
 import ProjectDetailsDialog from '@/components/projects/ProjectDetailsDialog.vue'
 import ProjectFilterTabs from '@/components/projects/ProjectFilterTabs.vue'
@@ -38,29 +38,56 @@ const filteredProjects = computed(() =>
 const selectedProject = computed(
   () => localizedProjects.value.find((project) => project.id === selectedProjectId.value) ?? null,
 )
+
+/*
+ * Deep links: `#project-<id>` opens that project's dialog (handy for links in a
+ * CV or an email). Opening a dialog writes the hash, closing it restores
+ * `#projects`; `replaceState` never adds history entries or scrolls the page.
+ */
+const HASH_PREFIX = '#project-'
+
+function openFromHash() {
+  const { hash } = window.location
+  if (!hash.startsWith(HASH_PREFIX)) return
+  const id = decodeURIComponent(hash.slice(HASH_PREFIX.length))
+  if (projects.some((project) => project.id === id)) selectedProjectId.value = id
+}
+
+function openProject(id) {
+  selectedProjectId.value = id
+  history.replaceState(history.state, '', `${HASH_PREFIX}${id}`)
+}
+
+function closeProject() {
+  selectedProjectId.value = null
+  if (window.location.hash.startsWith(HASH_PREFIX)) {
+    history.replaceState(history.state, '', '#projects')
+  }
+}
+
+onMounted(() => {
+  openFromHash()
+  window.addEventListener('hashchange', openFromHash)
+})
+onBeforeUnmount(() => window.removeEventListener('hashchange', openFromHash))
 </script>
 
 <template>
-  <section class="py-20" aria-labelledby="projects-title">
-    <div class="mx-auto max-w-7xl">
-      <SectionHeader
-        heading-id="projects-title"
-        :eyebrow="t.eyebrow"
-        :title="t.sectionTitle"
-        :subtitle="t.sectionSubtitle"
-      />
+  <section class="py-24 sm:py-32" aria-labelledby="projects-title">
+    <SectionHeader
+      heading-id="projects-title"
+      :index="3"
+      :eyebrow="t.eyebrow"
+      :title="t.sectionTitle"
+      :subtitle="t.sectionSubtitle"
+    />
 
-      <div class="-mt-4 mb-10" v-motion-fade-in>
-        <ProjectFilterTabs v-model="activeFilter" :options="filterOptions" :label="t.filterLabel" />
-      </div>
-
-      <ProjectGrid
-        :projects="filteredProjects"
-        :empty-label="t.emptyState"
-        @open="selectedProjectId = $event"
-      />
+    <div v-reveal class="mb-8">
+      <ProjectFilterTabs v-model="activeFilter" :options="filterOptions" :label="t.filterLabel" />
     </div>
 
-    <ProjectDetailsDialog :project="selectedProject" @close="selectedProjectId = null" />
+    <ProjectGrid :projects="filteredProjects" :empty-label="t.emptyState" @open="openProject" />
+
+    <ProjectDetailsDialog :project="selectedProject" @close="closeProject" />
   </section>
 </template>

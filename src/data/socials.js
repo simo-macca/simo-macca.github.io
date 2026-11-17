@@ -22,10 +22,29 @@ export const navLinks = Object.freeze([
   { id: 'contact', labelKey: 'contact' },
 ])
 
-/** Brand icons shown in the footer. `ariaKey` points into `t.a11y`. */
+/** Icon links shown in the hero and footer. `ariaKey` points into `t.a11y`. */
 export const socialLinks = Object.freeze([
-  { id: 'github', href: profileLinks.github, icon: GitHubIcon, ariaKey: 'githubProfile' },
-  { id: 'linkedin', href: profileLinks.linkedin, icon: LinkedinIcon, ariaKey: 'linkedinProfile' },
+  {
+    id: 'github',
+    href: profileLinks.github,
+    icon: GitHubIcon,
+    ariaKey: 'githubProfile',
+    external: true,
+  },
+  {
+    id: 'linkedin',
+    href: profileLinks.linkedin,
+    icon: LinkedinIcon,
+    ariaKey: 'linkedinProfile',
+    external: true,
+  },
+  {
+    id: 'email',
+    href: `mailto:${profileLinks.email}`,
+    icon: Mail,
+    ariaKey: 'emailMe',
+    external: false,
+  },
 ])
 
 /**

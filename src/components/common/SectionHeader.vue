@@ -1,9 +1,17 @@
 <script setup>
-/** Shared heading block for page sections: eyebrow label, title and subtitle. */
+/**
+ * Shared heading block for page sections: numbered eyebrow, title and subtitle.
+ * Left-aligned; on large screens the subtitle sits beside the title.
+ * Pass custom title markup through the default slot.
+ */
 defineProps({
   eyebrow: {
     type: String,
     default: '',
+  },
+  index: {
+    type: Number,
+    default: null,
   },
   title: {
     type: String,
@@ -21,24 +29,28 @@ defineProps({
 </script>
 
 <template>
-  <header class="mb-12 text-center sm:mb-14" v-motion-fade-in>
-    <p
-      v-if="eyebrow"
-      class="mb-3 inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-widest text-sky-600 uppercase dark:text-sky-400"
-    >
-      <span class="h-px w-6 bg-current opacity-60" aria-hidden="true" />
-      {{ eyebrow }}
-      <span class="h-px w-6 bg-current opacity-60" aria-hidden="true" />
-    </p>
-    <h2
-      :id="headingId"
-      class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-mist-100"
-    >
-      <slot>{{ title }}</slot>
-    </h2>
+  <header
+    class="mb-12 grid gap-4 sm:mb-16 lg:grid-cols-[1fr_minmax(0,26rem)] lg:items-end lg:gap-12"
+  >
+    <div v-reveal>
+      <p v-if="eyebrow" class="mb-4 flex items-center gap-3 eyebrow">
+        <span v-if="index !== null" class="text-slate-400 dark:text-mist-400">
+          {{ String(index).padStart(2, '0') }}
+        </span>
+        <span class="h-px w-8 bg-current opacity-40" aria-hidden="true" />
+        {{ eyebrow }}
+      </p>
+      <h2
+        :id="headingId"
+        class="text-4xl font-semibold tracking-tighter text-balance text-slate-900 sm:text-5xl dark:text-mist-100"
+      >
+        <slot>{{ title }}</slot>
+      </h2>
+    </div>
     <p
       v-if="subtitle"
-      class="mx-auto mt-3 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-mist-400"
+      v-reveal="120"
+      class="text-base leading-relaxed text-pretty text-slate-500 sm:text-lg dark:text-mist-400"
     >
       {{ subtitle }}
     </p>

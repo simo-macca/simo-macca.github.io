@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, ref } from 'vue'
-import { Check, Loader2, SendHorizontal, X } from '@lucide/vue'
+import { Check, LoaderCircle, SendHorizontal, X } from '@lucide/vue'
 import { useLanguageStore } from '@/stores/language.js'
 
 /**
@@ -16,11 +16,11 @@ const t = computed(() => languageStore.t.contact.button)
 const state = ref('idle') // 'idle' | 'loading' | 'success' | 'error'
 let resetTimer = null
 
-const icons = { idle: SendHorizontal, loading: Loader2, success: Check, error: X }
+const icons = { idle: SendHorizontal, loading: LoaderCircle, success: Check, error: X }
 
 const stateClasses = {
-  idle: 'bg-sky-600 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-500/20 active:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400',
-  loading: 'cursor-wait bg-amber-600',
+  idle: 'bg-slate-900 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30 dark:bg-white dark:text-night-950 dark:hover:bg-brand-300',
+  loading: 'cursor-wait bg-slate-700 dark:bg-mist-300 dark:text-night-950',
   success: 'bg-emerald-600',
   error: 'bg-rose-600',
 }
@@ -51,7 +51,7 @@ defineExpose({ submit })
   <button
     type="submit"
     :disabled="state !== 'idle'"
-    class="relative mt-5 flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold tracking-wide text-white uppercase shadow-sm focus-ring transition-all duration-300 focus-visible:ring-offset-2 active:scale-98 disabled:cursor-not-allowed disabled:opacity-80 dark:focus-visible:ring-offset-slate-900"
+    class="relative mt-7 flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full px-6 text-sm font-medium text-white shadow-sm focus-ring transition duration-300 ease-out-expo active:scale-98 disabled:cursor-not-allowed sm:ms-auto sm:w-auto sm:min-w-52"
     :class="stateClasses[state]"
   >
     <Transition
