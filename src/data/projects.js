@@ -3,7 +3,7 @@ import { Binary, Bot, Dices, Gamepad2, GraduationCap, Search, Ship } from '@luci
 /**
  * Projects and research, in display order.
  *
- * Schema (see `.agents/rules/state-logic.md`):
+ * Schema (see `.claude/rules/state-logic.md`):
  * - `id`         unique kebab-case id
  * - `category`   'personal' | 'university' | 'thesis' (filter + context badge)
  * - `icon`       Lucide component shown in the card header

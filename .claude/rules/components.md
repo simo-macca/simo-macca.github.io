@@ -1,7 +1,8 @@
 ---
 description: Vue 3 SFC conventions, Tailwind CSS v4 patterns, icons, motion, i18n and accessibility for components and sections
-globs: 'src/{components,sections}/**/*.vue'
-trigger: glob
+paths:
+  - 'src/components/**/*.vue'
+  - 'src/sections/**/*.vue'
 ---
 
 # Vue Components & Sections
@@ -72,9 +73,9 @@ Rules:
 ## 4. Icons
 
 - UI icons: `@lucide/vue` only, using the canonical names (e.g. `CodeXml`, `LoaderCircle`, `CircleCheck`, not the aliases `Code2`, `Loader2`, `CheckCircle2`). Verify the export exists.
-- No emoji and no decorative sparkle icons in the UI; an icon must carry meaning. Sizes: `h-4 w-4` inline, `h-5 w-5` in tiles.
+- Sizes: `h-4 w-4` inline, `h-5 w-5` in tiles.
 - Brand/custom icons: `src/components/icons/` (`LogoIcon`, `GitHubIcon`, `LinkedinIcon`), all using `currentColor`.
-- Decorative icons get `aria-hidden="true"`; an icon-only button needs an `aria-label` (and usually a `title`).
+- Decorative icons get `aria-hidden="true"`; icon-only buttons usually also get a `title`.
 
 ## 5. Motion
 
@@ -93,4 +94,3 @@ Rules:
 - Modals use the native `<dialog>` with `showModal()` (see `ProjectDetailsDialog.vue`): focus trap, Escape and focus restoration come for free; the page scroll is locked by CSS.
 - When a whole card is clickable, ignore clicks whose target is inside an `a` or `button` so nested links keep working.
 - Form inputs use `text-base` on mobile (prevents iOS zoom) and link errors with `aria-describedby`.
-- Check every change at ~375 px and ~1440 px, in light and dark mode, in English and Italian.

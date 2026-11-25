@@ -1,7 +1,9 @@
 ---
 description: Pinia stores, i18n files and static data schemas (projects, skills, journey, socials)
-globs: 'src/{stores,data,i18n}/**/*.js'
-trigger: glob
+paths:
+  - 'src/stores/**/*.js'
+  - 'src/data/**/*.js'
+  - 'src/i18n/**/*.js'
 ---
 
 # Stores, Translations & Static Data
